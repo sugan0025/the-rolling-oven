@@ -629,7 +629,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .testimonial-card {
   background: transparent; border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg); padding: var(--space-2xl);
-  backdrop-filter: blur(10px); transition: var(--transition);
+  transition: var(--transition);
 }
 .testimonial-card:hover { 
   transform: translateY(-8px); 
