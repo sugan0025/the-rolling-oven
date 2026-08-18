@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Rolling Oven — Your Cravings, Our Creations</title>
+    <meta name="description" content="The Rolling Oven — freshly baked treats made with love. Discover premium cupcakes, cookies, muffins, donuts, and more." />
+    <link rel="icon" href="/images/logo.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+
+    <!-- Floating Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="main-nav" class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-brand" id="nav-home-link">
+          <img src="/images/logo.jpeg" alt="The Rolling Oven" class="nav-logo" />
+          <span class="nav-brand-text">The Rolling Oven</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active" data-nav="home">Home</a></li>
+          <li><a href="#showcase" class="nav-link" data-nav="bakes">Our Bakes</a></li>
+          <li><a href="#about" class="nav-link" data-nav="about">About</a></li>
+          <li><a href="#contact" class="nav-link" data-nav="contact">Contact</a></li>
+        </ul>
+        <button class="nav-cta" id="nav-order-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span>Order Now</span>
+          <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+      <ul class="mobile-nav-links">
+        <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+        <li><a href="#showcase" class="mobile-nav-link">Our Bakes</a></li>
+        <li><a href="#about" class="mobile-nav-link">About</a></li>
+        <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-sidebar" id="cart-sidebar">
+      <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button class="cart-close-btn" id="cart-close-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div class="cart-items" id="cart-items">
+        <div class="cart-empty" id="cart-empty">
+          <span class="cart-empty-icon">🧁</span>
+          <p>Your cart is empty</p>
+          <span class="cart-empty-sub">Add some delicious treats!</span>
+        </div>
+      </div>
+      <div class="cart-footer" id="cart-footer" style="display:none;">
+        <div class="cart-total">
+          <span>Total</span>
+          <span class="cart-total-price" id="cart-total-price">₹0</span>
+        </div>
+        <button class="btn btn-primary btn-full" id="place-order-btn">
+          <span>Place Order</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Order Modal -->
+    <div class="modal-overlay" id="order-modal-overlay">
+      <div class="modal glass-card" id="order-modal">
+        <button class="modal-close" id="order-modal-close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+        <h3 class="form-title">Complete Your Order</h3>
+        <p class="modal-subtitle">We'll confirm your order via email shortly.</p>
+        <form class="contact-form" id="order-form">
+          <div class="form-group">
+            <input type="text" id="order-name" class="form-input" placeholder=" " required />
+            <label for="order-name" class="form-label">Your Name</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="order-email" class="form-input" placeholder=" " required />
+            <label for="order-email" class="form-label">Email Address</label>
+          </div>
+          <div class="form-group">
+            <input type="tel" id="order-phone" class="form-input" placeholder=" " required />
+            <label for="order-phone" class="form-label">Phone Number</label>
+          </div>
+          <div class="form-group">
+            <select id="order-product" class="form-input form-select" required>
+              <option value="" disabled selected>Choose a Product</option>
+              <option value="cupcakes">Cupcakes</option>
+              <option value="cookies">Cookies</option>
+              <option value="muffins">Muffins</option>
+              <option value="donuts">Donuts</option>
+              <option value="chocholava">Chocholava</option>
+              <option value="tiramisu">Tiramisu</option>
+              <option value="croissants">Croissants</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea id="order-notes" class="form-input form-textarea" placeholder=" " rows="2"></textarea>
+            <label for="order-notes" class="form-label">Special Instructions (Optional)</label>
+          </div>
+          <div class="order-summary-box" id="order-summary-box"></div>
+          <button type="submit" class="btn btn-primary btn-full" id="submit-order-btn">
+            <span>Confirm & Send Order</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===== MAIN PAGE CONTENT ===== -->
+    <main id="main-content">
+
+      <!-- Hero Section -->
+      <section id="hero" class="hero-section">
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+        <div class="hero-glow hero-glow-3"></div>
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>Freshly Baked Daily</span>
+          </div>
+          <img src="/images/logo.jpeg" alt="The Rolling Oven Logo" class="hero-logo" />
+          <h1 class="hero-title">
+            <span class="title-line">Your Cravings,</span>
+            <span class="title-line title-accent">Our Creations</span>
+          </h1>
+          <p class="hero-subtitle">Freshly baked treats, made with love — crafted from the finest ingredients, delivered with warmth straight from our oven to your table.</p>
+          <div class="hero-actions">
+            <a href="#showcase" class="btn btn-primary" id="explore-btn">
+              <span>Explore Our Bakes</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#about" class="btn btn-glass" id="story-btn">
+              <span>Our Story</span>
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-target="500">0</span><span class="stat-suffix">+</span>
+              <span class="stat-label">Happy Customers</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="50">0</span><span class="stat-suffix">+</span>
+              <span class="stat-label">Unique Recipes</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="7">0</span>
+              <span class="stat-label">Categories</span>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-indicator" id="scroll-indicator">
+          <span>Scroll to explore</span>
+          <div class="scroll-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Product Categories — Horizontal Row -->
+      <section id="showcase" class="showcase-section">
+        <div class="section-header">
+          <span class="section-tag">Our Signature Collection</span>
+          <h2 class="section-title">Handcrafted with <span class="text-accent">Passion</span></h2>
+          <p class="section-desc">Each creation tells a story of dedication, quality ingredients, and the art of baking perfected over generations.</p>
+        </div>
+        <div class="category-row" id="category-row">
+          <!-- Category cards injected by JS -->
+        </div>
+      </section>
+
+      <!-- Today's Favorites — 3-Card Carousel -->
+      <section id="products" class="products-section">
+        <div class="section-header">
+          <span class="section-tag">Menu Highlights</span>
+          <h2 class="section-title">Today's <span class="text-accent">Favorites</span></h2>
+        </div>
+        <div class="carousel-wrapper">
+          <button class="carousel-btn carousel-prev" id="carousel-prev">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel-stage" id="carousel-stage">
+            <!-- 3 visible cards: back-left, center-front, back-right -->
+          </div>
+          <button class="carousel-btn carousel-next" id="carousel-next">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="about-section">
+        <div class="about-container">
+          <div class="about-visual">
+            <div class="about-image-frame">
+              <img src="/images/logo.jpeg" alt="The Rolling Oven Story" class="about-image" />
+              <div class="about-frame-accent"></div>
+            </div>
+            <div class="about-float-card">
+              <span class="float-emoji">🍰</span>
+              <div>
+                <strong>Est. 2026</strong>
+                <span>Family Recipe</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-content">
+            <span class="section-tag">Our Story</span>
+            <h2 class="section-title">Baked with Love, <span class="text-accent">Served with Heart</span></h2>
+            <p class="about-text">What started as a passion project in a small home kitchen has grown into a beloved bakery trusted by hundreds of happy customers. Every recipe has been perfected over years, using only the finest ingredients sourced locally.</p>
+            <p class="about-text">We believe that every bite should be an experience — a moment of pure joy and comfort. Our creations are not just baked goods; they're handcrafted memories.</p>
+            <div class="about-features">
+              <div class="feature-item">
+                <div class="feature-icon">🌾</div>
+                <div>
+                  <strong>Premium Ingredients</strong>
+                  <span>Locally sourced, always fresh</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">🏠</div>
+                <div>
+                  <strong>Home Baked</strong>
+                  <span>Made in small batches daily</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">💝</div>
+                <div>
+                  <strong>Made with Love</strong>
+                  <span>Every creation is special</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section id="testimonials" class="testimonials-section">
+        <div class="section-header">
+          <span class="section-tag">Customer Love</span>
+          <h2 class="section-title">What Our <span class="text-accent">Customers</span> Say</h2>
+        </div>
+        <div class="testimonials-track">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"The chocolate cake was absolutely divine! Every layer was perfection. My family couldn't stop raving about it."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">P</div>
+              <div><strong>Priya Sharma</strong><span>Regular Customer</span></div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"Best cupcakes in the city! The red velvet is to die for. I order them for every celebration now."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">R</div>
+              <div><strong>Rahul Mehta</strong><span>Birthday Orders</span></div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"The croissants are flaky, buttery perfection. Better than anything I've had in a café. Absolutely recommend!"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">A</div>
+              <div><strong>Ananya Rao</strong><span>Gift Orders</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact-section">
+        <div class="contact-container">
+          <div class="contact-content">
+            <span class="section-tag">Get in Touch</span>
+            <h2 class="section-title">Ready to Place <span class="text-accent">Your Order?</span></h2>
+            <p class="contact-desc">Custom orders welcome! Reach out to us for special occasions, bulk orders, or just to satisfy your cravings.</p>
+            <div class="contact-methods">
+              <a href="https://wa.me/919876543210" target="_blank" class="contact-method" id="contact-whatsapp">
+                <div class="method-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </div>
+                <div><strong>WhatsApp</strong><span>Quick orders & queries</span></div>
+              </a>
+              <a href="https://instagram.com/therollingoven" target="_blank" class="contact-method" id="contact-instagram">
+                <div class="method-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </div>
+                <div><strong>Instagram</strong><span>@therollingoven</span></div>
+              </a>
+              <a href="tel:+919876543210" class="contact-method" id="contact-phone">
+                <div class="method-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div><strong>Call Us</strong><span>+91 98765 43210</span></div>
+              </a>
+            </div>
+          </div>
+          <div class="contact-form-wrapper">
+            <div class="glass-card">
+              <h3 class="form-title">Send Inquiry</h3>
+              <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                  <input type="text" id="form-name" class="form-input" placeholder=" " required />
+                  <label for="form-name" class="form-label">Your Name</label>
+                </div>
+                <div class="form-group">
+                  <input type="email" id="form-email" class="form-input" placeholder=" " required />
+                  <label for="form-email" class="form-label">Email Address</label>
+                </div>
+                <div class="form-group">
+                  <input type="tel" id="form-phone" class="form-input" placeholder=" " required />
+                  <label for="form-phone" class="form-label">Phone Number</label>
+                </div>
+                <div class="form-group">
+                  <select id="form-product" class="form-input form-select" required>
+                    <option value="" disabled selected>What are you looking for?</option>
+                    <option value="cupcakes">Cupcakes</option>
+                    <option value="cookies">Cookies</option>
+                    <option value="muffins">Muffins</option>
+                    <option value="donuts">Donuts</option>
+                    <option value="chocholava">Chocholava</option>
+                    <option value="tiramisu">Tiramisu</option>
+                    <option value="croissants">Croissants</option>
+                    <option value="custom">Custom Order</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <textarea id="form-message" class="form-input form-textarea" placeholder=" " rows="3"></textarea>
+                  <label for="form-message" class="form-label">Message</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" id="submit-inquiry">
+                  <span>Send Inquiry</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== PRODUCT DETAIL PAGE (Hidden by default) ===== -->
+    <main id="product-page" class="product-page" style="display:none;">
+      <div class="product-page-header">
+        <button class="back-btn" id="back-to-home">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          <span>Back to Home</span>
+        </button>
+      </div>
+      <div class="product-page-hero-compact" id="product-page-hero">
+        <!-- Compact hero -->
+      </div>
+      <div class="product-page-scroll" id="product-page-grid">
+        <!-- Horizontal scrolling product cards -->
+      </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <img src="/images/logo.jpeg" alt="The Rolling Oven" class="footer-logo" />
+          <p class="footer-tagline">Your Cravings, Our Creations</p>
+          <p class="footer-desc">Handcrafted baked goods made with love, delivered fresh to your doorstep.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#hero" class="footer-nav-link">Home</a></li>
+            <li><a href="#showcase" class="footer-nav-link">Our Bakes</a></li>
+            <li><a href="#about" class="footer-nav-link">About Us</a></li>
+            <li><a href="#contact" class="footer-nav-link">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4 class="footer-heading">Our Bakes</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-cat-link" data-category="cupcakes">Cupcakes</a></li>
+            <li><a href="#" class="footer-cat-link" data-category="cookies">Cookies</a></li>
+            <li><a href="#" class="footer-cat-link" data-category="muffins">Muffins</a></li>
+            <li><a href="#" class="footer-cat-link" data-category="croissants">Croissants</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4 class="footer-heading">Hours</h4>
+          <ul class="footer-links footer-hours">
+            <li><span>Mon - Sat</span><span>9 AM – 8 PM</span></li>
+            <li><span>Sunday</span><span>10 AM – 6 PM</span></li>
+            <li><span>Orders</span><span>24hr advance</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 The Rolling Oven. All rights reserved. Made with ❤️</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
