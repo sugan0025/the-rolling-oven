@@ -589,8 +589,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ============================================
    ABOUT SECTION
    ============================================ */
-.about-section { position: relative; padding: var(--space-4xl) var(--space-xl); z-index: 1; }
-.about-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4xl); align-items: center; }
+.about-section { position: relative; padding: var(--space-2xl) var(--space-xl); z-index: 1; }
+.about-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2xl); align-items: center; }
 .about-visual { position: relative; }
 .about-image-frame { position: relative; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-medium); }
 .about-image { width: 100%; aspect-ratio: 1; object-fit: cover; transition: var(--transition); }
@@ -624,8 +624,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ============================================
    TESTIMONIALS
    ============================================ */
-.testimonials-section { position: relative; padding: var(--space-4xl) var(--space-xl); z-index: 1; }
-.testimonials-track { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xl); }
+.testimonials-section { position: relative; padding: var(--space-2xl) var(--space-xl); z-index: 1; }
+.testimonials-track { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xl); }
 .testimonial-card {
   background: transparent; border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg); padding: var(--space-2xl);
@@ -646,8 +646,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ============================================
    CONTACT SECTION
    ============================================ */
-.contact-section { position: relative; padding: var(--space-4xl) var(--space-xl); z-index: 1; }
-.contact-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4xl); align-items: start; }
+.contact-section { position: relative; padding: var(--space-2xl) var(--space-xl); z-index: 1; }
+.contact-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2xl); align-items: start; }
 .contact-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-2xl); }
 .contact-methods { display: flex; flex-direction: column; gap: var(--space-md); }
 .contact-method {
@@ -691,8 +691,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ============================================
    FOOTER
    ============================================ */
-.footer { position: relative; padding: var(--space-4xl) var(--space-xl) var(--space-xl); border-top: 1px solid var(--glass-border); z-index: 1; }
-.footer-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--space-2xl); }
+.footer { position: relative; padding: var(--space-2xl) var(--space-xl) var(--space-xl); border-top: 1px solid var(--glass-border); z-index: 1; }
+.footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--space-2xl); }
 .footer-logo { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); margin-bottom: var(--space-md); }
 .footer-tagline { font-family: var(--font-script); font-size: 1.1rem; color: var(--gold); margin-bottom: var(--space-sm); }
 .footer-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
@@ -702,7 +702,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer-links a:hover { color: var(--gold); padding-left: 4px; }
 .footer-hours li { display: flex; justify-content: space-between; gap: var(--space-md); font-size: 0.85rem; color: var(--text-muted); padding-bottom: var(--space-sm); border-bottom: 1px solid rgba(255,255,255,0.03); }
 .footer-hours li span:last-child { color: var(--text-secondary); }
-.footer-bottom { max-width: 1000px; margin: var(--space-2xl) auto 0; padding-top: var(--space-xl); border-top: 1px solid var(--glass-border); text-align: center; }
+.footer-bottom { max-width: 1200px; margin: var(--space-2xl) auto 0; padding-top: var(--space-xl); border-top: 1px solid var(--glass-border); text-align: center; }
 .footer-bottom p { font-size: 0.82rem; color: var(--text-muted); }
 
 /* ============================================
