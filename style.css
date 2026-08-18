@@ -258,9 +258,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;
   position: relative; transform: translateY(20px) scale(0.95);
   transition: transform 0.4s var(--ease-spring);
-  background: rgba(20, 14, 11, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(20, 14, 11, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 .modal-overlay.active .modal { transform: translateY(0) scale(1); }
 
@@ -635,10 +636,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: var(--transition);
 }
 .testimonial-card:hover { 
-  transform: translateY(-10px) scale(1.02); 
-  border-color: var(--gold); 
-  background: rgba(201, 169, 110, 0.05);
-  box-shadow: 0 15px 40px rgba(193, 154, 107, 0.25); 
+  transform: translateY(-10px) scale(1.02) !important; 
+  border-color: var(--gold) !important; 
+  background: rgba(201, 169, 110, 0.05) !important;
+  box-shadow: 0 15px 40px rgba(193, 154, 107, 0.25) !important; 
+  cursor: pointer;
 }
 .testimonial-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: var(--space-md); letter-spacing: 2px; }
 .testimonial-text { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; font-style: italic; margin-bottom: var(--space-lg); }
