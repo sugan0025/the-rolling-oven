@@ -98,10 +98,10 @@ const CATEGORIES = {
     tagline: 'Layers of coffee-soaked bliss.',
     description: 'Our tiramisu is made with mascarpone, espresso-soaked ladyfingers, and dusted with premium cocoa. An Italian classic, perfected.',
     badge: 'Signature',
-    mainImage: '/images/products/tiramisu/Tiramisu.png',
+    mainImage: '/images/products/tiramisu/tiramisu.png',
     basePrice: 349,
     items: [
-      { name: 'Classic Tiramisu',         image: '/images/products/tiramisu/Tiramisu.png', price: 349 },
+      { name: 'Classic Tiramisu',         image: '/images/products/tiramisu/tiramisu.png', price: 349 },
       { name: 'Chocolate Tiramisu',       image: '/images/products/tiramisu/Chocolate_Tiramisu.png', price: 379 },
       { name: 'Mango Tiramisu',           image: '/images/products/tiramisu/Mango_Tiramisu.png', price: 369 },
     ],
