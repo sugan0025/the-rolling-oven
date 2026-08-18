@@ -679,6 +679,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
   color: var(--cream); font-size: 0.95rem; font-family: var(--font-body);
   transition: var(--transition); outline: none;
+  color-scheme: dark;
 }
 .form-input:focus { border-color: var(--gold); background: rgba(201,169,110,0.05); box-shadow: 0 0 20px rgba(201,169,110,0.1); }
 .form-label {
