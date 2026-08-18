@@ -701,6 +701,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .hero-logo { width: 120px; height: 120px; }
   .hero-stats { gap: var(--space-lg); }
   .stat-number { font-size: 1.5rem; }
+  .scroll-indicator { position: relative; bottom: auto; left: auto; transform: none; margin-top: var(--space-2xl); }
   .about-container, .contact-container { grid-template-columns: 1fr; gap: var(--space-2xl); }
   .testimonials-track { grid-template-columns: 1fr; }
   .testimonials-track .testimonial-card:last-child { grid-column: span 1; max-width: none; }
