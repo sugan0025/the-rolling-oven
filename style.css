@@ -369,7 +369,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .stat-label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.5px; }
 .stat-divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--glass-border), transparent); }
 
-.scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); opacity: 0; animation: fadeInUp 0.8s var(--ease-out) 1.5s forwards; }
+.scroll-indicator { position: relative; margin-top: var(--space-3xl); display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); opacity: 0; animation: fadeInUp 0.8s var(--ease-out) 1.5s forwards; }
 .scroll-indicator span { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; }
 .scroll-arrow { animation: scrollBounce 2s ease-in-out infinite; color: var(--gold); }
 @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
