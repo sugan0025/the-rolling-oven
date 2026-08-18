@@ -389,8 +389,27 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .showcase-section { position: relative; padding: var(--space-4xl) 0; z-index: 1; overflow: hidden; }
 
 .category-row {
-  display: flex; gap: var(--space-xl); justify-content: center;
-  flex-wrap: wrap; padding: 0 var(--space-xl); max-width: 1400px; margin: 0 auto;
+  display: flex;
+  overflow: hidden;
+  padding: var(--space-xl) 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.category-row:hover .marquee-group {
+  animation-play-state: paused;
+}
+
+.marquee-group {
+  display: flex;
+  gap: var(--space-xl);
+  padding-right: var(--space-xl);
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 .showcase-card {

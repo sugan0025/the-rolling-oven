@@ -372,7 +372,7 @@ function renderShowcase() {
   const row = document.getElementById('category-row');
   const categoryKeys = Object.keys(CATEGORIES);
 
-  row.innerHTML = categoryKeys.map(key => {
+  const html = categoryKeys.map(key => {
     const cat = CATEGORIES[key];
     return `
       <button class="showcase-card" data-category="${key}">
@@ -383,6 +383,8 @@ function renderShowcase() {
       </button>
     `;
   }).join('');
+
+  row.innerHTML = `<div class="marquee-group">${html}</div><div class="marquee-group">${html}</div>`;
 
   // Click to navigate to product page
   row.querySelectorAll('.showcase-card').forEach(card => {
