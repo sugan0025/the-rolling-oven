@@ -61,7 +61,7 @@
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
 body {
   font-family: var(--font-body);
@@ -391,7 +391,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .category-row {
   display: flex;
   overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
   padding: var(--space-xl) 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .category-row:hover .marquee-group {
