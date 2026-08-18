@@ -506,7 +506,7 @@ function navigateToProduct(categoryKey) {
 
   // Render horizontal product scroll
   const gridEl = document.getElementById('product-page-grid');
-  gridEl.innerHTML = cat.items.map((item, i) => `
+  const productHtml = cat.items.map((item, i) => `
     <div class="sub-product-card">
       <div class="sub-product-img-wrap">
         <img src="${item.image}" alt="${item.name}" loading="lazy" />
@@ -526,6 +526,13 @@ function navigateToProduct(categoryKey) {
       </div>
     </div>
   `).join('');
+
+  gridEl.innerHTML = `
+    <div class="marquee-group">${productHtml}</div>
+    <div class="marquee-group">${productHtml}</div>
+    <div class="marquee-group">${productHtml}</div>
+    <div class="marquee-group">${productHtml}</div>
+  `;
 
   // Reset scroll position
   gridEl.scrollLeft = 0;
