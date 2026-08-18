@@ -15,14 +15,14 @@ const CATEGORIES = {
     mainImage: '/images/products/cupcakes/Cupcake front image.png',
     basePrice: 149,
     items: [
-      { name: 'Vanilla Cupcake',         image: '/images/products/cupcakes/Vanilla cupcake.png',        price: 149 },
-      { name: 'Chocolate Cupcake',        image: '/images/products/cupcakes/Chocolate cupcake.png',       price: 159 },
-      { name: 'Red Velvet Cupcake',       image: '/images/products/cupcakes/Redvelvet cupcake.png',       price: 179 },
-      { name: 'Strawberry Cupcake',       image: '/images/products/cupcakes/Strawberry cupcake.png',      price: 169 },
-      { name: 'Banana Cupcake',           image: '/images/products/cupcakes/Banana cupcake.png',          price: 159 },
-      { name: 'Carrot Cupcake',           image: '/images/products/cupcakes/Carrot cupcake.png',          price: 169 },
-      { name: 'Lemon Cupcake',            image: '/images/products/cupcakes/Lemon cupcake.png',           price: 159 },
-      { name: 'Peanut Butter Cupcake',    image: '/images/products/cupcakes/Peanut butter cupcake.png',   price: 179 },
+      { name: 'Vanilla Cupcake',         image: '/images/products/cupcakes/Vanilla_Cupcake.png',        price: 149 },
+      { name: 'Chocolate Cupcake',        image: '/images/products/cupcakes/Chocolate_Cupcake.png',       price: 159 },
+      { name: 'Red Velvet Cupcake',       image: '/images/products/cupcakes/Red_Velvet_Cupcake.png',       price: 179 },
+      { name: 'Strawberry Cupcake',       image: '/images/products/cupcakes/Strawberry_Cupcake.png',      price: 169 },
+      { name: 'Banana Cupcake',           image: '/images/products/cupcakes/Banana_Cupcake.png',          price: 159 },
+      { name: 'Carrot Cupcake',           image: '/images/products/cupcakes/Carrot_Cupcake.png',          price: 169 },
+      { name: 'Lemon Cupcake',            image: '/images/products/cupcakes/Lemon_Cupcake.png',           price: 159 },
+      { name: 'Peanut Butter Cupcake',    image: '/images/products/cupcakes/Peanut_Butter_Cupcake.png',   price: 179 },
     ],
   },
   cookies: {
@@ -73,10 +73,10 @@ const CATEGORIES = {
     mainImage: '/images/products/donuts/Donut.png',
     basePrice: 119,
     items: [
-      { name: 'Classic Glazed Donut',     image: '/images/products/donuts/Donut.png', price: 119 },
-      { name: 'Chocolate Frosted Donut',  image: '/images/products/donuts/Donut.png', price: 139 },
-      { name: 'Strawberry Donut',         image: '/images/products/donuts/Donut.png', price: 139 },
-      { name: 'Sprinkle Donut',           image: '/images/products/donuts/Donut.png', price: 129 },
+      { name: 'Classic Glazed Donut',     image: '/images/products/donuts/Classic_Glazed_Donut.png', price: 119 },
+      { name: 'Chocolate Frosted Donut',  image: '/images/products/donuts/Chocolate_Frosted_Donut.png', price: 139 },
+      { name: 'Strawberry Donut',         image: '/images/products/donuts/Strawberry_Donut.png', price: 139 },
+      { name: 'Sprinkle Donut',           image: '/images/products/donuts/Sprinkle_Donut.png', price: 129 },
     ],
   },
   chocholava: {
@@ -88,9 +88,9 @@ const CATEGORIES = {
     mainImage: '/images/products/chocholava/Chocholava.png',
     basePrice: 249,
     items: [
-      { name: 'Classic Chocholava',       image: '/images/products/chocholava/Chocholava.png', price: 249 },
-      { name: 'Dark Chocolate Lava',      image: '/images/products/chocholava/Chocholava.png', price: 279 },
-      { name: 'White Chocolate Lava',     image: '/images/products/chocholava/Chocholava.png', price: 269 },
+      { name: 'Classic Chocholava',       image: '/images/products/chocholava/Classic_Chocholava.png', price: 249 },
+      { name: 'Dark Chocolate Lava',      image: '/images/products/chocholava/Dark_Chocolate_Lava_Cake.png', price: 279 },
+      { name: 'White Chocolate Lava',     image: '/images/products/chocholava/White_Chocolate_Lava_Cake.png', price: 269 },
     ],
   },
   tiramisu: {
@@ -101,9 +101,9 @@ const CATEGORIES = {
     mainImage: '/images/products/tiramisu/tiramisu.png',
     basePrice: 349,
     items: [
-      { name: 'Classic Tiramisu',         image: '/images/products/tiramisu/tiramisu.png', price: 349 },
-      { name: 'Chocolate Tiramisu',       image: '/images/products/tiramisu/tiramisu.png', price: 379 },
-      { name: 'Mango Tiramisu',           image: '/images/products/tiramisu/tiramisu.png', price: 369 },
+      { name: 'Classic Tiramisu',         image: '/images/products/tiramisu/Tiramisu.png', price: 349 },
+      { name: 'Chocolate Tiramisu',       image: '/images/products/tiramisu/Chocolate_Tiramisu.png', price: 379 },
+      { name: 'Mango Tiramisu',           image: '/images/products/tiramisu/Mango_Tiramisu.png', price: 369 },
     ],
   },
   croissants: {
