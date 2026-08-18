@@ -565,12 +565,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .product-page-hero-compact p { color: var(--text-secondary); font-size: 0.95rem; max-width: 600px; margin: 0 auto; }
 
 .product-page-scroll {
-  display: flex; overflow: hidden; padding: var(--space-md) 0 var(--space-4xl);
-  max-width: 1400px; margin: 0 auto;
-  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  display: flex; gap: var(--space-lg); overflow-x: auto; padding: 0 var(--space-xl) var(--space-4xl);
+  scroll-snap-type: x mandatory; max-width: 1400px; margin: 0 auto;
 }
-.product-page-scroll:hover .marquee-group { animation-play-state: paused; }
+.product-page-scroll::-webkit-scrollbar { height: 6px; }
+.product-page-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; margin: 0 24px; }
+.product-page-scroll::-webkit-scrollbar-thumb { background: var(--brown-medium); border-radius: 10px; }
 
 .sub-product-card {
   flex: 0 0 240px; scroll-snap-align: start;

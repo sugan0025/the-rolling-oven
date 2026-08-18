@@ -527,12 +527,7 @@ function navigateToProduct(categoryKey) {
     </div>
   `).join('');
 
-  gridEl.innerHTML = `
-    <div class="marquee-group">${productHtml}</div>
-    <div class="marquee-group">${productHtml}</div>
-    <div class="marquee-group">${productHtml}</div>
-    <div class="marquee-group">${productHtml}</div>
-  `;
+  gridEl.innerHTML = productHtml;
 
   // Reset scroll position
   gridEl.scrollLeft = 0;
@@ -907,6 +902,72 @@ function initFooterCategoryLinks() {
 }
 
 // ============================================
+// FEEDBACK MODAL
+// ============================================
+function initFeedbackModal() {
+  const overlay = document.getElementById('feedback-modal-overlay');
+  if (!overlay) return;
+
+  document.getElementById('open-feedback-btn')?.addEventListener('click', () => {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  const close = () => {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+  
+  document.getElementById('feedback-modal-close')?.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+
+  document.getElementById('feedback-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-feedback-btn');
+    const original = btn.innerHTML;
+    btn.innerHTML = '<span>Submitting...</span>';
+    btn.disabled = true;
+    
+    const formData = {
+      name: document.getElementById('feedback-name').value,
+      rating: document.getElementById('feedback-rating').value,
+      message: document.getElementById('feedback-message').value
+    };
+    
+    try {
+       // Attempt to save to Supabase (if table exists)
+       const { error } = await supabase.from('feedback').insert([{
+         customer_name: formData.name,
+         rating: formData.rating,
+         message: formData.message
+       }]);
+       
+       // Send email notification to owner
+       await fetch('https://formsubmit.co/ajax/' + RECIPIENT_EMAILS.join(','), {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+         body: JSON.stringify({
+           _subject: 'New Customer Feedback — The Rolling Oven',
+           Name: formData.name,
+           Rating: formData.rating + ' Stars',
+           Message: formData.message
+         })
+       });
+       
+       showToast('success', 'Thank You!', 'Your review has been submitted.');
+       e.target.reset();
+       close();
+    } catch(err) {
+       console.error(err);
+       showToast('error', 'Oops!', 'Something went wrong. Please try again.');
+    } finally {
+       btn.innerHTML = original;
+       btn.disabled = false;
+    }
+  });
+}
+
+// ============================================
 // INITIALIZE
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -928,4 +989,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initBackButton();
   initFooterCategoryLinks();
+  initFeedbackModal();
 });
