@@ -253,12 +253,20 @@ function showToast(type, title, message) {
   setTimeout(() => toast.remove(), 3200);
 }
 
+import { createClient } from '@supabase/supabase-js';
+import emailjs from '@emailjs/browser';
+
 // ============================================
-// EMAIL SENDING (via mailto: fallback + FormSubmit)
+// CONFIGURATION
 // ============================================
+const SUPABASE_URL = 'https://qvxjrddzcvdgvvrtzaeh.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2eGpyZGR6Y3ZkZ3Z2cnR6YWVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNjQ4NzksImV4cCI6MjEwMjY0MDg3OX0.0tIsUUfhH6cO-yQHiPRqwOe_tJ-gmqkYSrJokV09T7c';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+emailjs.init('D7aR4lXnIH1mbc7wD'); // EmailJS Public Key
+
 const RECIPIENT_EMAILS = [
-  'suganesan0025@gmail.com',
-  'poorvishameenakshik.mb25@bitsathy.ac.in'
+  'suganesan0025@gmail.com'
 ];
 
 function sendEmail(subject, bodyHtml) {
@@ -291,28 +299,70 @@ function sendInquiryEmail(formData) {
   return sendEmail(subject, body);
 }
 
-function sendOrderEmail(orderData) {
-  const itemsHtml = orderData.items.map(item =>
-    `<tr><td>${item.name}</td><td>${item.qty}</td><td>₹${item.price * item.qty}</td></tr>`
-  ).join('');
+// ============================================
+// EMAIL & DATABASE INTEGRATION
+// ============================================
+async function sendOrderEmail(orderData) {
+  const itemsText = orderData.isDirectOrder 
+    ? orderData.items[0].name 
+    : orderData.items.map(i => `${i.name} (Qty: ${i.qty}) = ₹${i.price * i.qty}`).join(' | ');
+    
+  const orderType = orderData.isDirectOrder ? 'Direct Product Order' : 'Cart Checkout';
 
-  const subject = `New Order from ${orderData.name} — ₹${orderData.total} — The Rolling Oven`;
-  const body = `
-    <h2>🎉 New Order — The Rolling Oven</h2>
-    <table>
-      <tr><td><strong>Customer:</strong></td><td>${orderData.name}</td></tr>
-      <tr><td><strong>Email:</strong></td><td>${orderData.email}</td></tr>
-      <tr><td><strong>Phone:</strong></td><td>${orderData.phone}</td></tr>
-      <tr><td><strong>Special Instructions:</strong></td><td>${orderData.notes || 'None'}</td></tr>
-    </table>
-    <h3>Order Items</h3>
-    <table border="1" cellpadding="8" cellspacing="0">
-      <tr><th>Item</th><th>Qty</th><th>Subtotal</th></tr>
-      ${itemsHtml}
-      <tr><td colspan="2"><strong>Total</strong></td><td><strong>₹${orderData.total}</strong></td></tr>
-    </table>
-  `;
-  return sendEmail(subject, body);
+  // 1. SAVE TO SUPABASE SQL DATABASE
+  const { error: dbError } = await supabase
+    .from('orders')
+    .insert([{
+      customer_name: orderData.name,
+      customer_email: orderData.email,
+      customer_phone: orderData.phone,
+      special_instructions: orderData.notes || 'None',
+      order_type: orderType,
+      items: orderData.items,
+      total_amount: orderData.total.toString()
+    }]);
+
+  if (dbError) {
+    console.error('Database Error:', dbError);
+    // We can continue even if DB fails, but it's good to log
+  }
+
+  // 2. SEND INVOICE TO CUSTOMER (EmailJS)
+  try {
+    await emailjs.send('service_rollingoven', 'template_7pad5dy', {
+      customer_name: orderData.name,
+      customer_email: orderData.email,
+      customer_phone: orderData.phone,
+      notes: orderData.notes || 'None',
+      order_items: itemsText,
+      total_amount: orderData.total
+    });
+  } catch (emailErr) {
+    console.error('EmailJS Error:', emailErr);
+  }
+
+  // 3. SEND NOTIFICATION TO BAKERY OWNER (FormSubmit)
+  const response = await fetch('https://formsubmit.co/ajax/' + RECIPIENT_EMAILS.join(','), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      _subject: 'New Order — The Rolling Oven',
+      Name: orderData.name,
+      Email: orderData.email,
+      Phone: orderData.phone,
+      Notes: orderData.notes || 'None',
+      Order_Items: itemsText,
+      Total_Amount: `₹${orderData.total}`
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to send owner notification');
+  }
+  return response.json();
 }
 
 // ============================================
