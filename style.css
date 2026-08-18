@@ -392,8 +392,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   overflow: hidden;
   padding: var(--space-xl) 0;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .category-row:hover .marquee-group {
@@ -402,6 +400,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .marquee-group {
   display: flex;
+  flex-shrink: 0;
   gap: var(--space-xl);
   padding-right: var(--space-xl);
   animation: marquee 25s linear infinite;
@@ -414,6 +413,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .showcase-card {
   width: 160px;
+  flex-shrink: 0;
   background: transparent; border: none;
   text-align: center; cursor: pointer;
   transition: var(--transition);

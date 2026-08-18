@@ -384,7 +384,13 @@ function renderShowcase() {
     `;
   }).join('');
 
-  row.innerHTML = `<div class="marquee-group">${html}</div><div class="marquee-group">${html}</div>`;
+  // Duplicate multiple times to ensure seamless infinite scroll even on 4K screens
+  row.innerHTML = `
+    <div class="marquee-group">${html}</div>
+    <div class="marquee-group">${html}</div>
+    <div class="marquee-group">${html}</div>
+    <div class="marquee-group">${html}</div>
+  `;
 
   // Click to navigate to product page
   row.querySelectorAll('.showcase-card').forEach(card => {
