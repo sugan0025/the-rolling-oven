@@ -392,10 +392,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   overflow: hidden;
   width: 100%;
-  max-width: 100vw;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: var(--space-xl) 0;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
 .category-row:hover .marquee-group {
