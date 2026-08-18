@@ -70,7 +70,7 @@ const CATEGORIES = {
     tagline: 'Glazed, frosted, and irresistibly soft.',
     description: 'Our donuts are hand-rolled and fried to airy perfection, then glazed or frosted with our signature toppings.',
     badge: 'Handmade',
-    mainImage: '/images/products/donuts/Donut.png',
+    mainImage: '/images/products/donuts/Classic_Glazed_Donut.png',
     basePrice: 119,
     items: [
       { name: 'Classic Glazed Donut',     image: '/images/products/donuts/Classic_Glazed_Donut.png', price: 119 },
@@ -85,7 +85,7 @@ const CATEGORIES = {
     description: 'Our signature chocholava cakes feature a rich, gooey chocolate center that flows out when you break the crust. Pure indulgence.',
     badge: 'Premium',
     badgeClass: 'premium',
-    mainImage: '/images/products/chocholava/Chocholava.png',
+    mainImage: '/images/products/chocholava/Classic_Chocholava.png',
     basePrice: 249,
     items: [
       { name: 'Classic Chocholava',       image: '/images/products/chocholava/Classic_Chocholava.png', price: 249 },
@@ -98,7 +98,7 @@ const CATEGORIES = {
     tagline: 'Layers of coffee-soaked bliss.',
     description: 'Our tiramisu is made with mascarpone, espresso-soaked ladyfingers, and dusted with premium cocoa. An Italian classic, perfected.',
     badge: 'Signature',
-    mainImage: '/images/products/tiramisu/tiramisu.png',
+    mainImage: '/images/products/tiramisu/Tiramisu.png',
     basePrice: 349,
     items: [
       { name: 'Classic Tiramisu',         image: '/images/products/tiramisu/Tiramisu.png', price: 349 },
