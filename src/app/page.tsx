@@ -104,25 +104,7 @@ export default function Home() {
       </div>
     </div>
 
-    
-              <option value="2">★★☆☆☆ (2/5)</option>
-              <option value="1">★☆☆☆☆ (1/5)</option>
-            </select>
-            <label className="form-label" style={{"top":"-8px","fontSize":"0.75rem","background":"rgba(20,14,11,0.9)","padding":"0 4px"}}>Rating</label>
-          </div>
-          
-          <div className="form-group">
-            <textarea id="feedback-message" className="form-input" placeholder=" " rows={4} required></textarea>
-            <label className="form-label">Your Review</label>
-          </div>
-          
-          <button type="submit" className="card-btn" style={{"width":"100%","justifyContent":"center","marginTop":"var(--space-xl)"}} id="submit-feedback-btn">
-            <span>Submit Review</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-        </form>
-      </div>
-    </div>
+
 
     
     <main id="main-content">
