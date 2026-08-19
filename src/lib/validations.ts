@@ -5,16 +5,9 @@ export const orderSchema = z.object({
   customer_email: z.string().email('Invalid email').max(150),
   customer_phone: z.string().min(5, 'Invalid phone number').max(20),
   special_instructions: z.string().max(500).optional(),
-  items: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      price: z.number().positive(),
-      quantity: z.number().int().positive(),
-      image: z.string().optional().or(z.string()),
-    })
-  ).min(1, 'Order must contain at least one item'),
-  total_amount: z.number().positive(),
+  order_type: z.string().optional(),
+  items: z.array(z.any()).min(1, 'Order must contain at least one item'),
+  total_amount: z.string().or(z.number()),
 });
 
 export const feedbackSchema = z.object({
