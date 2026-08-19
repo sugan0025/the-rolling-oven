@@ -5,9 +5,9 @@ import { checkRateLimit } from '../../../lib/rate-limit';
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY!;
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export async function POST(request: Request) {
+  const supabase = createClient(SUPABASE_URL || 'dummy', SUPABASE_KEY || 'dummy');
   try {
     // Basic IP Rate Limiting (Using x-forwarded-for if behind proxy)
     const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
