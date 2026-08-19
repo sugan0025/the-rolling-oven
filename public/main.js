@@ -309,65 +309,36 @@ function sendInquiryEmail(formData) {
 // EMAIL & DATABASE INTEGRATION
 // ============================================
 async function sendOrderEmail(orderData) {
-  const itemsText = orderData.isDirectOrder 
-    ? orderData.items[0].name 
-    : orderData.items.map(i => `${i.name} (Qty: ${i.qty}) = ₹${i.price * i.qty}`).join(' | ');
-    
-  const orderType = orderData.isDirectOrder ? 'Direct Product Order' : 'Cart Checkout';
+  // Format items for the API
+  const items = orderData.isDirectOrder 
+    ? [{ name: orderData.items[0].name, qty: 1, price: orderData.items[0].price || 0 }] 
+    : orderData.items.map(i => ({ name: i.name, qty: i.qty, price: i.price }));
 
-  // 1. SAVE TO SUPABASE SQL DATABASE
-  const { error: dbError } = await supabase
-    .from('orders')
-    .insert([{
-      customer_name: orderData.name,
-      customer_email: orderData.email,
-      customer_phone: orderData.phone,
-      special_instructions: orderData.notes || 'None',
-      order_type: orderType,
-      items: orderData.items,
-      total_amount: orderData.total.toString()
-    }]);
+  const payload = {
+    customer_name: orderData.name,
+    customer_email: orderData.email,
+    customer_phone: orderData.phone,
+    special_instructions: orderData.notes || 'None',
+    order_type: orderData.isDirectOrder ? 'Direct Product Order' : 'Cart Checkout',
+    items: items,
+    total_amount: orderData.total.toString()
+  };
 
-  if (dbError) {
-    console.error('Database Error:', dbError);
-    // We can continue even if DB fails, but it's good to log
-  }
-
-  // 2. SEND INVOICE TO CUSTOMER (EmailJS)
-  try {
-    await emailjs.send('service_rollingoven', 'template_7pad5dy', {
-      customer_name: orderData.name,
-      customer_email: orderData.email,
-      customer_phone: orderData.phone,
-      notes: orderData.notes || 'None',
-      order_items: itemsText,
-      total_amount: orderData.total
-    });
-  } catch (emailErr) {
-    console.error('EmailJS Error:', emailErr);
-  }
-
-  // 3. SEND NOTIFICATION TO BAKERY OWNER (FormSubmit)
-  const response = await fetch('https://formsubmit.co/ajax/' + RECIPIENT_EMAILS.join(','), {
+  // SEND SECURELY VIA OUR BACKEND API
+  const response = await fetch('/api/order', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      _subject: 'New Order — The Rolling Oven',
-      Name: orderData.name,
-      Email: orderData.email,
-      Phone: orderData.phone,
-      Notes: orderData.notes || 'None',
-      Order_Items: itemsText,
-      Total_Amount: `₹${orderData.total}`
-    })
+    body: JSON.stringify(payload)
   });
 
   if (!response.ok) {
-    throw new Error('Failed to send owner notification');
+    const errorData = await response.json();
+    console.error('Order API Error:', errorData);
+    throw new Error('Failed to process order via API');
   }
+
   return response.json();
 }
 
