@@ -151,12 +151,15 @@ let cart = [];
 
 function updateCartBadge() {
   const badge = document.getElementById('cart-badge');
+  const navBtn = document.getElementById('nav-order-btn');
   const total = cart.reduce((sum, item) => sum + item.qty, 0);
   if (total > 0) {
     badge.style.display = 'flex';
     badge.textContent = total;
+    if (navBtn) navBtn.style.display = 'flex';
   } else {
     badge.style.display = 'none';
+    if (navBtn) navBtn.style.display = 'none';
   }
 }
 
@@ -270,17 +273,13 @@ function showToast(type, title, message) {
 // SECURE BACKEND API INTEGRATION
 // ============================================
 async function sendOrderEmail(orderData) {
-  const items = orderData.isDirectOrder 
-    ? [{ name: orderData.items[0].name, qty: 1, price: orderData.items[0].price || 0 }] 
-    : orderData.items.map(i => ({ name: i.name, qty: i.qty, price: i.price }));
-
   const payload = {
     customer_name: orderData.name,
     customer_email: orderData.email,
     customer_phone: orderData.phone,
     special_instructions: orderData.notes || 'None',
-    order_type: orderData.isDirectOrder ? 'Direct Product Order' : 'Cart Checkout',
-    items: items,
+    order_type: 'Cart Checkout',
+    items: orderData.items.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
     total_amount: orderData.total.toString()
   };
 
@@ -706,28 +705,13 @@ function openOrderModal() {
 
   // Render order summary
   const summaryBox = document.getElementById('order-summary-box');
-  
-  // Setup the dropdown state based on cart
-  const productDropdown = document.getElementById('order-product');
-  if (productDropdown) {
-    if (cart.length > 0) {
-      // If they have items in cart, they don't need to choose a primary product
-      productDropdown.parentElement.style.display = 'none';
-      productDropdown.removeAttribute('required');
-      
-      summaryBox.style.display = 'block';
-      summaryBox.innerHTML = `
-        <strong style="display:block;margin-bottom:8px;color:var(--cream);">Order Summary</strong>
-        ${cart.map(item => `<div class="order-line"><span>${item.name} × ${item.qty}</span><span>₹${item.price * item.qty}</span></div>`).join('')}
-        <div class="order-line total"><span>Total</span><span>₹${getCartTotal()}</span></div>
-      `;
-    } else {
-      // Direct order, they must choose a product
-      productDropdown.parentElement.style.display = 'block';
-      productDropdown.setAttribute('required', 'required');
-      
-      summaryBox.style.display = 'none';
-    }
+  if (summaryBox) {
+    summaryBox.style.display = 'block';
+    summaryBox.innerHTML = `
+      <strong style="display:block;margin-bottom:8px;color:var(--cream);">Order Summary</strong>
+      ${cart.map(item => `<div class="order-line"><span>${item.name} × ${item.qty}</span><span>₹${item.price * item.qty}</span></div>`).join('')}
+      <div class="order-line total"><span>Total</span><span>₹${getCartTotal()}</span></div>
+    `;
   }
 }
 
@@ -749,18 +733,14 @@ function initOrderModal() {
     btn.innerHTML = '<span>Sending...</span>';
     btn.disabled = true;
     
-    // Determine if this is a direct product order or a cart checkout
-    const productDropdown = document.getElementById('order-product');
-    const directProduct = productDropdown && !productDropdown.parentElement.style.display.includes('none') ? productDropdown.options[productDropdown.selectedIndex].text : null;
-
     const orderData = {
       name: document.getElementById('order-name').value,
       email: document.getElementById('order-email').value,
       phone: document.getElementById('order-phone').value,
       notes: document.getElementById('order-notes').value,
-      items: directProduct ? [{name: `Direct Order: ${directProduct}`, qty: 1, price: 0}] : [...cart],
-      total: directProduct ? "TBD" : getCartTotal(),
-      isDirectOrder: !!directProduct
+      items: [...cart],
+      total: getCartTotal(),
+      isDirectOrder: false
     };
 
     try {
