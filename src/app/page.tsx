@@ -42,8 +42,8 @@ export default function Home() {
     </div>
 
     
-    <div className="cart-overlay" id="cart-overlay"></div>
-    <aside className="cart-sidebar" id="cart-sidebar">
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside className="cart-sidebar" id="cart-sidebar" data-lenis-prevent="true">
       <div className="cart-header">
         <h3>Your Cart</h3>
         <button className="cart-close-btn" id="cart-close-btn">
@@ -71,7 +71,7 @@ export default function Home() {
 
     
     <div className="modal-overlay" id="order-modal-overlay">
-      <div className="modal glass-card" id="order-modal">
+      <div className="modal glass-card" id="order-modal" data-lenis-prevent="true">
         <button className="modal-close" id="order-modal-close">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
@@ -106,7 +106,7 @@ export default function Home() {
 
     
     <div className="modal-overlay" id="feedback-modal-overlay">
-      <div className="modal" id="feedback-modal">
+      <div className="modal" id="feedback-modal" data-lenis-prevent="true">
         <button className="modal-close" id="feedback-modal-close">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>

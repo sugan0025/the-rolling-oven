@@ -255,13 +255,30 @@ window.removeFromCart = removeFromCart;
 // ============================================
 function showToast(type, title, message) {
   const container = document.getElementById('toast-container');
-  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
   const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.innerHTML = `
-    <span class="toast-icon">${icons[type] || '🔔'}</span>
-    <div class="toast-text"><strong>${title}</strong><span>${message}</span></div>
-  `;
+  
+  if (type === 'success' && title.includes('Cart')) {
+    toast.className = `toast premium-toast ${type}`;
+    toast.innerHTML = `
+      <div class="premium-cart-anim">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cart-svg">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <div class="cart-item-drop">✨</div>
+      </div>
+      <div class="toast-text"><strong>${title}</strong><span>${message}</span></div>
+    `;
+  } else {
+    const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+      <span class="toast-icon">${icons[type] || '🔔'}</span>
+      <div class="toast-text"><strong>${title}</strong><span>${message}</span></div>
+    `;
+  }
+  
   container.appendChild(toast);
   setTimeout(() => toast.remove(), 3200);
 }
