@@ -32,33 +32,55 @@ export async function POST(request: Request) {
     }
 
     // 2. Send email via EmailJS HTTP API (server-side)
-    const emailPayload = {
+    // 2. Send emails via EmailJS HTTP API (server-side)
+    const baseParams = {
+      customer_name: validatedData.customer_name,
+      customer_email: validatedData.customer_email,
+      customer_phone: validatedData.customer_phone,
+      order_items: validatedData.items.map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`).join(' | '),
+      total_amount: validatedData.total_amount,
+      notes: validatedData.special_instructions || 'None'
+    };
+
+    const customerPayload = {
       service_id: process.env.EMAILJS_SERVICE_ID,
       template_id: process.env.EMAILJS_TEMPLATE_ID,
       user_id: process.env.EMAILJS_PUBLIC_KEY,
       template_params: {
-        to_email: validatedData.customer_email, // If template To is set to {{to_email}}
-        owner_email: process.env.OWNER_EMAIL, // If they want to CC themselves
-        customer_name: validatedData.customer_name,
-        customer_email: validatedData.customer_email,
-        customer_phone: validatedData.customer_phone,
-        order_items: validatedData.items.map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`).join(' | '),
-        total_amount: validatedData.total_amount,
-        notes: validatedData.special_instructions || 'None'
+        to_email: validatedData.customer_email,
+        owner_email: process.env.OWNER_EMAIL,
+        ...baseParams
       }
     };
 
-    const emailRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(emailPayload)
-    });
+    const ownerPayload = {
+      service_id: process.env.EMAILJS_SERVICE_ID,
+      template_id: 'template_p0g9s8k',
+      user_id: process.env.EMAILJS_PUBLIC_KEY,
+      template_params: {
+        ...baseParams
+      }
+    };
 
-    if (!emailRes.ok) {
-      const text = await emailRes.text();
-      console.error('EmailJS Error:', text);
-      // We don't fail the order if email fails, but we log it
-    }
+    // Fire both emails simultaneously
+    await Promise.allSettled([
+      fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(customerPayload)
+      }),
+      fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(ownerPayload)
+      })
+    ]).then(results => {
+      results.forEach((res, i) => {
+        if (res.status === 'rejected' || (res.status === 'fulfilled' && !res.value.ok)) {
+          console.error(`EmailJS Error on template ${i === 0 ? 'Customer' : 'Owner'}:`, res);
+        }
+      });
+    });
 
     return NextResponse.json({ success: true });
   } catch (err: any) {
