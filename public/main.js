@@ -808,17 +808,8 @@ function initOrderModal() {
       closeOrderModal();
       document.getElementById('order-form').reset();
     } catch (err) {
-      // Fallback to mailto
-      const itemsText = orderData.isDirectOrder ? `Product Requested: ${directProduct}` : orderData.items.map(i => `${i.name} x${i.qty} = ₹${i.price * i.qty}`).join('%0A');
-      const mailtoBody = `Order from ${orderData.name}%0A%0AItems:%0A${itemsText}%0A%0ATotal: ₹${orderData.total}%0APhone: ${orderData.phone}%0ANotes: ${orderData.notes || 'None'}`;
-      const mailtoLink = `mailto:${RECIPIENT_EMAILS.join(',')}?subject=New Order — The Rolling Oven&body=${mailtoBody}`;
-      window.open(mailtoLink, '_blank');
-      showToast('success', 'Order Ready!', 'Opening email client to send your order.');
-      cart = [];
-      updateCartBadge();
-      renderCart();
-      closeOrderModal();
-      document.getElementById('order-form').reset();
+      console.error(err);
+      showToast('error', 'Error Processing Order', 'Please try again or contact us directly.');
     }
 
     btn.innerHTML = original;
@@ -847,12 +838,8 @@ function initContactForm() {
       showToast('success', 'Inquiry Sent! ✨', 'We\'ll get back to you soon.');
       document.getElementById('contact-form').reset();
     } catch (err) {
-      // Fallback to mailto
-      const mailtoBody = `Inquiry from ${formData.name}%0A%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0AProduct: ${formData.product}%0AMessage: ${formData.message || 'N/A'}`;
-      const mailtoLink = `mailto:${RECIPIENT_EMAILS.join(',')}?subject=Inquiry — The Rolling Oven&body=${mailtoBody}`;
-      window.open(mailtoLink, '_blank');
-      showToast('success', 'Inquiry Ready!', 'Opening email client to send your inquiry.');
-      document.getElementById('contact-form').reset();
+      console.error(err);
+      showToast('error', 'Error Sending Inquiry', 'Please try again or call us directly.');
     }
 
     btn.innerHTML = original;
