@@ -3,11 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { orderSchema } from '../../../lib/validations';
 import { checkRateLimit } from '../../../lib/rate-limit';
 
-const SUPABASE_URL = process.env.SUPABASE_URL!;
-const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY!;
-
 export async function POST(request: Request) {
-  const supabase = createClient(SUPABASE_URL || 'dummy', SUPABASE_KEY || 'dummy');
   try {
     const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
     if (!checkRateLimit(`order_${ip}`, 3, 60000)) {
@@ -40,9 +36,8 @@ export async function POST(request: Request) {
       notes: validatedData.special_instructions || 'None',
     };
 
-    // Fire BOTH emails simultaneously (don't let DB failure block emails)
+    // Fire BOTH emails simultaneously
     const emailPromise = Promise.allSettled([
-      // Customer Receipt
       fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,7 +51,6 @@ export async function POST(request: Request) {
           },
         }),
       }),
-      // Owner Alert
       fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -70,7 +64,15 @@ export async function POST(request: Request) {
     ]);
 
     // Insert into Supabase (don't block on failure)
-    const dbPromise = supabase.from('orders').insert([dbRow]);
+    let dbPromise = Promise.resolve({ error: null as any });
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_ANON_KEY;
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      dbPromise = supabase.from('orders').insert([dbRow]);
+    } else {
+      console.error('Supabase env vars missing — skipping DB insert');
+    }
 
     // Wait for both
     const [emailResults, dbResult] = await Promise.all([emailPromise, dbPromise]);
@@ -92,10 +94,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (err: any) {
-    console.error('API Error:', err);
+    console.error('Order API Error:', err?.message || err);
     if (err.name === 'ZodError') {
       return NextResponse.json({ error: 'Validation failed', details: err.errors }, { status: 400 });
     }
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ error: err?.message || 'Internal Server Error' }, { status: 500 });
   }
 }
