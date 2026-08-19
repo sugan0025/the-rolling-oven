@@ -169,6 +169,16 @@ function addToCart(name, price, image, category) {
   }
   updateCartBadge();
   renderCart();
+  
+  // Google Analytics Tracking
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'add_to_cart', {
+      currency: 'INR',
+      value: price,
+      items: [{ item_name: name, item_category: category, price: price, quantity: 1 }]
+    });
+  }
+
   showToast('success', 'Added to Cart!', `${name} — ₹${price}`);
 }
 
@@ -490,6 +500,15 @@ function navigateToProduct(categoryKey) {
   document.getElementById('main-content').style.display = 'none';
   document.getElementById('product-page').style.display = 'block';
 
+  // Google Analytics Tracking
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'view_item_list', {
+      item_list_id: categoryKey,
+      item_list_name: cat.name,
+      items: cat.items.map(i => ({ item_name: i.name, price: i.price, item_category: cat.name }))
+    });
+  }
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -796,6 +815,21 @@ function initOrderModal() {
 
     try {
       await sendOrderEmail(orderData);
+      
+      // Google Analytics Tracking
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'purchase', {
+          transaction_id: 'ORDER_' + Math.floor(Math.random() * 1000000),
+          value: orderData.total === 'TBD' ? 0 : orderData.total,
+          currency: 'INR',
+          items: orderData.items.map(i => ({ item_name: i.name, price: i.price, quantity: i.qty }))
+        });
+        gtag('event', 'generate_lead', {
+          currency: 'INR',
+          value: orderData.total === 'TBD' ? 0 : orderData.total
+        });
+      }
+
       showToast('success', 'Order Placed! 🎉', orderData.isDirectOrder ? 'We will contact you with pricing.' : `Your order of ₹${orderData.total} has been sent.`);
       cart = [];
       updateCartBadge();

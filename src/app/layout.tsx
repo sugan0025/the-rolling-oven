@@ -93,6 +93,22 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css"
         />
+        
+        {/* Google Analytics Placeholder - Replace G-XXXXXXXXXX when ready */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-XXXXXXXXXX');
+          `}
+        </Script>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
