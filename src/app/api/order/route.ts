@@ -4,6 +4,7 @@ import { orderSchema } from '../../../lib/validations';
 import { checkRateLimit } from '../../../lib/rate-limit';
 
 export async function POST(request: Request) {
+  // Triggering redeploy for environment variables
   try {
     const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
     if (!checkRateLimit(`order_${ip}`, 3, 60000)) {
