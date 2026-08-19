@@ -43,7 +43,7 @@ export async function GET(request: Request) {
             <div style="font-size: 60px; margin-bottom: 20px;">✅</div>
             <h1 style="color: #c9a96e; margin-bottom: 10px;">Order Marked as Delivered!</h1>
             <p style="color: #ccc; font-size: 18px; line-height: 1.5; margin-bottom: 30px;">
-              An email has been successfully sent to <strong>${name} (${email})</strong> letting them know their order has arrived and asking for a review.
+              An email has been successfully sent to <strong>${name} (${email})</strong> letting them know their order has arrived.
             </p>
             <button onclick="window.close()" style="padding: 12px 24px; background: #c9a96e; border: none; border-radius: 8px; cursor: pointer; color: #1a0f08; font-weight: bold; font-size: 16px; transition: 0.2s;">Close Window</button>
           </div>
