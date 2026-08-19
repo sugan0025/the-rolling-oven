@@ -42,7 +42,7 @@ export default function Home() {
     </div>
 
     
-    <div class="cart-overlay" id="cart-overlay"></div>
+    <div className="cart-overlay" id="cart-overlay"></div>
     <aside className="cart-sidebar" id="cart-sidebar" data-lenis-prevent="true">
       <div className="cart-header">
         <h3>Your Cart</h3>
@@ -105,26 +105,6 @@ export default function Home() {
     </div>
 
     
-    <div className="modal-overlay" id="feedback-modal-overlay">
-      <div className="modal" id="feedback-modal" data-lenis-prevent="true">
-        <button className="modal-close" id="feedback-modal-close">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-        
-        <h2 className="form-title" style={{"marginBottom":"var(--space-md)"}}>Leave a Review</h2>
-        <p className="modal-subtitle">We'd love to hear about your experience with The Rolling Oven!</p>
-        
-        <form id="feedback-form">
-          <div className="form-group">
-            <input type="text" id="feedback-name" className="form-input" placeholder=" " required />
-            <label className="form-label">Your Name</label>
-          </div>
-          
-          <div className="form-group">
-            <select id="feedback-rating" className="form-input form-select" required style={{"paddingTop":"14px","appearance":"none","WebkitAppearance":"none","cursor":"pointer"}}>
-              <option value="5">★★★★★ (5/5)</option>
-              <option value="4">★★★★☆ (4/5)</option>
-              <option value="3">★★★☆☆ (3/5)</option>
               <option value="2">★★☆☆☆ (2/5)</option>
               <option value="1">★☆☆☆☆ (1/5)</option>
             </select>
@@ -307,13 +287,6 @@ export default function Home() {
               <div><strong>Sakthi</strong><span>Gift Orders</span></div>
             </div>
           </div>
-        </div>
-        
-        <div style={{"textAlign":"center","marginTop":"var(--space-4xl)"}}>
-          <button className="card-btn" id="open-feedback-btn">
-            <span>Leave a Review</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-          </button>
         </div>
       </section>
 

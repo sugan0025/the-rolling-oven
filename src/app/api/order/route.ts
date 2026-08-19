@@ -25,16 +25,24 @@ export async function POST(request: Request) {
       total_amount: String(validatedData.total_amount),
     };
 
+    const host = request.headers.get('host') || 'the-rolling-oven.vercel.app';
+    const protocol = host.includes('localhost') ? 'http' : 'https';
+    
+    const itemsStr = validatedData.items
+        .map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`)
+        .join(' | ');
+
+    const deliveryLink = `${protocol}://${host}/api/delivery?name=${encodeURIComponent(validatedData.customer_name)}&email=${encodeURIComponent(validatedData.customer_email)}&items=${encodeURIComponent(itemsStr)}`;
+
     // Build email params (shared between both templates)
     const emailParams = {
       customer_name: validatedData.customer_name,
       customer_email: validatedData.customer_email,
       customer_phone: validatedData.customer_phone,
-      order_items: validatedData.items
-        .map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`)
-        .join(' | '),
+      order_items: itemsStr,
       total_amount: String(validatedData.total_amount),
       notes: validatedData.special_instructions || 'None',
+      delivery_action_link: deliveryLink,
     };
 
     // Fire BOTH emails simultaneously
