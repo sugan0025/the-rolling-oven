@@ -91,8 +91,8 @@ export default function Home() {
             <label htmlFor="order-phone" className="form-label">Phone Number</label>
           </div>
           <div className="form-group">
-            <select id="order-product" className="form-input form-select" required>
-              <option value="" disabled selected>Choose a Product</option>
+            <select id="order-product" className="form-input form-select" required defaultValue="">
+              <option value="" disabled>Choose a Product</option>
               <option value="cupcakes">Cupcakes</option>
               <option value="cookies">Cookies</option>
               <option value="muffins">Muffins</option>
@@ -103,7 +103,7 @@ export default function Home() {
             </select>
           </div>
           <div className="form-group">
-            <textarea id="order-notes" className="form-input form-textarea" placeholder=" " rows="2"></textarea>
+            <textarea id="order-notes" className="form-input form-textarea" placeholder=" " rows={2}></textarea>
             <label htmlFor="order-notes" className="form-label">Special Instructions (Optional)</label>
           </div>
           <div className="order-summary-box" id="order-summary-box"></div>
@@ -143,7 +143,7 @@ export default function Home() {
           </div>
           
           <div className="form-group">
-            <textarea id="feedback-message" className="form-input" placeholder=" " rows="4" required></textarea>
+            <textarea id="feedback-message" className="form-input" placeholder=" " rows={4} required></textarea>
             <label className="form-label">Your Review</label>
           </div>
           
@@ -215,7 +215,7 @@ export default function Home() {
           <h2 className="section-title">Handcrafted with <span className="text-accent">Passion</span></h2>
           <p className="section-desc">Each creation tells a story of dedication, quality ingredients, and the art of baking perfected over generations.</p>
         </div>
-        <div className="category-row" id="category-row">
+        <div className="category-row" id="category-row" suppressHydrationWarning>
           
         </div>
       </section>
@@ -230,7 +230,7 @@ export default function Home() {
           <button className="carousel-btn carousel-prev" id="carousel-prev">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6"/></svg>
           </button>
-          <div className="carousel-stage" id="carousel-stage">
+          <div className="carousel-stage" id="carousel-stage" suppressHydrationWarning>
             
           </div>
           <button className="carousel-btn carousel-next" id="carousel-next">
@@ -244,7 +244,7 @@ export default function Home() {
         <div className="about-container">
           <div className="about-visual">
             <div className="about-image-frame">
-              <img src="/images/logo.jpeg" alt="The Rolling Oven Story" className="about-image" />
+              <img src="/images/logo.jpeg" alt="The Rolling Oven Bakery Story - Fresh Baking Daily" className="about-image" loading="lazy" />
               <div className="about-frame-accent"></div>
             </div>
             <div className="about-float-card">
@@ -373,8 +373,8 @@ export default function Home() {
                   <label htmlFor="form-phone" className="form-label">Phone Number</label>
                 </div>
                 <div className="form-group">
-                  <select id="form-product" className="form-input form-select" required>
-                    <option value="" disabled selected>What are you looking for?</option>
+                  <select id="form-product" className="form-input form-select" required defaultValue="">
+                    <option value="" disabled>What are you looking for?</option>
                     <option value="cupcakes">Cupcakes</option>
                     <option value="cookies">Cookies</option>
                     <option value="muffins">Muffins</option>
@@ -386,7 +386,7 @@ export default function Home() {
                   </select>
                 </div>
                 <div className="form-group">
-                  <textarea id="form-message" className="form-input form-textarea" placeholder=" " rows="3"></textarea>
+                  <textarea id="form-message" className="form-input form-textarea" placeholder=" " rows={3}></textarea>
                   <label htmlFor="form-message" className="form-label">Message</label>
                 </div>
                 <button type="submit" className="btn btn-primary btn-full" id="submit-inquiry">
@@ -424,7 +424,7 @@ export default function Home() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-brand">
-          <img src="/images/logo.jpeg" alt="The Rolling Oven" className="footer-logo" />
+          <img src="/images/logo.jpeg" alt="The Rolling Oven - Artisan Bakery Logo" className="footer-logo" loading="lazy" />
           <p className="footer-tagline">Your Cravings, Our Creations</p>
           <p className="footer-desc">Handcrafted baked goods made with love, delivered fresh to your doorstep.</p>
         </div>

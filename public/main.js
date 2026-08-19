@@ -215,7 +215,7 @@ function renderCart() {
 
   container.innerHTML = cart.map((item, i) => `
     <div class="cart-item">
-      <img src="${item.image}" alt="${item.name}" class="cart-item-img" />
+      <img src="${item.image}" alt="${item.name} - Fresh Bakery Item in Tamil Nadu" loading="lazy" class="cart-item-img" />
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-category">${item.category}</div>
@@ -410,7 +410,7 @@ function renderFavorites() {
       <div class="card-glow"></div>
       <div class="card-image-wrapper" data-category="${item.category}">
         <div class="card-badge ${item.badgeClass || ''}">${item.badge}</div>
-        <img src="${item.image}" alt="${item.name}" loading="lazy" />
+        <img src="${item.image}" alt="${item.name} - Fresh Bakery Item in Tamil Nadu" loading="lazy" loading="lazy" />
       </div>
       <div class="card-content">
         <div class="card-category">${item.categoryName}</div>
@@ -505,7 +505,7 @@ function navigateToProduct(categoryKey) {
   const productHtml = cat.items.map((item, i) => `
     <div class="sub-product-card">
       <div class="sub-product-img-wrap">
-        <img src="${item.image}" alt="${item.name}" loading="lazy" />
+        <img src="${item.image}" alt="${item.name} - Fresh Bakery Item in Tamil Nadu" loading="lazy" loading="lazy" />
       </div>
       <div class="sub-product-body">
         <h4>${item.name}</h4>
@@ -966,7 +966,7 @@ function initFeedbackModal() {
 // ============================================
 // INITIALIZE
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   // Particles
   const particleCanvas = document.getElementById('particles-canvas');
   if (particleCanvas) { new ParticleSystem(particleCanvas).animate(); }
@@ -986,4 +986,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackButton();
   initFooterCategoryLinks();
   initFeedbackModal();
-});
+}
+
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
