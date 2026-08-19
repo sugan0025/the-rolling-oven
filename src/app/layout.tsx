@@ -94,9 +94,9 @@ export default function RootLayout({
           href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css"
         />
         
-        {/* Google Analytics Placeholder - Replace G-XXXXXXXXXX when ready */}
+        {/* Google Analytics - The Rolling Oven */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          src="https://www.googletagmanager.com/gtag/js?id=G-GWTWBBBDQ2"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -105,7 +105,7 @@ export default function RootLayout({
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-XXXXXXXXXX');
+            gtag('config', 'G-GWTWBBBDQ2');
           `}
         </Script>
 
