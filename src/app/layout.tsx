@@ -43,16 +43,16 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: 'https://therollingoven.com/',
+    canonical: 'https://the-rolling-oven.vercel.app/',
   },
   openGraph: {
     title: 'The Rolling Oven | Artisan Bakery',
     description: 'Freshly baked artisan treats, custom cakes, cupcakes, and desserts. Serving Chennai, Coimbatore, Theni, Sathyamangalam, and Erode.',
-    url: 'https://therollingoven.com',
+    url: 'https://the-rolling-oven.vercel.app',
     siteName: 'The Rolling Oven',
     images: [
       {
-        url: 'https://therollingoven.com/images/logo.jpeg',
+        url: 'https://the-rolling-oven.vercel.app/images/logo.jpeg',
         width: 800,
         height: 600,
         alt: 'The Rolling Oven Artisan Bakery Logo',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Rolling Oven | Artisan Bakery',
     description: 'Freshly baked artisan treats, custom cakes, cupcakes, and desserts in Tamil Nadu.',
-    images: ['https://therollingoven.com/images/logo.jpeg'],
+    images: ['https://the-rolling-oven.vercel.app/images/logo.jpeg'],
   },
   robots: {
     index: true,
@@ -116,8 +116,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Bakery",
               "name": "The Rolling Oven",
-              "image": "https://therollingoven.com/images/logo.jpeg",
-              "url": "https://therollingoven.com",
+              "image": "https://the-rolling-oven.vercel.app/images/logo.jpeg",
+              "url": "https://the-rolling-oven.vercel.app",
               "telephone": "+919876543210",
               "address": {
                 "@type": "PostalAddress",

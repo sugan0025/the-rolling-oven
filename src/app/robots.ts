@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/'],
     },
-    sitemap: 'https://therollingoven.com/sitemap.xml',
+    sitemap: 'https://the-rolling-oven.vercel.app/sitemap.xml',
   };
 }
