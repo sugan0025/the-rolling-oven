@@ -37,13 +37,14 @@ export async function POST(request: Request) {
       template_id: process.env.EMAILJS_TEMPLATE_ID,
       user_id: process.env.EMAILJS_PUBLIC_KEY,
       template_params: {
-        to_email: process.env.OWNER_EMAIL,
-        from_name: validatedData.customer_name,
-        from_email: validatedData.customer_email,
-        phone: validatedData.customer_phone,
-        items: JSON.stringify(validatedData.items, null, 2),
-        total: validatedData.total_amount,
-        instructions: validatedData.special_instructions || 'None'
+        to_email: validatedData.customer_email, // If template To is set to {{to_email}}
+        owner_email: process.env.OWNER_EMAIL, // If they want to CC themselves
+        customer_name: validatedData.customer_name,
+        customer_email: validatedData.customer_email,
+        customer_phone: validatedData.customer_phone,
+        order_items: validatedData.items.map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`).join(' | '),
+        total_amount: validatedData.total_amount,
+        notes: validatedData.special_instructions || 'None'
       }
     };
 
