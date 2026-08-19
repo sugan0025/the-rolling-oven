@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     };
 
     // Fire BOTH emails simultaneously
-    const emailPromise = Promise.allSettled([
+    const emailResults = await Promise.allSettled([
       fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -63,33 +63,29 @@ export async function POST(request: Request) {
       }),
     ]);
 
-    // Insert into Supabase (don't block on failure)
-    let dbPromise = Promise.resolve({ error: null as any });
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_ANON_KEY;
-    if (supabaseUrl && supabaseKey) {
-      const supabase = createClient(supabaseUrl, supabaseKey);
-      dbPromise = supabase.from('orders').insert([dbRow]);
-    } else {
-      console.error('Supabase env vars missing — skipping DB insert');
-    }
-
-    // Wait for both
-    const [emailResults, dbResult] = await Promise.all([emailPromise, dbPromise]);
-
     // Log email errors
-    emailResults.forEach((res, i) => {
+    for (let i = 0; i < emailResults.length; i++) {
+      const res = emailResults[i];
       const label = i === 0 ? 'Customer' : 'Owner';
       if (res.status === 'rejected') {
         console.error(`EmailJS ${label} rejected:`, res.reason);
       } else if (!res.value.ok) {
-        res.value.text().then((t: string) => console.error(`EmailJS ${label} error:`, t));
+        const t = await res.value.text();
+        console.error(`EmailJS ${label} error:`, t);
       }
-    });
+    }
 
-    // Log DB errors but don't fail the request
-    if (dbResult.error) {
-      console.error('Supabase insert error:', dbResult.error);
+    // Insert into Supabase (don't block on failure)
+    try {
+      const supabaseUrl = process.env.SUPABASE_URL;
+      const supabaseKey = process.env.SUPABASE_ANON_KEY;
+      if (supabaseUrl && supabaseKey) {
+        const supabase = createClient(supabaseUrl, supabaseKey);
+        const { error: dbError } = await supabase.from('orders').insert([dbRow]);
+        if (dbError) console.error('Supabase insert error:', dbError);
+      }
+    } catch (dbErr) {
+      console.error('Supabase crash:', dbErr);
     }
 
     return NextResponse.json({ success: true });
