@@ -752,3 +752,150 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .stat-divider { width: 40px; height: 1px; }
   .showcase-card { width: 240px; }
 }
+
+/* ============================================
+   LENIS SMOOTH SCROLL
+   ============================================ */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ============================================
+   PREMIUM ORDER SUCCESS OVERLAY
+   ============================================ */
+#order-success-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 5, 2, 0);
+  backdrop-filter: blur(0px);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+#order-success-overlay.active {
+  background: rgba(10, 5, 2, 0.92);
+  backdrop-filter: blur(20px);
+  opacity: 1;
+}
+
+#order-success-overlay.fade-out {
+  opacity: 0;
+  transform: scale(1.05);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.order-success-content {
+  text-align: center;
+  padding: var(--space-3xl);
+  max-width: 520px;
+  transform: translateY(40px) scale(0.9);
+  opacity: 0;
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+#order-success-overlay.active .order-success-content {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-xl);
+}
+
+.success-svg {
+  width: 80px;
+  height: 80px;
+}
+
+.success-circle {
+  stroke: var(--gold);
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-linecap: round;
+  animation: successStroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
+}
+
+.success-check {
+  stroke: var(--gold);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: successStroke 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.7s forwards;
+}
+
+@keyframes successStroke {
+  100% { stroke-dashoffset: 0; }
+}
+
+.success-title {
+  font-family: var(--font-display);
+  color: var(--cream);
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.5px;
+}
+
+.success-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+}
+
+.success-subtitle strong {
+  color: var(--gold);
+  font-size: 1.3rem;
+}
+
+.success-detail {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-lg);
+}
+
+.success-detail strong {
+  color: var(--text-secondary);
+}
+
+.success-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: var(--space-lg) auto;
+}
+
+.success-tagline {
+  font-family: var(--font-script, var(--font-display));
+  color: var(--gold-light);
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .order-success-content { padding: var(--space-xl); }
+  .success-title { font-size: 1.5rem; }
+  .success-checkmark { width: 60px; height: 60px; }
+  .success-svg { width: 60px; height: 60px; }
+}

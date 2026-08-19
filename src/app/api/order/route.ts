@@ -9,78 +9,86 @@ const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY!;
 export async function POST(request: Request) {
   const supabase = createClient(SUPABASE_URL || 'dummy', SUPABASE_KEY || 'dummy');
   try {
-    // Basic IP Rate Limiting (Using x-forwarded-for if behind proxy)
     const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
-    // Max 3 orders per minute
     if (!checkRateLimit(`order_${ip}`, 3, 60000)) {
       return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
     }
 
     const body = await request.json();
-    
-    // Validate with Zod
     const validatedData = orderSchema.parse(body);
-    
-    // 1. Insert into Supabase
-    const { error: dbError } = await supabase
-      .from('orders')
-      .insert([validatedData]);
 
-    if (dbError) {
-      console.error('Supabase Error:', dbError);
-      return NextResponse.json({ error: 'Database error' }, { status: 500 });
-    }
-
-    // 2. Send email via EmailJS HTTP API (server-side)
-    // 2. Send emails via EmailJS HTTP API (server-side)
-    const baseParams = {
+    // Explicitly map to Supabase column structure
+    const dbRow = {
       customer_name: validatedData.customer_name,
       customer_email: validatedData.customer_email,
       customer_phone: validatedData.customer_phone,
-      order_items: validatedData.items.map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`).join(' | '),
-      total_amount: validatedData.total_amount,
-      notes: validatedData.special_instructions || 'None'
+      special_instructions: validatedData.special_instructions || null,
+      order_type: validatedData.order_type || 'Cart Checkout',
+      items: validatedData.items,
+      total_amount: String(validatedData.total_amount),
     };
 
-    const customerPayload = {
-      service_id: process.env.EMAILJS_SERVICE_ID,
-      template_id: process.env.EMAILJS_TEMPLATE_ID,
-      user_id: process.env.EMAILJS_PUBLIC_KEY,
-      template_params: {
-        to_email: validatedData.customer_email,
-        owner_email: process.env.OWNER_EMAIL,
-        ...baseParams
-      }
+    // Build email params (shared between both templates)
+    const emailParams = {
+      customer_name: validatedData.customer_name,
+      customer_email: validatedData.customer_email,
+      customer_phone: validatedData.customer_phone,
+      order_items: validatedData.items
+        .map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`)
+        .join(' | '),
+      total_amount: String(validatedData.total_amount),
+      notes: validatedData.special_instructions || 'None',
     };
 
-    const ownerPayload = {
-      service_id: process.env.EMAILJS_SERVICE_ID,
-      template_id: 'template_p0g9s8k',
-      user_id: process.env.EMAILJS_PUBLIC_KEY,
-      template_params: {
-        ...baseParams
-      }
-    };
-
-    // Fire both emails simultaneously
-    await Promise.allSettled([
+    // Fire BOTH emails simultaneously (don't let DB failure block emails)
+    const emailPromise = Promise.allSettled([
+      // Customer Receipt
       fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(customerPayload)
+        body: JSON.stringify({
+          service_id: process.env.EMAILJS_SERVICE_ID,
+          template_id: process.env.EMAILJS_TEMPLATE_ID,
+          user_id: process.env.EMAILJS_PUBLIC_KEY,
+          template_params: {
+            to_email: validatedData.customer_email,
+            ...emailParams,
+          },
+        }),
       }),
+      // Owner Alert
       fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(ownerPayload)
-      })
-    ]).then(results => {
-      results.forEach((res, i) => {
-        if (res.status === 'rejected' || (res.status === 'fulfilled' && !res.value.ok)) {
-          console.error(`EmailJS Error on template ${i === 0 ? 'Customer' : 'Owner'}:`, res);
-        }
-      });
+        body: JSON.stringify({
+          service_id: process.env.EMAILJS_SERVICE_ID,
+          template_id: 'template_p0g9s8k',
+          user_id: process.env.EMAILJS_PUBLIC_KEY,
+          template_params: emailParams,
+        }),
+      }),
+    ]);
+
+    // Insert into Supabase (don't block on failure)
+    const dbPromise = supabase.from('orders').insert([dbRow]);
+
+    // Wait for both
+    const [emailResults, dbResult] = await Promise.all([emailPromise, dbPromise]);
+
+    // Log email errors
+    emailResults.forEach((res, i) => {
+      const label = i === 0 ? 'Customer' : 'Owner';
+      if (res.status === 'rejected') {
+        console.error(`EmailJS ${label} rejected:`, res.reason);
+      } else if (!res.value.ok) {
+        res.value.text().then((t: string) => console.error(`EmailJS ${label} error:`, t));
+      }
     });
+
+    // Log DB errors but don't fail the request
+    if (dbResult.error) {
+      console.error('Supabase insert error:', dbResult.error);
+    }
 
     return NextResponse.json({ success: true });
   } catch (err: any) {

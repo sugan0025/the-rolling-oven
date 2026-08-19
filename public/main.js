@@ -267,49 +267,9 @@ function showToast(type, title, message) {
 
 
 // ============================================
-// CONFIGURATION
-// ============================================
- // EmailJS Public Key
-
-const RECIPIENT_EMAILS = [
-  'suganesan0025@gmail.com'
-];
-
-function sendEmail(subject, bodyHtml) {
-  // Use FormSubmit.co for serverless email delivery
-  const formData = new FormData();
-  formData.append('_subject', subject);
-  formData.append('_template', 'table');
-  formData.append('message', bodyHtml);
-  formData.append('_cc', RECIPIENT_EMAILS[1]);
-
-  return fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAILS[0]}`, {
-    method: 'POST',
-    headers: { 'Accept': 'application/json' },
-    body: formData,
-  });
-}
-
-function sendInquiryEmail(formData) {
-  const subject = `New Inquiry from ${formData.name} — The Rolling Oven`;
-  const body = `
-    <h2>New Inquiry — The Rolling Oven</h2>
-    <table>
-      <tr><td><strong>Name:</strong></td><td>${formData.name}</td></tr>
-      <tr><td><strong>Email:</strong></td><td>${formData.email}</td></tr>
-      <tr><td><strong>Phone:</strong></td><td>${formData.phone}</td></tr>
-      <tr><td><strong>Product Interest:</strong></td><td>${formData.product}</td></tr>
-      <tr><td><strong>Message:</strong></td><td>${formData.message || 'N/A'}</td></tr>
-    </table>
-  `;
-  return sendEmail(subject, body);
-}
-
-// ============================================
-// EMAIL & DATABASE INTEGRATION
+// SECURE BACKEND API INTEGRATION
 // ============================================
 async function sendOrderEmail(orderData) {
-  // Format items for the API
   const items = orderData.isDirectOrder 
     ? [{ name: orderData.items[0].name, qty: 1, price: orderData.items[0].price || 0 }] 
     : orderData.items.map(i => ({ name: i.name, qty: i.qty, price: i.price }));
@@ -324,12 +284,9 @@ async function sendOrderEmail(orderData) {
     total_amount: orderData.total.toString()
   };
 
-  // SEND SECURELY VIA OUR BACKEND API
   const response = await fetch('/api/order', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
 
@@ -339,6 +296,28 @@ async function sendOrderEmail(orderData) {
     throw new Error('Failed to process order via API');
   }
 
+  return response.json();
+}
+
+async function sendContactForm(formData) {
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  });
+
+  if (!response.ok) throw new Error('Failed to send inquiry');
+  return response.json();
+}
+
+async function sendFeedback(formData) {
+  const response = await fetch('/api/feedback', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  });
+
+  if (!response.ok) throw new Error('Failed to submit feedback');
   return response.json();
 }
 
@@ -801,12 +780,12 @@ function initOrderModal() {
         });
       }
 
-      showToast('success', 'Order Placed! 🎉', orderData.isDirectOrder ? 'We will contact you with pricing.' : `Your order of ₹${orderData.total} has been sent.`);
       cart = [];
       updateCartBadge();
       renderCart();
       closeOrderModal();
       document.getElementById('order-form').reset();
+      showOrderSuccess(orderData);
     } catch (err) {
       console.error(err);
       showToast('error', 'Error Processing Order', 'Please try again or contact us directly.');
@@ -834,7 +813,7 @@ function initContactForm() {
     };
 
     try {
-      await sendInquiryEmail(formData);
+      await sendContactForm(formData);
       showToast('success', 'Inquiry Sent! ✨', 'We\'ll get back to you soon.');
       document.getElementById('contact-form').reset();
     } catch (err) {
@@ -918,30 +897,12 @@ function initFeedbackModal() {
     
     const formData = {
       name: document.getElementById('feedback-name').value,
-      rating: document.getElementById('feedback-rating').value,
+      rating: parseInt(document.getElementById('feedback-rating').value),
       message: document.getElementById('feedback-message').value
     };
     
     try {
-       // Attempt to save to Supabase (if table exists)
-       const { error } = await supabase.from('feedback').insert([{
-         customer_name: formData.name,
-         rating: formData.rating,
-         message: formData.message
-       }]);
-       
-       // Send email notification to owner
-       await fetch('https://formsubmit.co/ajax/' + RECIPIENT_EMAILS.join(','), {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-         body: JSON.stringify({
-           _subject: 'New Customer Feedback — The Rolling Oven',
-           Name: formData.name,
-           Rating: formData.rating + ' Stars',
-           Message: formData.message
-         })
-       });
-       
+       await sendFeedback(formData);
        showToast('success', 'Thank You!', 'Your review has been submitted.');
        e.target.reset();
        close();
@@ -953,6 +914,87 @@ function initFeedbackModal() {
        btn.disabled = false;
     }
   });
+}
+
+// ============================================
+// PREMIUM ORDER SUCCESS OVERLAY
+// ============================================
+function showOrderSuccess(orderData) {
+  // Create the full-screen overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'order-success-overlay';
+  overlay.innerHTML = `
+    <div class="order-success-content">
+      <div class="success-checkmark">
+        <svg viewBox="0 0 52 52" class="success-svg">
+          <circle class="success-circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="success-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      <h2 class="success-title">Order Placed Successfully!</h2>
+      <p class="success-subtitle">${orderData.isDirectOrder 
+        ? 'We\'ll reach out to you with pricing details shortly.' 
+        : `Your order of <strong>₹${orderData.total}</strong> has been confirmed.`
+      }</p>
+      <p class="success-detail">A confirmation email is on its way to <strong>${orderData.email}</strong></p>
+      <div class="success-divider"></div>
+      <p class="success-tagline">Thank you for choosing The Rolling Oven 🧁</p>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+
+  // Trigger entrance animation
+  requestAnimationFrame(() => {
+    overlay.classList.add('active');
+  });
+
+  // Auto-fade after 4 seconds
+  setTimeout(() => {
+    overlay.classList.add('fade-out');
+    setTimeout(() => {
+      overlay.remove();
+      document.body.style.overflow = '';
+    }, 800);
+  }, 4000);
+
+  // Click to dismiss early
+  overlay.addEventListener('click', () => {
+    overlay.classList.add('fade-out');
+    setTimeout(() => {
+      overlay.remove();
+      document.body.style.overflow = '';
+    }, 800);
+  });
+}
+
+// ============================================
+// LENIS SMOOTH SCROLL
+// ============================================
+function initLenisScroll() {
+  // Respect reduced motion preferences
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/lenis@1.1.14/dist/lenis.min.js';
+  script.onload = () => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Store globally so smooth scroll nav can use it
+    window.__lenis = lenis;
+  };
+  document.head.appendChild(script);
 }
 
 // ============================================
@@ -978,6 +1020,7 @@ function initApp() {
   initBackButton();
   initFooterCategoryLinks();
   initFeedbackModal();
+  initLenisScroll();
 }
 
 

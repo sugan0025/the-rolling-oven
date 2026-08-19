@@ -169,6 +169,16 @@ function addToCart(name, price, image, category) {
   }
   updateCartBadge();
   renderCart();
+  
+  // Google Analytics Tracking
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'add_to_cart', {
+      currency: 'INR',
+      value: price,
+      items: [{ item_name: name, item_category: category, price: price, quantity: 1 }]
+    });
+  }
+
   showToast('success', 'Added to Cart!', `${name} — ₹${price}`);
 }
 
@@ -215,7 +225,7 @@ function renderCart() {
 
   container.innerHTML = cart.map((item, i) => `
     <div class="cart-item">
-      <img src="${item.image}" alt="${item.name}" class="cart-item-img" />
+      <img src="${item.image}" alt="${item.name} - Fresh Bakery Item in Tamil Nadu" loading="lazy" class="cart-item-img" />
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-category">${item.category}</div>
@@ -253,115 +263,61 @@ function showToast(type, title, message) {
   setTimeout(() => toast.remove(), 3200);
 }
 
-import { createClient } from '@supabase/supabase-js';
-import emailjs from '@emailjs/browser';
+
+
 
 // ============================================
-// CONFIGURATION
-// ============================================
-const SUPABASE_URL = 'https://qvxjrddzcvdgvvrtzaeh.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2eGpyZGR6Y3ZkZ3Z2cnR6YWVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwNjQ4NzksImV4cCI6MjEwMjY0MDg3OX0.0tIsUUfhH6cO-yQHiPRqwOe_tJ-gmqkYSrJokV09T7c';
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-emailjs.init('D7aR4lXnIH1mbc7wD'); // EmailJS Public Key
-
-const RECIPIENT_EMAILS = [
-  'suganesan0025@gmail.com'
-];
-
-function sendEmail(subject, bodyHtml) {
-  // Use FormSubmit.co for serverless email delivery
-  const formData = new FormData();
-  formData.append('_subject', subject);
-  formData.append('_template', 'table');
-  formData.append('message', bodyHtml);
-  formData.append('_cc', RECIPIENT_EMAILS[1]);
-
-  return fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAILS[0]}`, {
-    method: 'POST',
-    headers: { 'Accept': 'application/json' },
-    body: formData,
-  });
-}
-
-function sendInquiryEmail(formData) {
-  const subject = `New Inquiry from ${formData.name} — The Rolling Oven`;
-  const body = `
-    <h2>New Inquiry — The Rolling Oven</h2>
-    <table>
-      <tr><td><strong>Name:</strong></td><td>${formData.name}</td></tr>
-      <tr><td><strong>Email:</strong></td><td>${formData.email}</td></tr>
-      <tr><td><strong>Phone:</strong></td><td>${formData.phone}</td></tr>
-      <tr><td><strong>Product Interest:</strong></td><td>${formData.product}</td></tr>
-      <tr><td><strong>Message:</strong></td><td>${formData.message || 'N/A'}</td></tr>
-    </table>
-  `;
-  return sendEmail(subject, body);
-}
-
-// ============================================
-// EMAIL & DATABASE INTEGRATION
+// SECURE BACKEND API INTEGRATION
 // ============================================
 async function sendOrderEmail(orderData) {
-  const itemsText = orderData.isDirectOrder 
-    ? orderData.items[0].name 
-    : orderData.items.map(i => `${i.name} (Qty: ${i.qty}) = ₹${i.price * i.qty}`).join(' | ');
-    
-  const orderType = orderData.isDirectOrder ? 'Direct Product Order' : 'Cart Checkout';
+  const items = orderData.isDirectOrder 
+    ? [{ name: orderData.items[0].name, qty: 1, price: orderData.items[0].price || 0 }] 
+    : orderData.items.map(i => ({ name: i.name, qty: i.qty, price: i.price }));
 
-  // 1. SAVE TO SUPABASE SQL DATABASE
-  const { error: dbError } = await supabase
-    .from('orders')
-    .insert([{
-      customer_name: orderData.name,
-      customer_email: orderData.email,
-      customer_phone: orderData.phone,
-      special_instructions: orderData.notes || 'None',
-      order_type: orderType,
-      items: orderData.items,
-      total_amount: orderData.total.toString()
-    }]);
+  const payload = {
+    customer_name: orderData.name,
+    customer_email: orderData.email,
+    customer_phone: orderData.phone,
+    special_instructions: orderData.notes || 'None',
+    order_type: orderData.isDirectOrder ? 'Direct Product Order' : 'Cart Checkout',
+    items: items,
+    total_amount: orderData.total.toString()
+  };
 
-  if (dbError) {
-    console.error('Database Error:', dbError);
-    // We can continue even if DB fails, but it's good to log
-  }
-
-  // 2. SEND INVOICE TO CUSTOMER (EmailJS)
-  try {
-    await emailjs.send('service_rollingoven', 'template_7pad5dy', {
-      customer_name: orderData.name,
-      customer_email: orderData.email,
-      customer_phone: orderData.phone,
-      notes: orderData.notes || 'None',
-      order_items: itemsText,
-      total_amount: orderData.total
-    });
-  } catch (emailErr) {
-    console.error('EmailJS Error:', emailErr);
-  }
-
-  // 3. SEND NOTIFICATION TO BAKERY OWNER (FormSubmit)
-  const response = await fetch('https://formsubmit.co/ajax/' + RECIPIENT_EMAILS.join(','), {
+  const response = await fetch('/api/order', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      _subject: 'New Order — The Rolling Oven',
-      Name: orderData.name,
-      Email: orderData.email,
-      Phone: orderData.phone,
-      Notes: orderData.notes || 'None',
-      Order_Items: itemsText,
-      Total_Amount: `₹${orderData.total}`
-    })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
   });
 
   if (!response.ok) {
-    throw new Error('Failed to send owner notification');
+    const errorData = await response.json();
+    console.error('Order API Error:', errorData);
+    throw new Error('Failed to process order via API');
   }
+
+  return response.json();
+}
+
+async function sendContactForm(formData) {
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  });
+
+  if (!response.ok) throw new Error('Failed to send inquiry');
+  return response.json();
+}
+
+async function sendFeedback(formData) {
+  const response = await fetch('/api/feedback', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  });
+
+  if (!response.ok) throw new Error('Failed to submit feedback');
   return response.json();
 }
 
@@ -414,7 +370,7 @@ function renderFavorites() {
       <div class="card-glow"></div>
       <div class="card-image-wrapper" data-category="${item.category}">
         <div class="card-badge ${item.badgeClass || ''}">${item.badge}</div>
-        <img src="${item.image}" alt="${item.name}" loading="lazy" />
+        <img src="${item.image}" alt="${item.name} - Fresh Bakery Item in Tamil Nadu" loading="lazy" loading="lazy" />
       </div>
       <div class="card-content">
         <div class="card-category">${item.categoryName}</div>
@@ -494,6 +450,15 @@ function navigateToProduct(categoryKey) {
   document.getElementById('main-content').style.display = 'none';
   document.getElementById('product-page').style.display = 'block';
 
+  // Google Analytics Tracking
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'view_item_list', {
+      item_list_id: categoryKey,
+      item_list_name: cat.name,
+      items: cat.items.map(i => ({ item_name: i.name, price: i.price, item_category: cat.name }))
+    });
+  }
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -509,7 +474,7 @@ function navigateToProduct(categoryKey) {
   const productHtml = cat.items.map((item, i) => `
     <div class="sub-product-card">
       <div class="sub-product-img-wrap">
-        <img src="${item.image}" alt="${item.name}" loading="lazy" />
+        <img src="${item.image}" alt="${item.name} - Fresh Bakery Item in Tamil Nadu" loading="lazy" loading="lazy" />
       </div>
       <div class="sub-product-body">
         <h4>${item.name}</h4>
@@ -800,24 +765,30 @@ function initOrderModal() {
 
     try {
       await sendOrderEmail(orderData);
-      showToast('success', 'Order Placed! 🎉', orderData.isDirectOrder ? 'We will contact you with pricing.' : `Your order of ₹${orderData.total} has been sent.`);
+      
+      // Google Analytics Tracking
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'purchase', {
+          transaction_id: 'ORDER_' + Math.floor(Math.random() * 1000000),
+          value: orderData.total === 'TBD' ? 0 : orderData.total,
+          currency: 'INR',
+          items: orderData.items.map(i => ({ item_name: i.name, price: i.price, quantity: i.qty }))
+        });
+        gtag('event', 'generate_lead', {
+          currency: 'INR',
+          value: orderData.total === 'TBD' ? 0 : orderData.total
+        });
+      }
+
       cart = [];
       updateCartBadge();
       renderCart();
       closeOrderModal();
       document.getElementById('order-form').reset();
+      showOrderSuccess(orderData);
     } catch (err) {
-      // Fallback to mailto
-      const itemsText = orderData.isDirectOrder ? `Product Requested: ${directProduct}` : orderData.items.map(i => `${i.name} x${i.qty} = ₹${i.price * i.qty}`).join('%0A');
-      const mailtoBody = `Order from ${orderData.name}%0A%0AItems:%0A${itemsText}%0A%0ATotal: ₹${orderData.total}%0APhone: ${orderData.phone}%0ANotes: ${orderData.notes || 'None'}`;
-      const mailtoLink = `mailto:${RECIPIENT_EMAILS.join(',')}?subject=New Order — The Rolling Oven&body=${mailtoBody}`;
-      window.open(mailtoLink, '_blank');
-      showToast('success', 'Order Ready!', 'Opening email client to send your order.');
-      cart = [];
-      updateCartBadge();
-      renderCart();
-      closeOrderModal();
-      document.getElementById('order-form').reset();
+      console.error(err);
+      showToast('error', 'Error Processing Order', 'Please try again or contact us directly.');
     }
 
     btn.innerHTML = original;
@@ -842,16 +813,12 @@ function initContactForm() {
     };
 
     try {
-      await sendInquiryEmail(formData);
+      await sendContactForm(formData);
       showToast('success', 'Inquiry Sent! ✨', 'We\'ll get back to you soon.');
       document.getElementById('contact-form').reset();
     } catch (err) {
-      // Fallback to mailto
-      const mailtoBody = `Inquiry from ${formData.name}%0A%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0AProduct: ${formData.product}%0AMessage: ${formData.message || 'N/A'}`;
-      const mailtoLink = `mailto:${RECIPIENT_EMAILS.join(',')}?subject=Inquiry — The Rolling Oven&body=${mailtoBody}`;
-      window.open(mailtoLink, '_blank');
-      showToast('success', 'Inquiry Ready!', 'Opening email client to send your inquiry.');
-      document.getElementById('contact-form').reset();
+      console.error(err);
+      showToast('error', 'Error Sending Inquiry', 'Please try again or call us directly.');
     }
 
     btn.innerHTML = original;
@@ -930,30 +897,12 @@ function initFeedbackModal() {
     
     const formData = {
       name: document.getElementById('feedback-name').value,
-      rating: document.getElementById('feedback-rating').value,
+      rating: parseInt(document.getElementById('feedback-rating').value),
       message: document.getElementById('feedback-message').value
     };
     
     try {
-       // Attempt to save to Supabase (if table exists)
-       const { error } = await supabase.from('feedback').insert([{
-         customer_name: formData.name,
-         rating: formData.rating,
-         message: formData.message
-       }]);
-       
-       // Send email notification to owner
-       await fetch('https://formsubmit.co/ajax/' + RECIPIENT_EMAILS.join(','), {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-         body: JSON.stringify({
-           _subject: 'New Customer Feedback — The Rolling Oven',
-           Name: formData.name,
-           Rating: formData.rating + ' Stars',
-           Message: formData.message
-         })
-       });
-       
+       await sendFeedback(formData);
        showToast('success', 'Thank You!', 'Your review has been submitted.');
        e.target.reset();
        close();
@@ -968,9 +917,90 @@ function initFeedbackModal() {
 }
 
 // ============================================
+// PREMIUM ORDER SUCCESS OVERLAY
+// ============================================
+function showOrderSuccess(orderData) {
+  // Create the full-screen overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'order-success-overlay';
+  overlay.innerHTML = `
+    <div class="order-success-content">
+      <div class="success-checkmark">
+        <svg viewBox="0 0 52 52" class="success-svg">
+          <circle class="success-circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="success-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      <h2 class="success-title">Order Placed Successfully!</h2>
+      <p class="success-subtitle">${orderData.isDirectOrder 
+        ? 'We\'ll reach out to you with pricing details shortly.' 
+        : `Your order of <strong>₹${orderData.total}</strong> has been confirmed.`
+      }</p>
+      <p class="success-detail">A confirmation email is on its way to <strong>${orderData.email}</strong></p>
+      <div class="success-divider"></div>
+      <p class="success-tagline">Thank you for choosing The Rolling Oven 🧁</p>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+
+  // Trigger entrance animation
+  requestAnimationFrame(() => {
+    overlay.classList.add('active');
+  });
+
+  // Auto-fade after 4 seconds
+  setTimeout(() => {
+    overlay.classList.add('fade-out');
+    setTimeout(() => {
+      overlay.remove();
+      document.body.style.overflow = '';
+    }, 800);
+  }, 4000);
+
+  // Click to dismiss early
+  overlay.addEventListener('click', () => {
+    overlay.classList.add('fade-out');
+    setTimeout(() => {
+      overlay.remove();
+      document.body.style.overflow = '';
+    }, 800);
+  });
+}
+
+// ============================================
+// LENIS SMOOTH SCROLL
+// ============================================
+function initLenisScroll() {
+  // Respect reduced motion preferences
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/lenis@1.1.14/dist/lenis.min.js';
+  script.onload = () => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Store globally so smooth scroll nav can use it
+    window.__lenis = lenis;
+  };
+  document.head.appendChild(script);
+}
+
+// ============================================
 // INITIALIZE
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   // Particles
   const particleCanvas = document.getElementById('particles-canvas');
   if (particleCanvas) { new ParticleSystem(particleCanvas).animate(); }
@@ -990,4 +1020,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackButton();
   initFooterCategoryLinks();
   initFeedbackModal();
-});
+  initLenisScroll();
+}
+
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
