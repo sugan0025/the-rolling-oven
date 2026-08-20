@@ -103,7 +103,10 @@ export async function POST(request: Request) {
           template_id: 'template_p0g9s8k',
           user_id: process.env.EMAILJS_PUBLIC_KEY,
           accessToken: process.env.EMAILJS_PRIVATE_KEY,
-          template_params: emailParams,
+          template_params: {
+            to_email: 'therollingoven26@gmail.com',
+            ...emailParams,
+          },
         }),
       }),
     ]);

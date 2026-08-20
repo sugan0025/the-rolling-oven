@@ -28,6 +28,7 @@ export async function POST(request: Request) {
         user_id: process.env.EMAILJS_PUBLIC_KEY,
         accessToken: process.env.EMAILJS_PRIVATE_KEY,
         template_params: {
+          to_email: 'therollingoven26@gmail.com',
           customer_name: data.name,
           customer_email: data.email,
           customer_phone: data.phone,
