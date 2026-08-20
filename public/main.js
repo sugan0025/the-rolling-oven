@@ -145,13 +145,18 @@ const TODAYS_FAVORITES = [
 ];
 
 // ============================================
-// CART STATE
+// CART STATE (persisted in localStorage)
 // ============================================
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('tro_cart') || '[]');
+
+function saveCart() {
+  localStorage.setItem('tro_cart', JSON.stringify(cart));
+}
 
 function updateCartBadge() {
   const badge = document.getElementById('cart-badge');
   const navBtn = document.getElementById('nav-order-btn');
+  if (!badge) return;
   const total = cart.reduce((sum, item) => sum + item.qty, 0);
   if (total > 0) {
     badge.style.display = 'flex';
@@ -170,6 +175,7 @@ function addToCart(name, price, image, category) {
   } else {
     cart.push({ name, price, image, category, qty: 1 });
   }
+  saveCart();
   updateCartBadge();
   renderCart();
   
@@ -188,6 +194,7 @@ function addToCart(name, price, image, category) {
 function removeFromCart(index) {
   const item = cart[index];
   cart.splice(index, 1);
+  saveCart();
   updateCartBadge();
   renderCart();
   showToast('error', 'Removed', `${item.name} removed from cart`);
@@ -199,6 +206,7 @@ function changeQty(index, delta) {
     removeFromCart(index);
     return;
   }
+  saveCart();
   updateCartBadge();
   renderCart();
 }
@@ -346,17 +354,18 @@ async function sendFeedback(formData) {
 // ============================================
 function renderShowcase() {
   const row = document.getElementById('category-row');
+  if (!row) return;
   const categoryKeys = Object.keys(CATEGORIES);
 
   const html = categoryKeys.map(key => {
     const cat = CATEGORIES[key];
     return `
-      <button class="showcase-card" data-category="${key}">
+      <a href="/category/${key}" class="showcase-card">
         <div class="showcase-card-img-wrap">
           <img src="${cat.mainImage}" alt="${cat.name}" class="showcase-card-img" loading="lazy" />
         </div>
         <div class="showcase-card-name">${cat.name}</div>
-      </button>
+      </a>
     `;
   }).join('');
 
@@ -367,13 +376,6 @@ function renderShowcase() {
     <div class="marquee-group">${html}</div>
     <div class="marquee-group">${html}</div>
   `;
-
-  // Click to navigate to product page
-  row.querySelectorAll('.showcase-card').forEach(card => {
-    card.addEventListener('click', () => {
-      navigateToProduct(card.dataset.category);
-    });
-  });
 }
 
 // ============================================
@@ -383,6 +385,7 @@ let currentCarouselIndex = 0;
 
 function renderFavorites() {
   const stage = document.getElementById('carousel-stage');
+  if (!stage) return;
   
   // We'll use all 7 favorites
   stage.innerHTML = TODAYS_FAVORITES.map((item, i) => `
@@ -430,10 +433,10 @@ function renderFavorites() {
     });
   });
 
-  // Click image to navigate to category page
+  // Click image to navigate to category page (real links)
   stage.querySelectorAll('.card-image-wrapper').forEach(wrap => {
     wrap.addEventListener('click', () => {
-      navigateToProduct(wrap.dataset.category);
+      window.location.href = '/category/' + wrap.dataset.category;
     });
   });
 }
@@ -460,75 +463,17 @@ function updateCarousel() {
 }
 
 // ============================================
-// PRODUCT DETAIL PAGE
+// CATEGORY PAGE — Wire up add-to-cart buttons
 // ============================================
-function navigateToProduct(categoryKey) {
-  const cat = CATEGORIES[categoryKey];
-  if (!cat) return;
+function initCategoryPage() {
+  const grid = document.getElementById('category-product-grid');
+  if (!grid) return;
 
-  // Hide main, show product page
-  document.getElementById('main-content').style.display = 'none';
-  document.getElementById('product-page').style.display = 'block';
-
-  // Google Analytics Tracking
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'view_item_list', {
-      item_list_id: categoryKey,
-      item_list_name: cat.name,
-      items: cat.items.map(i => ({ item_name: i.name, price: i.price, item_category: cat.name }))
-    });
-  }
-
-  // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // Render compact hero
-  const heroEl = document.getElementById('product-page-hero');
-  heroEl.innerHTML = `
-    <h2>${cat.name}</h2>
-    <p>${cat.description}</p>
-  `;
-
-  // Render horizontal product scroll
-  const gridEl = document.getElementById('product-page-grid');
-  const productHtml = cat.items.map((item, i) => `
-    <div class="sub-product-card">
-      <div class="sub-product-img-wrap">
-        <img src="${item.image}" alt="${item.name} - Fresh Bakery Item in Tamil Nadu" loading="lazy" loading="lazy" />
-      </div>
-      <div class="sub-product-body">
-        <h4>${item.name}</h4>
-        <div class="sub-product-footer">
-          <span class="sub-product-price">₹${item.price}</span>
-          <button class="card-btn sub-add-btn"
-            data-name="${item.name}"
-            data-price="${item.price}"
-            data-image="${item.image}"
-            data-category="${cat.name}">
-            Add
-          </button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-
-  gridEl.innerHTML = productHtml;
-
-  // Reset scroll position
-  gridEl.scrollLeft = 0;
-
-  // Add to cart on sub-product page
-  gridEl.querySelectorAll('.sub-add-btn').forEach(btn => {
+  grid.querySelectorAll('.sub-add-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       addToCart(btn.dataset.name, parseInt(btn.dataset.price), btn.dataset.image, btn.dataset.category);
     });
   });
-}
-
-function navigateHome() {
-  document.getElementById('main-content').style.display = 'block';
-  document.getElementById('product-page').style.display = 'none';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ============================================
@@ -833,38 +778,14 @@ function initSmoothScroll() {
       const href = anchor.getAttribute('href');
       if (!href || href === '#') {
         e.preventDefault();
-        navigateHome();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
       e.preventDefault();
-      // Go home if on product page
-      if (document.getElementById('product-page').style.display !== 'none') {
-        navigateHome();
-        setTimeout(() => {
-          try {
-            const target = document.querySelector(href);
-            if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-          } catch(err) {}
-        }, 100);
-      } else {
-        try {
-          const target = document.querySelector(href);
-          if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-        } catch(err) {}
-      }
-    });
-  });
-}
-
-function initBackButton() {
-  document.getElementById('back-to-home').addEventListener('click', navigateHome);
-}
-
-function initFooterCategoryLinks() {
-  document.querySelectorAll('.footer-cat-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      navigateToProduct(link.dataset.category);
+      try {
+        const target = document.querySelector(href);
+        if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      } catch(err) {}
     });
   });
 }
@@ -1006,7 +927,7 @@ function initApp() {
   const particleCanvas = document.getElementById('particles-canvas');
   if (particleCanvas) { new ParticleSystem(particleCanvas).animate(); }
 
-  // Render content
+  // Render content (only on homepage)
   renderShowcase();
   renderFavorites();
 
@@ -1018,12 +939,16 @@ function initApp() {
   initOrderModal();
   initContactForm();
   initSmoothScroll();
-  initBackButton();
-  initFooterCategoryLinks();
   initFeedbackModal();
   initLenisScroll();
   initTracking();
-  initDeepLinks();
+
+  // Category page specific
+  initCategoryPage();
+
+  // Restore cart badge on load
+  updateCartBadge();
+  renderCart();
 }
 
 
@@ -1051,20 +976,5 @@ function initTracking() {
 
   if (hasUTM) {
     console.log('UTM parameters captured and stored in session.');
-  }
-}
-
-// ============================================
-// DEEP LINKING LOGIC (Instagram Links)
-// ============================================
-function initDeepLinks() {
-  const params = new URLSearchParams(window.location.search);
-  const categoryId = params.get('category');
-  
-  if (categoryId && CATEGORIES[categoryId]) {
-    // If a category query param exists, wait for rendering and open it
-    setTimeout(() => {
-      openCategoryPage(categoryId);
-    }, 500);
   }
 }

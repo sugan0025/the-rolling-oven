@@ -2,114 +2,10 @@
 export default function Home() {
   return (
     <>
-      
-
-    
-    <canvas id="particles-canvas"></canvas>
-
-    
-    <nav id="main-nav" className="navbar">
-      <div className="nav-container">
-        <a href="#" className="nav-brand" id="nav-home-link">
-          <img src="/images/logo.jpeg" alt="The Rolling Oven" className="nav-logo" />
-          <span className="nav-brand-text">The Rolling Oven</span>
-        </a>
-        <ul className="nav-links">
-          <li><a href="#hero" className="nav-link active" data-nav="home">Home</a></li>
-          <li><a href="#showcase" className="nav-link" data-nav="bakes">Our Bakes</a></li>
-          <li><a href="#about" className="nav-link" data-nav="about">About</a></li>
-          <li><a href="#contact" className="nav-link" data-nav="contact">Contact</a></li>
-        </ul>
-        <button className="nav-cta" id="nav-order-btn" style={{"display":"none"}}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          <span>Order Now</span>
-          <span className="cart-badge" id="cart-badge" style={{"display":"none"}}>0</span>
-        </button>
-        <button className="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </nav>
-
-    
-    <div className="mobile-menu-overlay" id="mobile-menu-overlay">
-      <ul className="mobile-nav-links">
-        <li><a href="#hero" className="mobile-nav-link">Home</a></li>
-        <li><a href="#showcase" className="mobile-nav-link">Our Bakes</a></li>
-        <li><a href="#about" className="mobile-nav-link">About</a></li>
-        <li><a href="#contact" className="mobile-nav-link">Contact</a></li>
-      </ul>
-    </div>
-
-    
-    <div className="cart-overlay" id="cart-overlay"></div>
-    <aside className="cart-sidebar" id="cart-sidebar" data-lenis-prevent="true">
-      <div className="cart-header">
-        <h3>Your Cart</h3>
-        <button className="cart-close-btn" id="cart-close-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
-      <div className="cart-items" id="cart-items">
-        <div className="cart-empty" id="cart-empty">
-          <span className="cart-empty-icon">🧁</span>
-          <p>Your cart is empty</p>
-          <span className="cart-empty-sub">Add some delicious treats!</span>
-        </div>
-      </div>
-      <div className="cart-footer" id="cart-footer" style={{"display":"none"}}>
-        <div className="cart-total">
-          <span>Total</span>
-          <span className="cart-total-price" id="cart-total-price">₹0</span>
-        </div>
-        <button className="btn btn-primary btn-full" id="place-order-btn">
-          <span>Place Order</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
-      </div>
-    </aside>
-
-    
-    <div className="modal-overlay" id="order-modal-overlay">
-      <div className="modal glass-card" id="order-modal" data-lenis-prevent="true">
-        <button className="modal-close" id="order-modal-close">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-        <h3 className="form-title">Complete Your Order</h3>
-        <p className="modal-subtitle">We'll confirm your order via email shortly.</p>
-        <form className="contact-form" id="order-form">
-          <div className="form-group">
-            <input type="text" id="order-name" className="form-input" placeholder=" " required />
-            <label htmlFor="order-name" className="form-label">Your Name</label>
-          </div>
-          <div className="form-group">
-            <input type="email" id="order-email" className="form-input" placeholder=" " required />
-            <label htmlFor="order-email" className="form-label">Email Address</label>
-          </div>
-          <div className="form-group">
-            <input type="tel" id="order-phone" className="form-input" placeholder=" " required />
-            <label htmlFor="order-phone" className="form-label">Phone Number</label>
-          </div>
-
-          <div className="form-group">
-            <textarea id="order-notes" className="form-input form-textarea" placeholder=" " rows={2}></textarea>
-            <label htmlFor="order-notes" className="form-label">Special Instructions (Optional)</label>
-          </div>
-          <div className="order-summary-box" id="order-summary-box"></div>
-          <button type="submit" className="btn btn-primary btn-full" id="submit-order-btn">
-            <span>Confirm & Send Order</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-        </form>
-      </div>
-    </div>
-
-
-
     
     <main id="main-content">
 
-      
+      {/* ===== HERO ===== */}
       <section id="hero" className="hero-section">
         <div className="hero-glow hero-glow-1"></div>
         <div className="hero-glow hero-glow-2"></div>
@@ -159,7 +55,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+      {/* ===== SHOWCASE BELT ===== */}
       <section id="showcase" className="showcase-section">
         <div className="section-header">
           <span className="section-tag">Our Signature Collection</span>
@@ -171,7 +67,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+      {/* ===== TODAY'S FAVORITES ===== */}
       <section id="products" className="products-section">
         <div className="section-header">
           <span className="section-tag">Menu Highlights</span>
@@ -190,7 +86,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+      {/* ===== ABOUT ===== */}
       <section id="about" className="about-section">
         <div className="about-container">
           <div className="about-visual">
@@ -238,7 +134,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+      {/* ===== TESTIMONIALS ===== */}
       <section id="testimonials" className="testimonials-section">
         <div className="section-header">
           <span className="section-tag">Customer Love</span>
@@ -272,7 +168,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+      {/* ===== CONTACT ===== */}
       <section id="contact" className="contact-section">
         <div className="contact-container">
           <div className="contact-content">
@@ -286,17 +182,17 @@ export default function Home() {
                 </div>
                 <div><strong>WhatsApp</strong><span>Quick orders & queries</span></div>
               </a>
-              <a href="https://www.instagram.com/the_rolling_oven_26?igsh=MTB1bDBrcjNlaW5q&igsi=MTB1bDBrcjNlaW5q" target="_blank" className="contact-method" id="contact-instagram">
+              <a href="https://www.instagram.com/the_rolling_oven_26" target="_blank" className="contact-method" id="contact-instagram">
                 <div className="method-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                 </div>
-                <div><strong>Instagram</strong><span>@therollingoven</span></div>
+                <div><strong>Instagram</strong><span>@the_rolling_oven_26</span></div>
               </a>
-              <a href="tel:+919876543210" className="contact-method" id="contact-phone">
+              <a href="mailto:therollingoven26@gmail.com" className="contact-method" id="contact-email">
                 <div className="method-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                 </div>
-                <div><strong>Call Us</strong><span>+91 98765 43210</span></div>
+                <div><strong>Email Us</strong><span>therollingoven26@gmail.com</span></div>
               </a>
             </div>
           </div>
@@ -345,69 +241,6 @@ export default function Home() {
 
     </main>
 
-    
-    <main id="product-page" className="product-page" style={{"display":"none"}}>
-      <div className="product-page-header">
-        <button className="back-btn" id="back-to-home">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-          <span>Back to Home</span>
-        </button>
-      </div>
-      <div className="product-page-hero-compact" id="product-page-hero">
-        
-      </div>
-      <div className="product-page-scroll" id="product-page-grid">
-        
-      </div>
-    </main>
-
-    
-    <div className="toast-container" id="toast-container"></div>
-
-    
-    <footer className="footer">
-      <div className="footer-container">
-        <div className="footer-brand">
-          <img src="/images/logo.jpeg" alt="The Rolling Oven - Artisan Bakery Logo" className="footer-logo" loading="lazy" />
-          <p className="footer-tagline">Your Cravings, Our Creations</p>
-          <p className="footer-desc">
-            Sathyamangalam, Erode<br />
-            therollingoven26@gmail.com
-          </p>
-        </div>
-        <div className="footer-links-group">
-          <h4 className="footer-heading">Quick Links</h4>
-          <ul className="footer-links">
-            <li><a href="#hero" className="footer-nav-link">Home</a></li>
-            <li><a href="#showcase" className="footer-nav-link">Our Bakes</a></li>
-            <li><a href="#about" className="footer-nav-link">About Us</a></li>
-            <li><a href="#contact" className="footer-nav-link">Contact</a></li>
-          </ul>
-        </div>
-        <div className="footer-links-group">
-          <h4 className="footer-heading">Our Bakes</h4>
-          <ul className="footer-links">
-            <li><a href="#" className="footer-cat-link" data-category="cupcakes">Cupcakes</a></li>
-            <li><a href="#" className="footer-cat-link" data-category="cookies">Cookies</a></li>
-            <li><a href="#" className="footer-cat-link" data-category="muffins">Muffins</a></li>
-            <li><a href="#" className="footer-cat-link" data-category="croissants">Croissants</a></li>
-          </ul>
-        </div>
-        <div className="footer-links-group">
-          <h4 className="footer-heading">Hours</h4>
-          <ul className="footer-links footer-hours">
-            <li><span>Mon - Sat</span><span>9 AM – 8 PM</span></li>
-            <li><span>Sunday</span><span>10 AM – 6 PM</span></li>
-            <li><span>Orders</span><span>24hr advance</span></li>
-          </ul>
-        </div>
-      </div>
-      <div className="footer-bottom">
-        <p>© 2026 The Rolling Oven. All rights reserved. Made with ❤️</p>
-      </div>
-    </footer>
-
-    
     </>
   );
 }
