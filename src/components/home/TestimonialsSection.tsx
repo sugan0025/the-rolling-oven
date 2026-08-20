@@ -38,9 +38,9 @@ export default function TestimonialsSection() {
             "The croissants are flaky, buttery perfection. Better than anything I've had in a café. Absolutely recommend!"
           </p>
           <div className="testimonial-author">
-            <div className="author-avatar">S</div>
+            <div className="author-avatar">A</div>
             <div>
-              <strong>Sakthi</strong>
+              <strong>Asvika</strong>
               <span>Gift Orders</span>
             </div>
           </div>

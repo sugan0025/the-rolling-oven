@@ -27,7 +27,7 @@ export default function Footer() {
             <li><a href="/category/muffins" className="footer-nav-link">Muffins</a></li>
             <li><a href="/category/croissants" className="footer-nav-link">Croissants</a></li>
             <li><a href="/category/donuts" className="footer-nav-link">Donuts</a></li>
-            <li><a href="/category/chocholava" className="footer-nav-link">Chocholava</a></li>
+            <li><a href="/category/chocolava" className="footer-nav-link">Chocolava</a></li>
             <li><a href="/category/tiramisu" className="footer-nav-link">Tiramisu</a></li>
           </ul>
         </div>

@@ -80,7 +80,7 @@ export default function ContactSection() {
                   <option value="cookies">Cookies</option>
                   <option value="muffins">Muffins</option>
                   <option value="donuts">Donuts</option>
-                  <option value="chocholava">Chocholava</option>
+                  <option value="chocolava">Chocolava</option>
                   <option value="tiramisu">Tiramisu</option>
                   <option value="croissants">Croissants</option>
                   <option value="custom">Custom Order</option>

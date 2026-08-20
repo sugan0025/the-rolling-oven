@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 const CATEGORY_SLUGS = [
   'cupcakes', 'cookies', 'muffins', 'donuts',
-  'chocholava', 'tiramisu', 'croissants'
+  'chocolava', 'tiramisu', 'croissants'
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

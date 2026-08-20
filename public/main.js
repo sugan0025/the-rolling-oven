@@ -28,14 +28,14 @@ const CATEGORIES = {
     mainImage: '/images/products/cupcakes/Cupcake front image.png',
     basePrice: 149,
     items: [
-      { name: 'Vanilla Cupcake',         image: '/images/products/cupcakes/Vanilla_Cupcake.png',        price: 149 },
-      { name: 'Chocolate Cupcake',        image: '/images/products/cupcakes/Chocolate_Cupcake.png',       price: 159 },
-      { name: 'Red Velvet Cupcake',       image: '/images/products/cupcakes/Red_Velvet_Cupcake.png',       price: 179 },
-      { name: 'Strawberry Cupcake',       image: '/images/products/cupcakes/Strawberry_Cupcake.png',      price: 169 },
-      { name: 'Banana Cupcake',           image: '/images/products/cupcakes/Banana_Cupcake.png',          price: 159 },
-      { name: 'Carrot Cupcake',           image: '/images/products/cupcakes/Carrot_Cupcake.png',          price: 169 },
-      { name: 'Lemon Cupcake',            image: '/images/products/cupcakes/Lemon_Cupcake.png',           price: 159 },
-      { name: 'Peanut Butter Cupcake',    image: '/images/products/cupcakes/Peanut_Butter_Cupcake.png',   price: 179 },
+      { name: 'Vanilla Cupcake', image: '/images/products/cupcakes/Vanilla_Cupcake.png', price: 149 },
+      { name: 'Chocolate Cupcake', image: '/images/products/cupcakes/Chocolate_Cupcake.png', price: 159 },
+      { name: 'Red Velvet Cupcake', image: '/images/products/cupcakes/Red_Velvet_Cupcake.png', price: 179 },
+      { name: 'Strawberry Cupcake', image: '/images/products/cupcakes/Strawberry_Cupcake.png', price: 169 },
+      { name: 'Banana Cupcake', image: '/images/products/cupcakes/Banana_Cupcake.png', price: 159 },
+      { name: 'Carrot Cupcake', image: '/images/products/cupcakes/Carrot_Cupcake.png', price: 169 },
+      { name: 'Lemon Cupcake', image: '/images/products/cupcakes/Lemon_Cupcake.png', price: 159 },
+      { name: 'Peanut Butter Cupcake', image: '/images/products/cupcakes/Peanut_Butter_Cupcake.png', price: 179 },
     ],
   },
   cookies: {
@@ -46,20 +46,20 @@ const CATEGORIES = {
     mainImage: '/images/products/cookies/Chocolate_chip_cookies.png',
     basePrice: 99,
     items: [
-      { name: 'Chocolate Chip Cookies',            image: '/images/products/cookies/Chocolate_chip_cookies.png',            price: 99  },
-      { name: 'Butter Cookies',                    image: '/images/products/cookies/Butter_cookies.png',                    price: 89  },
-      { name: 'Oatmeal Raisin Cookies',            image: '/images/products/cookies/Oatmeal_raisin_cookies.png',            price: 99  },
-      { name: 'Peanut Butter Cookies',             image: '/images/products/cookies/Peanut_butter_cookies.png',             price: 109 },
-      { name: 'Double Chocolate Cookies',          image: '/images/products/cookies/Double_chocolate_cookies.png',          price: 119 },
-      { name: 'M&M Cookies',                       image: '/images/products/cookies/M&M_cookies.png',                       price: 109 },
-      { name: 'Snickerdoodle Cookies',             image: '/images/products/cookies/Snickerdoodle_Cookie.png',             price: 99  },
-      { name: 'Red Velvet Cookies',                image: '/images/products/cookies/Red_velvet_cookies.png',                price: 119 },
-      { name: 'Almond Cookies',                    image: '/images/products/cookies/Almond_cookies.png',                    price: 109 },
-      { name: 'Macadamia Nut Cookies',             image: '/images/products/cookies/Macadamia_nut_cookies.png',             price: 129 },
-      { name: 'Shortbread Cookies',                image: '/images/products/cookies/Shortbread_Cookie.png',                price: 89  },
-      { name: 'Biscotti',                          image: '/images/products/cookies/Biscotti.png',                          price: 99  },
-      { name: 'Macaroons',                         image: '/images/products/cookies/Macaroons.png',                         price: 149 },
-      { name: 'Cranberry White Chocolate Cookies',  image: '/images/products/cookies/Cranberry_white_chocolate_cookies.png',  price: 119 },
+      { name: 'Chocolate Chip Cookies', image: '/images/products/cookies/Chocolate_chip_cookies.png', price: 99 },
+      { name: 'Butter Cookies', image: '/images/products/cookies/Butter_cookies.png', price: 89 },
+      { name: 'Oatmeal Raisin Cookies', image: '/images/products/cookies/Oatmeal_raisin_cookies.png', price: 99 },
+      { name: 'Peanut Butter Cookies', image: '/images/products/cookies/Peanut_butter_cookies.png', price: 109 },
+      { name: 'Double Chocolate Cookies', image: '/images/products/cookies/Double_chocolate_cookies.png', price: 119 },
+      { name: 'M&M Cookies', image: '/images/products/cookies/M&M_cookies.png', price: 109 },
+      { name: 'Snickerdoodle Cookies', image: '/images/products/cookies/Snickerdoodle_Cookie.png', price: 99 },
+      { name: 'Red Velvet Cookies', image: '/images/products/cookies/Red_velvet_cookies.png', price: 119 },
+      { name: 'Almond Cookies', image: '/images/products/cookies/Almond_cookies.png', price: 109 },
+      { name: 'Macadamia Nut Cookies', image: '/images/products/cookies/Macadamia_nut_cookies.png', price: 129 },
+      { name: 'Shortbread Cookies', image: '/images/products/cookies/Shortbread_Cookie.png', price: 89 },
+      { name: 'Biscotti', image: '/images/products/cookies/Biscotti.png', price: 99 },
+      { name: 'Macaroons', image: '/images/products/cookies/Macaroons.png', price: 149 },
+      { name: 'Cranberry White Chocolate Cookies', image: '/images/products/cookies/Cranberry_white_chocolate_cookies.png', price: 119 },
     ],
   },
   muffins: {
@@ -70,12 +70,12 @@ const CATEGORIES = {
     mainImage: '/images/products/muffins/Blueberry_Muffin.png',
     basePrice: 129,
     items: [
-      { name: 'Blueberry Muffin',        image: '/images/products/muffins/Blueberry_Muffin.png',         price: 129 },
-      { name: 'Chocolate Chip Muffin',    image: '/images/products/muffins/Chocolate_Chip_Muffin.png',     price: 139 },
-      { name: 'Banana Nut Muffin',        image: '/images/products/muffins/Banana_Nut_Muffin.png',         price: 129 },
-      { name: 'Double Chocolate Muffin',  image: '/images/products/muffins/Double_Chocolate_Muffin.png',   price: 149 },
-      { name: 'Apple Cinnamon Muffin',    image: '/images/products/muffins/Apple_Cinnamon_Muffin.png',     price: 129 },
-      { name: 'Lemon Poppy Seed Muffin',  image: '/images/products/muffins/Lemon_Poppy_Seed_Muffin.png',   price: 129 },
+      { name: 'Blueberry Muffin', image: '/images/products/muffins/Blueberry_Muffin.png', price: 129 },
+      { name: 'Chocolate Chip Muffin', image: '/images/products/muffins/Chocolate_Chip_Muffin.png', price: 139 },
+      { name: 'Banana Nut Muffin', image: '/images/products/muffins/Banana_Nut_Muffin.png', price: 129 },
+      { name: 'Double Chocolate Muffin', image: '/images/products/muffins/Double_Chocolate_Muffin.png', price: 149 },
+      { name: 'Apple Cinnamon Muffin', image: '/images/products/muffins/Apple_Cinnamon_Muffin.png', price: 129 },
+      { name: 'Lemon Poppy Seed Muffin', image: '/images/products/muffins/Lemon_Poppy_Seed_Muffin.png', price: 129 },
     ],
   },
   donuts: {
@@ -86,24 +86,24 @@ const CATEGORIES = {
     mainImage: '/images/products/donuts/Classic_Glazed_Donut.png',
     basePrice: 119,
     items: [
-      { name: 'Classic Glazed Donut',     image: '/images/products/donuts/Classic_Glazed_Donut.png', price: 119 },
-      { name: 'Chocolate Frosted Donut',  image: '/images/products/donuts/Chocolate_Frosted_Donut.png', price: 139 },
-      { name: 'Strawberry Donut',         image: '/images/products/donuts/Strawberry_Donut.png', price: 139 },
-      { name: 'Sprinkle Donut',           image: '/images/products/donuts/Sprinkle_Donut.png', price: 129 },
+      { name: 'Classic Glazed Donut', image: '/images/products/donuts/Classic_Glazed_Donut.png', price: 119 },
+      { name: 'Chocolate Frosted Donut', image: '/images/products/donuts/Chocolate_Frosted_Donut.png', price: 139 },
+      { name: 'Strawberry Donut', image: '/images/products/donuts/Strawberry_Donut.png', price: 139 },
+      { name: 'Sprinkle Donut', image: '/images/products/donuts/Sprinkle_Donut.png', price: 129 },
     ],
   },
-  chocholava: {
-    name: 'Chocholava',
+  chocolava: {
+    name: 'Chocolava',
     tagline: 'Molten chocolate magic in every bite.',
-    description: 'Our signature chocholava cakes feature a rich, gooey chocolate center that flows out when you break the crust. Pure indulgence.',
+    description: 'Our signature chocolava cakes feature a rich, gooey chocolate center that flows out when you break the crust. Pure indulgence.',
     badge: 'Premium',
     badgeClass: 'premium',
-    mainImage: '/images/products/chocholava/Classic_Chocholava.png',
+    mainImage: '/images/products/chocolava/Classic_Chocolava.png',
     basePrice: 249,
     items: [
-      { name: 'Classic Chocholava',       image: '/images/products/chocholava/Classic_Chocholava.png', price: 249 },
-      { name: 'Dark Chocolate Lava',      image: '/images/products/chocholava/Dark_Chocolate_Lava_Cake.png', price: 279 },
-      { name: 'White Chocolate Lava',     image: '/images/products/chocholava/White_Chocolate_Lava_Cake.png', price: 269 },
+      { name: 'Classic Chocolava', image: '/images/products/chocolava/Classic_Chocolava.png', price: 249 },
+      { name: 'Dark Chocolate Lava', image: '/images/products/chocolava/Dark_Chocolate_Lava_Cake.png', price: 279 },
+      { name: 'White Chocolate Lava', image: '/images/products/chocolava/White_Chocolate_Lava_Cake.png', price: 269 },
     ],
   },
   tiramisu: {
@@ -114,9 +114,9 @@ const CATEGORIES = {
     mainImage: '/images/products/tiramisu/tiramisu.png',
     basePrice: 349,
     items: [
-      { name: 'Classic Tiramisu',         image: '/images/products/tiramisu/tiramisu.png', price: 349 },
-      { name: 'Chocolate Tiramisu',       image: '/images/products/tiramisu/Chocolate_Tiramisu.png', price: 379 },
-      { name: 'Mango Tiramisu',           image: '/images/products/tiramisu/Mango_Tiramisu.png', price: 369 },
+      { name: 'Classic Tiramisu', image: '/images/products/tiramisu/tiramisu.png', price: 349 },
+      { name: 'Chocolate Tiramisu', image: '/images/products/tiramisu/Chocolate_Tiramisu.png', price: 379 },
+      { name: 'Mango Tiramisu', image: '/images/products/tiramisu/Mango_Tiramisu.png', price: 369 },
     ],
   },
   croissants: {
@@ -127,20 +127,20 @@ const CATEGORIES = {
     mainImage: '/images/products/croissants/Butter_Croissant.png',
     basePrice: 149,
     items: [
-      { name: 'Butter Croissant',           image: '/images/products/croissants/Butter_Croissant.png',           price: 149 },
-      { name: 'Chocolate Croissant',        image: '/images/products/croissants/Chocolate_Croissant.png',        price: 179 },
-      { name: 'Almond Croissant',           image: '/images/products/croissants/Almond_Croissant.png',           price: 189 },
-      { name: 'Pistachio Croissant',        image: '/images/products/croissants/Pistachio_Croissant.png',        price: 199 },
-      { name: 'Raspberry Croissant',        image: '/images/products/croissants/Raspberry_Croissant.png',        price: 189 },
-      { name: 'Matcha Croissant',           image: '/images/products/croissants/Matcha_Croissant.png',           price: 199 },
-      { name: 'Matcha Cream Croissant',     image: '/images/products/croissants/Matcha_Cream_Croissant.png',     price: 209 },
-      { name: 'Tiramisu Croissant',         image: '/images/products/croissants/Tiramisu_Croissant.png',         price: 209 },
-      { name: 'Berries & Cream Croissant',  image: '/images/products/croissants/Berries_and_Cream_Croissant.png', price: 199 },
-      { name: 'Lavender Croissant',         image: '/images/products/croissants/Lavender_Croissant.png',         price: 189 },
-      { name: 'Garlic Butter Croissant',    image: '/images/products/croissants/Garlic_Butter_Croissant.png',    price: 169 },
-      { name: 'Ube Croissant',              image: '/images/products/croissants/Ube_Croissant.png',              price: 199 },
-      { name: 'Smoked Salmon Croissant',    image: '/images/products/croissants/Smoked_Salmon_Croissant.png',    price: 229 },
-      { name: 'Gold Sprinkles Croissant',   image: '/images/products/croissants/Gold_Sprinkles_Croissant.png',   price: 219 },
+      { name: 'Butter Croissant', image: '/images/products/croissants/Butter_Croissant.png', price: 149 },
+      { name: 'Chocolate Croissant', image: '/images/products/croissants/Chocolate_Croissant.png', price: 179 },
+      { name: 'Almond Croissant', image: '/images/products/croissants/Almond_Croissant.png', price: 189 },
+      { name: 'Pistachio Croissant', image: '/images/products/croissants/Pistachio_Croissant.png', price: 199 },
+      { name: 'Raspberry Croissant', image: '/images/products/croissants/Raspberry_Croissant.png', price: 189 },
+      { name: 'Matcha Croissant', image: '/images/products/croissants/Matcha_Croissant.png', price: 199 },
+      { name: 'Matcha Cream Croissant', image: '/images/products/croissants/Matcha_Cream_Croissant.png', price: 209 },
+      { name: 'Tiramisu Croissant', image: '/images/products/croissants/Tiramisu_Croissant.png', price: 209 },
+      { name: 'Berries & Cream Croissant', image: '/images/products/croissants/Berries_and_Cream_Croissant.png', price: 199 },
+      { name: 'Lavender Croissant', image: '/images/products/croissants/Lavender_Croissant.png', price: 189 },
+      { name: 'Garlic Butter Croissant', image: '/images/products/croissants/Garlic_Butter_Croissant.png', price: 169 },
+      { name: 'Ube Croissant', image: '/images/products/croissants/Ube_Croissant.png', price: 199 },
+      { name: 'Smoked Salmon Croissant', image: '/images/products/croissants/Smoked_Salmon_Croissant.png', price: 229 },
+      { name: 'Gold Sprinkles Croissant', image: '/images/products/croissants/Gold_Sprinkles_Croissant.png', price: 219 },
       { name: 'Prosciutto Gruyère Croissant', image: '/images/products/croissants/Prosciutto_Gruyere_Croissant.png', price: 239 },
     ],
   },
@@ -152,7 +152,7 @@ const TODAYS_FAVORITES = [
   { ...CATEGORIES.cookies.items[0], category: 'cookies', categoryName: 'Cookies', badge: 'Popular', desc: 'Classic chocolate chip with a gooey center and crispy edges.' },
   { ...CATEGORIES.muffins.items[0], category: 'muffins', categoryName: 'Muffins', badge: 'Fresh Daily', desc: 'Bursting with fresh blueberries and a golden crumbly top.' },
   { ...CATEGORIES.croissants.items[3], category: 'croissants', categoryName: 'Croissants', badge: 'Handcrafted', desc: 'Flaky buttery layers with a rich pistachio cream filling.' },
-  { ...CATEGORIES.chocholava.items[0], category: 'chocholava', categoryName: 'Chocholava', badge: 'Premium', badgeClass: 'premium', desc: 'Molten chocolate center that flows out with pure indulgence.' },
+  { ...CATEGORIES.chocolava.items[0], category: 'chocolava', categoryName: 'Chocolava', badge: 'Premium', badgeClass: 'premium', desc: 'Molten chocolate center that flows out with pure indulgence.' },
   { ...CATEGORIES.tiramisu.items[0], category: 'tiramisu', categoryName: 'Tiramisu', badge: 'Signature', desc: 'Coffee-soaked mascarpone layers dusted with premium cocoa.' },
   { ...CATEGORIES.donuts.items[0], category: 'donuts', categoryName: 'Donuts', badge: 'Handmade', desc: 'Hand-rolled, fried to perfection, with our signature glaze.' },
 ];
@@ -191,7 +191,7 @@ function addToCart(name, price, image, category) {
   saveCart();
   updateCartBadge();
   renderCart();
-  
+
   // Google Analytics Tracking
   if (typeof gtag !== 'undefined') {
     gtag('event', 'add_to_cart', {
@@ -287,7 +287,7 @@ window.removeFromCart = removeFromCart;
 function showToast(type, title, message) {
   const container = document.getElementById('toast-container');
   const toast = document.createElement('div');
-  
+
   if (type === 'success' && title.includes('Cart')) {
     toast.className = `toast premium-toast ${type}`;
     toast.innerHTML = `
@@ -309,7 +309,7 @@ function showToast(type, title, message) {
       <div class="toast-text"><strong>${title}</strong><span>${message}</span></div>
     `;
   }
-  
+
   container.appendChild(toast);
   setTimeout(() => toast.remove(), 3200);
 }
@@ -413,7 +413,7 @@ let currentCarouselIndex = 0;
 function renderFavorites() {
   const stage = document.getElementById('carousel-stage');
   if (!stage) return;
-  
+
   // We'll use all 7 favorites
   stage.innerHTML = TODAYS_FAVORITES.map((item, i) => `
     <div class="product-card" data-index="${i}">
@@ -446,7 +446,7 @@ function renderFavorites() {
     currentCarouselIndex = (currentCarouselIndex - 1 + TODAYS_FAVORITES.length) % TODAYS_FAVORITES.length;
     updateCarousel();
   });
-  
+
   document.getElementById('carousel-next').addEventListener('click', () => {
     currentCarouselIndex = (currentCarouselIndex + 1) % TODAYS_FAVORITES.length;
     updateCarousel();
@@ -675,12 +675,12 @@ function initCart() {
   const cartIconBtn = document.querySelector('.nav-cta');
   if (cartIconBtn) {
     // Only intercept if it's the cart button (has cart-badge)
-    if(cartIconBtn.querySelector('.cart-badge')) {
+    if (cartIconBtn.querySelector('.cart-badge')) {
       cartIconBtn.addEventListener('click', (e) => {
         // Prevent default only for the cart button, let Order Now do its thing
-        if(e.currentTarget.getAttribute('href') === '#') {
-           e.preventDefault();
-           openCart();
+        if (e.currentTarget.getAttribute('href') === '#') {
+          e.preventDefault();
+          openCart();
         }
       });
     }
@@ -698,7 +698,7 @@ function initCart() {
     closeCart();
     openOrderModal();
   });
-  
+
   // Order Now button in nav opens order modal directly
   const orderBtn = document.getElementById('nav-order-btn');
   if (orderBtn) {
@@ -740,7 +740,7 @@ function initOrderModal() {
   document.getElementById('order-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submit-order-btn');
-    
+
     // Prevent double submission immediately
     if (btn.disabled) return;
     const original = btn.innerHTML;
@@ -757,7 +757,7 @@ function initOrderModal() {
       btn.disabled = false;
       return;
     }
-    
+
     const orderData = {
       name: document.getElementById('order-name').value,
       email: document.getElementById('order-email').value,
@@ -773,7 +773,7 @@ function initOrderModal() {
 
     try {
       await sendOrderEmail(orderData);
-      
+
       // Google Analytics Tracking
       if (typeof gtag !== 'undefined') {
         gtag('event', 'purchase', {
@@ -812,7 +812,7 @@ function initContactForm() {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submit-inquiry');
-    
+
     // Prevent double submission immediately
     if (btn.disabled) return;
     const original = btn.innerHTML;
@@ -839,7 +839,7 @@ function initContactForm() {
 
     try {
       await sendContactForm(formData);
-      
+
       // Google Analytics event for inquiry
       if (typeof gtag !== 'undefined') {
         gtag('event', 'generate_lead', {
@@ -873,7 +873,7 @@ function initSmoothScroll() {
       try {
         const target = document.querySelector(href);
         if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-      } catch(err) {}
+      } catch (err) { }
     });
   });
 }
@@ -889,12 +889,12 @@ function initFeedbackModal() {
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   });
-  
+
   const close = () => {
     overlay.classList.remove('active');
     document.body.style.overflow = '';
   };
-  
+
   document.getElementById('feedback-modal-close')?.addEventListener('click', close);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
 
@@ -904,24 +904,24 @@ function initFeedbackModal() {
     const original = btn.innerHTML;
     btn.innerHTML = '<span>Submitting...</span>';
     btn.disabled = true;
-    
+
     const formData = {
       name: document.getElementById('feedback-name').value,
       rating: parseInt(document.getElementById('feedback-rating').value),
       message: document.getElementById('feedback-message').value
     };
-    
+
     try {
-       await sendFeedback(formData);
-       showToast('success', 'Thank You!', 'Your review has been submitted.');
-       e.target.reset();
-       close();
-    } catch(err) {
-       console.error(err);
-       showToast('error', 'Oops!', 'Something went wrong. Please try again.');
+      await sendFeedback(formData);
+      showToast('success', 'Thank You!', 'Your review has been submitted.');
+      e.target.reset();
+      close();
+    } catch (err) {
+      console.error(err);
+      showToast('error', 'Oops!', 'Something went wrong. Please try again.');
     } finally {
-       btn.innerHTML = original;
-       btn.disabled = false;
+      btn.innerHTML = original;
+      btn.disabled = false;
     }
   });
 }
@@ -942,10 +942,10 @@ function showOrderSuccess(orderData) {
         </svg>
       </div>
       <h2 class="success-title">Order Placed Successfully!</h2>
-      <p class="success-subtitle">${orderData.isDirectOrder 
-        ? 'We\'ll reach out to you with pricing details shortly.' 
-        : `Your order of <strong>₹${orderData.total}</strong> has been confirmed.`
-      }</p>
+      <p class="success-subtitle">${orderData.isDirectOrder
+      ? 'We\'ll reach out to you with pricing details shortly.'
+      : `Your order of <strong>₹${orderData.total}</strong> has been confirmed.`
+    }</p>
       <p class="success-detail">A confirmation email is on its way to <strong>${orderData.email}</strong></p>
       <div class="success-divider"></div>
       <p class="success-tagline">Thank you for choosing The Rolling Oven 🧁</p>

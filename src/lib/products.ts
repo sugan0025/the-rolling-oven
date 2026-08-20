@@ -99,18 +99,18 @@ export const CATEGORIES: Record<string, Category> = {
       { name: 'Sprinkle Donut',           image: '/images/products/donuts/Sprinkle_Donut.png', price: 129 },
     ],
   },
-  chocholava: {
-    name: 'Chocholava',
+  chocolava: {
+    name: 'Chocolava',
     tagline: 'Molten chocolate magic in every bite.',
-    description: 'Our signature chocholava cakes feature a rich, gooey chocolate center that flows out when you break the crust. Pure indulgence.',
+    description: 'Our signature chocolava cakes feature a rich, gooey chocolate center that flows out when you break the crust. Pure indulgence.',
     badge: 'Premium',
     badgeClass: 'premium',
-    mainImage: '/images/products/chocholava/Classic_Chocholava.png',
+    mainImage: '/images/products/chocolava/Classic_Chocolava.png',
     basePrice: 249,
     items: [
-      { name: 'Classic Chocholava',       image: '/images/products/chocholava/Classic_Chocholava.png', price: 249 },
-      { name: 'Dark Chocolate Lava',      image: '/images/products/chocholava/Dark_Chocolate_Lava_Cake.png', price: 279 },
-      { name: 'White Chocolate Lava',     image: '/images/products/chocholava/White_Chocolate_Lava_Cake.png', price: 269 },
+      { name: 'Classic Chocolava',       image: '/images/products/chocolava/Classic_Chocolava.png', price: 249 },
+      { name: 'Dark Chocolate Lava',      image: '/images/products/chocolava/Dark_Chocolate_Lava_Cake.png', price: 279 },
+      { name: 'White Chocolate Lava',     image: '/images/products/chocolava/White_Chocolate_Lava_Cake.png', price: 269 },
     ],
   },
   tiramisu: {

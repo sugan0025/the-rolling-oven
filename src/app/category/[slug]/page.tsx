@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       "Donuts Sathyamangalam", "Glazed donuts Erode", "Chocolate frosted donuts Tamil Nadu",
       "Strawberry donuts", "Fresh donuts near me", "Donut delivery Erode"
     ],
-    chocholava: [
+    chocolava: [
       "Chocolate lava cake Sathyamangalam", "Molten choco lava Erode", "Dark chocolate lava cake Tamil Nadu",
       "Warm dessert delivery", "Best lava cake near me"
     ],
