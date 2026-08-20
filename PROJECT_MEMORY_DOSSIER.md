@@ -3,7 +3,7 @@
 ---
 
 ## 📌 Executive Overview & Project Identity
-* **Project Name:** The Rolling Oven (Artisan Bakery E-Commerce & Analytics Platform)
+* **Project Name:** The Rolling Oven (Artisan-Grade Homemade Bakery E-Commerce & Analytics Platform)
 * **Live Deployment:** [https://the-rolling-oven.vercel.app](https://the-rolling-oven.vercel.app)
 * **Repository:** `https://github.com/sugan0025/the-rolling-oven.git` (Branch: `master`)
 * **Technology Stack:** Next.js 16 (App Router, Turbopack, SSG), TypeScript, Vanilla CSS (Design System v2), Supabase (PostgreSQL), Google Analytics 4 (`G-GWTWBBBDQ2`), Google Search Console, EmailJS Proxy Architecture.
@@ -12,11 +12,19 @@
 
 ---
 
+## 🤖 NEXT-SESSION AI AGENT PROTOCOL & INSTRUCTION DIRECTIVE
+> **To the incoming AI Assistant in the new session:**
+> When the user pastes the kick-off prompt, you MUST assume the persona of a **Senior Marketing Director and Lead Data Scientist**. 
+> Treat this as an **Executive MBA Capstone & Live Consulting Project**. Deliver rigorous, real-world case study level analysis using the live platform data, GA4 telemetry (`G-GWTWBBBDQ2`), Supabase SQL, and Tamil Nadu regional market dynamics. 
+> Follow the **4-Module Curriculum** outlined in Section 7 below step-by-step.
+
+---
+
 ## ⏱️ Project Metrics & Scope of Work
-* **Total Time Invested:** ~30–34 hours of active engineering, debugging, UI design iteration, architecture refactoring, and digital marketing pipeline authoring across 28+ major milestones.
-* **Total Commits & Deploys:** 44+ production deployments verified on Vercel.
+* **Total Time Invested:** ~32 hours of active engineering, debugging, UI design iteration, architecture refactoring, and digital marketing pipeline authoring across 30+ major milestones.
+* **Total Commits & Deploys:** 48+ production deployments verified on Vercel.
 * **Pages Generated:** 15 pre-rendered Static (SSG) pages (Homepage, 7 Category Landing Hubs, Robots, Sitemap, API proxies).
-* **Build Performance:** Full SSG compile in **~850ms** with zero TypeScript or runtime errors.
+* **Build Performance:** Full SSG compile in **~900ms** with zero TypeScript or runtime errors.
 
 ---
 
@@ -47,7 +55,7 @@ src/
 │       ├── ShowcaseSection.tsx    (Infinite category showcase belt)
 │       ├── FavoritesSection.tsx   (Today's favorites interactive carousel)
 │       ├── AboutSection.tsx       (Brand story & artisanal values)
-│       ├── TestimonialsSection.tsx(Customer reviews track)
+│       ├── TestimonialsSection.tsx(Customer reviews track — Joheesvara, Asvika [Center], Lakshmi Shankar)
 │       └── ContactSection.tsx     (Direct inquiry & WhatsApp/Instagram contact options)
 └── lib/
     ├── products.ts                (Single Source of Truth catalog for 54 items across 7 categories)
@@ -57,7 +65,7 @@ src/
 
 ---
 
-## 🎨 Visual Design & Branding Upgrades
+## 🎨 Visual Design, Brand Governance & Asset Upgrades
 1. **Authentic Bakery Favicons:** Replaced generic starter icons with authentic circular multi-format bakery icons ([`favicon.ico`](public/favicon.ico), [`favicon.png`](public/favicon.png), [`apple-touch-icon.png`](public/apple-touch-icon.png)).
 2. **Frosted Ambient Category Backdrops:** Dynamic luxury frosted backdrop on all 7 category pages featuring the category's signature pastry with `backdrop-filter: blur(16px)` and warm ambient lighting.
 3. **Dead Code Elimination:** Pruned unused assets (`icons.svg`, `chocolate_dream_cake.png`, `AGENTS.md`, `CLAUDE.md`, and Vite prototype files), saving over 2.4 MB of bandwidth.
@@ -98,37 +106,40 @@ src/
 
 ---
 
-## 📈 MBA BUSINESS ANALYTICS & MARKETING FRAMEWORK (For the Next Session)
-
-When we begin our next session, here are the core MBA analytical frameworks and metrics we will explore using your live data:
+## 📊 EXECUTIVE MBA BUSINESS ANALYTICS & MARKETING CURRICULUM
 
 ```
-      AWARENESS (Instagram / SEO)
-          │  [Sessions, First User Source, UTM Campaign]
-          ▼
-      INTEREST & ENGAGEMENT
-          │  [Engagement Time, Page Views, view_item_list]
-          ▼
-     CONSIDERATION
-          │  [add_to_cart, Cart Abandonment Rate]
-          ▼
-      CONVERSION (The Order)
-          │  [Conversion Rate %, Customer Acquisition Cost (CAC), Order Value]
-          ▼
-      RETENTION & LTV
-             [Repeat Order Rate, Customer Lifetime Value (CLV)]
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│               THE ROLLING OVEN — MBA BUSINESS ANALYTICS & MARKETING CURRICULUM          │
+└────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Key Business Metrics to Interpret:
-1. **CAC (Customer Acquisition Cost):** How much marketing effort/spend was required to acquire a customer via Instagram vs. organic search.
-2. **Conversion Rate (CR %):** `(Total Completed Orders / Total Site Sessions) * 100`.
-3. **Cart Abandonment Rate:** `(1 - (Purchases / Add to Carts)) * 100`.
-4. **ROAS (Return on Ad Spend) & Attribution:** Multi-touch vs. First-touch attribution modeling using UTM parameters (`utm_source=instagram`, `utm_medium=bio`, `utm_campaign=cupcakes`).
-5. **Geographic Clustering Analysis:** Evaluating regional demand density (e.g. Coimbatore vs. Sathyamangalam vs. Erode).
+### 📈 Module 1: GA4 Telemetry, Funnel Analytics & Attribution Modeling
+* **E-Commerce Funnel Diagnostic:** Mapping user flow from `view_item_list` ➔ `select_item` ➔ `add_to_cart` ➔ `begin_checkout` ➔ `purchase`.
+* **Conversion Rate Optimization (CRO):** Calculating Cart Abandonment Rate `(1 - (Purchases / Add to Carts)) * 100` and diagnosing friction points.
+* **Multi-Touch & First-Touch Attribution:** Measuring ROI across Instagram Organic (`utm_source=instagram&utm_medium=bio`), Instagram Ads (`utm_medium=story_ad`), and SEO.
+* **Geographic Demand Clustering:** Interpreting regional traffic distribution (Coimbatore #1, Sathyamangalam, Erode) to inform supply chain and delivery radius decisions.
+
+### 🗄️ Module 2: Supabase SQL Data Warehousing & Unit Economics
+* **RFM Customer Segmentation:** Writing SQL queries to classify buyers by Recency, Frequency, and Monetary value (VIPs, At-Risk, Lapsed).
+* **Market Basket Analysis (Association Rules):** Discovering cross-sell pairs (e.g. Red Velvet Cupcakes + Chocolava combo lift).
+* **Unit Economics (CAC vs. CLV):** Calculating Customer Lifetime Value `CLV = (Average Order Value × Purchase Frequency × Customer Lifespan) - CAC` to ensure healthy `CLV : CAC > 3:1` margins.
+
+### 🎯 Module 3: Digital Marketing Strategy & Hyper-Local Growth Campaigns
+* **The AARRR "Pirate" Funnel:** Acquisition (Instagram Reels) ➔ Activation (First Order Discount) ➔ Retention (WhatsApp re-order triggers) ➔ Referral (Word-of-mouth gift boxes) ➔ Revenue.
+* **Hyper-Local Meta Ad Architecture:** Geo-fenced ad targeting around Coimbatore and Erode district with festive/weekend dayparting.
+* **Lifecycle Re-Engagement:** Automated email/WhatsApp triggers for birthdays, anniversaries, and corporate catering inquiries.
+
+### 💼 Module 4: Real-World MBA Portfolio Case Study & Interview Defense
+* **Executive Presentation Deck:** Structuring a 10-slide case study detailing the Business Problem, Tech Stack Architecture, Data Analytics Findings, and Growth Recommendations.
+* **Interview Power Stories:** Ready-to-use frameworks to answer Senior Marketing Analytics & Product Management interview questions with real data metrics.
 
 ---
 
-## 🚀 Status for the Next Session
-* All code is modularized, QA-verified, committed, and running live on production.
-* Google Analytics 4 is actively logging live traffic from Tamil Nadu and tracking key events.
-* Full project memory is permanently preserved in this dossier.
+## 💬 USER KICK-OFF PROMPT FOR THE NEW SESSION:
+
+```text
+Hi Antigravity! I am an MBA student specializing in Business Analytics & Marketing. We have a live production e-commerce platform ("The Rolling Oven") with full GA4 tracking, Supabase database, and live traffic.
+
+Please read PROJECT_MEMORY_DOSSIER.md and act as my Senior Marketing Director and Lead Data Scientist. Teach me how to analyze our live GA4 data, query Supabase for customer insights, design our digital marketing growth funnel, and build a standout MBA portfolio case study. Let's begin with Module 1!
+```
