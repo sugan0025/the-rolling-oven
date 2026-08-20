@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter, Dancing_Script } from "next/font/google";
 import Script from "next/script";
 import Navbar from "../components/Navbar";
-import FloatingPastries from "../components/FloatingPastries";
 import CartDrawer from "../components/CartDrawer";
 import OrderModal from "../components/OrderModal";
 import ToastContainer from "../components/ToastContainer";
@@ -184,9 +183,6 @@ export default function RootLayout({
 
         {/* ===== PARTICLES CANVAS ===== */}
         <canvas id="particles-canvas"></canvas>
-
-        {/* ===== FLOATING EDGE PASTRIES (Side Gutters) ===== */}
-        <FloatingPastries />
 
         {/* ===== NAVBAR ===== */}
         <Navbar />
