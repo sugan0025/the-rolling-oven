@@ -22,19 +22,6 @@ export default function TestimonialsSection() {
         <div className="testimonial-card">
           <div className="testimonial-stars">★★★★★</div>
           <p className="testimonial-text">
-            "Best cupcakes in the city! The red velvet is to die for. I order them for every celebration now."
-          </p>
-          <div className="testimonial-author">
-            <div className="author-avatar">L</div>
-            <div>
-              <strong>Lakshmi Shankar</strong>
-              <span>Birthday Orders</span>
-            </div>
-          </div>
-        </div>
-        <div className="testimonial-card">
-          <div className="testimonial-stars">★★★★★</div>
-          <p className="testimonial-text">
             "The croissants are flaky, buttery perfection. Better than anything I've had in a café. Absolutely recommend!"
           </p>
           <div className="testimonial-author">
@@ -42,6 +29,19 @@ export default function TestimonialsSection() {
             <div>
               <strong>Asvika</strong>
               <span>Gift Orders</span>
+            </div>
+          </div>
+        </div>
+        <div className="testimonial-card">
+          <div className="testimonial-stars">★★★★★</div>
+          <p className="testimonial-text">
+            "Best cupcakes in the city! The red velvet is to die for. I order them for every celebration now."
+          </p>
+          <div className="testimonial-author">
+            <div className="author-avatar">L</div>
+            <div>
+              <strong>Lakshmi Shankar</strong>
+              <span>Birthday Orders</span>
             </div>
           </div>
         </div>

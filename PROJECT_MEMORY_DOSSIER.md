@@ -61,6 +61,8 @@ src/
 1. **Authentic Bakery Favicons:** Replaced generic starter icons with authentic circular multi-format bakery icons ([`favicon.ico`](public/favicon.ico), [`favicon.png`](public/favicon.png), [`apple-touch-icon.png`](public/apple-touch-icon.png)).
 2. **Frosted Ambient Category Backdrops:** Dynamic luxury frosted backdrop on all 7 category pages featuring the category's signature pastry with `backdrop-filter: blur(16px)` and warm ambient lighting.
 3. **Dead Code Elimination:** Pruned unused assets (`icons.svg`, `chocolate_dream_cake.png`, `AGENTS.md`, `CLAUDE.md`, and Vite prototype files), saving over 2.4 MB of bandwidth.
+4. **Brand Tone & Nomenclature:** 100% purged all "artisan" references across titles, metadata, and badges in favor of "Homemade", "Fresh", and "Handcrafted".
+5. **Social Proof & Orthography Polish:** Centered Asvika's customer review on the homepage testimonials track and perfected catalog spelling (`Chocolava` assets, routes, and data).
 
 ---
 
