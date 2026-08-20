@@ -562,20 +562,30 @@ function initScrollAnimations() {
     if (scrollIndicator) scrollIndicator.style.opacity = Math.max(0, 1 - scrollY / 300);
   });
 
-  // Active nav link
+  // Active nav link & dynamic URL hash update on scroll
   const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
         navLinks.forEach(link => {
           link.classList.remove('active');
-          if (link.getAttribute('href') === `#${id}`) link.classList.add('active');
+          const href = link.getAttribute('href');
+          if (href === `#${id}` || href === `/#${id}`) link.classList.add('active');
         });
+
+        // Dynamically update URL hash as user scrolls without cluttering browser history
+        if ((window.location.pathname === '/' || window.location.pathname === '') && window.location.hash !== `#${id}`) {
+          if (id === 'hero') {
+            history.replaceState(null, null, window.location.pathname);
+          } else {
+            history.replaceState(null, null, `#${id}`);
+          }
+        }
       }
     });
-  }, { rootMargin: '-20% 0px -80% 0px' });
+  }, { rootMargin: '-30% 0px -60% 0px' });
   sections.forEach(s => observer.observe(s));
 
   // Reveal animations
