@@ -1168,3 +1168,164 @@ html.lenis, html.lenis body {
   pointer-events: none !important;
 }
 
+/* ============================================
+   FLOATING EDGE PASTRIES (Side Gutters)
+   ============================================ */
+.floating-pastries-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 15;
+  overflow: hidden;
+}
+
+.pastry-rail {
+  position: absolute;
+  top: 15vh;
+  bottom: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 90px;
+  pointer-events: none;
+}
+
+.pastry-rail-left {
+  left: max(16px, calc(50% - 760px));
+}
+
+.pastry-rail-right {
+  right: max(16px, calc(50% - 760px));
+}
+
+.floating-pastry-item {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease;
+}
+
+.pastry-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+.pastry-heart-accent {
+  font-size: 1.1rem;
+  color: var(--gold);
+  opacity: 0.65;
+  animation: heartPulse 3.5s ease-in-out infinite alternate;
+  user-select: none;
+}
+
+/* Individual Clamped Micro-Movement Animations */
+.pastry-anim-strawberry {
+  animation: pastryFloatY 4.2s ease-in-out infinite alternate;
+}
+
+.pastry-anim-cupcake {
+  animation: pastryDriftX 5s ease-in-out infinite alternate;
+}
+
+.pastry-anim-cookie {
+  animation: pastryRotate 6s ease-in-out infinite alternate;
+}
+
+.pastry-anim-cake {
+  animation: pastryBob 4.8s ease-in-out infinite alternate;
+}
+
+.pastry-anim-donut {
+  animation: pastryDonut 5.5s ease-in-out infinite alternate;
+}
+
+.pastry-anim-croissant {
+  animation: pastryWiggle 6.5s ease-in-out infinite alternate;
+}
+
+@keyframes pastryFloatY {
+  0% { transform: translate3d(0, -8px, 0); }
+  100% { transform: translate3d(0, 8px, 0); }
+}
+
+@keyframes pastryDriftX {
+  0% { transform: translate3d(-6px, 0, 0); }
+  100% { transform: translate3d(6px, 0, 0); }
+}
+
+@keyframes pastryRotate {
+  0% { transform: rotate(-7deg) translate3d(0, -4px, 0); }
+  100% { transform: rotate(7deg) translate3d(0, 4px, 0); }
+}
+
+@keyframes pastryBob {
+  0% { transform: translate3d(0, -6px, 0) scale(0.98); }
+  100% { transform: translate3d(0, 6px, 0) scale(1.02); }
+}
+
+@keyframes pastryDonut {
+  0% { transform: translate3d(-4px, -6px, 0) rotate(-4deg); }
+  100% { transform: translate3d(4px, 6px, 0) rotate(4deg); }
+}
+
+@keyframes pastryWiggle {
+  0%, 100% { transform: rotate(0deg) translate3d(0, 0, 0); }
+  25% { transform: rotate(-6deg) translate3d(-3px, -4px, 0); }
+  75% { transform: rotate(6deg) translate3d(3px, 4px, 0); }
+}
+
+@keyframes heartPulse {
+  0% { transform: scale(0.85); opacity: 0.35; }
+  100% { transform: scale(1.15); opacity: 0.85; }
+}
+
+/* Hide Floating Pastries on screen widths where gutters get narrow */
+@media (max-width: 1320px) {
+  .pastry-rail {
+    width: 60px;
+  }
+  .floating-pastry-item {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 1220px) {
+  .floating-pastries-container {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   FROSTED AMBIENT CATEGORY BACKDROP
+   ============================================ */
+.category-frosted-ambient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(90px) brightness(0.35) saturate(1.4);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+  transform: scale(1.15);
+  will-change: transform;
+}
+
+
