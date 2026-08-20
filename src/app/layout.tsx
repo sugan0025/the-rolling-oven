@@ -25,14 +25,14 @@ const dancingScript = Dancing_Script({
 
 export const metadata: Metadata = {
   title: {
-    default: "The Rolling Oven | Artisan Bakery in Sathyamangalam, Erode",
+    default: "The Rolling Oven | Homemade Bakery in Sathyamangalam, Erode",
     template: "%s | The Rolling Oven"
   },
-  description: "Freshly baked artisan treats, custom birthday cakes, cupcakes, brownies, cookies, donuts, and desserts made with love. Handcrafted daily in Sathyamangalam, Erode, Tamil Nadu.",
+  description: "Freshly baked homemade treats, custom birthday cakes, cupcakes, brownies, cookies, donuts, and desserts made with love. Handcrafted daily in Sathyamangalam, Erode, Tamil Nadu.",
   keywords: [
     "The Rolling Oven",
     "The Rolling Oven Bakery",
-    "Artisan Bakery Tamil Nadu",
+    "Homemade Bakery Tamil Nadu",
     "Bakery in Sathyamangalam",
     "Best bakery in Erode",
     "Custom cakes Sathyamangalam",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     "Blueberry muffins Erode",
     "Eggless cakes Sathyamangalam",
     "Online bakery delivery Erode",
-    "Artisan dessert shop near me",
+    "Fresh dessert shop near me",
     "Bakery shop Gobichettipalayam",
     "Coimbatore dessert catering"
   ],
@@ -62,8 +62,8 @@ export const metadata: Metadata = {
     canonical: 'https://the-rolling-oven.vercel.app/',
   },
   openGraph: {
-    title: 'The Rolling Oven | Artisan Bakery in Sathyamangalam, Erode',
-    description: 'Freshly baked artisan treats, custom cakes, cupcakes, and desserts. Handcrafted daily in Sathyamangalam, Erode, Tamil Nadu.',
+    title: 'The Rolling Oven | Homemade Bakery in Sathyamangalam, Erode',
+    description: 'Freshly baked homemade treats, custom cakes, cupcakes, and desserts. Handcrafted daily in Sathyamangalam, Erode, Tamil Nadu.',
     url: 'https://the-rolling-oven.vercel.app',
     siteName: 'The Rolling Oven',
     images: [
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
         url: 'https://the-rolling-oven.vercel.app/images/logo.jpeg',
         width: 800,
         height: 600,
-        alt: 'The Rolling Oven Artisan Bakery Logo',
+        alt: 'The Rolling Oven Bakery Logo',
       },
     ],
     locale: 'en_IN',
@@ -79,8 +79,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Rolling Oven | Artisan Bakery in Sathyamangalam, Erode',
-    description: 'Freshly baked artisan treats, custom cakes, cupcakes, and desserts in Tamil Nadu.',
+    title: 'The Rolling Oven | Homemade Bakery in Sathyamangalam, Erode',
+    description: 'Freshly baked homemade treats, custom cakes, cupcakes, and desserts in Tamil Nadu.',
     images: ['https://the-rolling-oven.vercel.app/images/logo.jpeg'],
   },
   robots: {

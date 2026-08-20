@@ -23,7 +23,7 @@ const CATEGORIES = {
   cupcakes: {
     name: 'Cupcakes',
     tagline: 'Fluffy, moist, and topped with our signature buttercream swirl.',
-    description: 'Our artisan cupcakes are baked fresh daily in small batches. Each flavor is crafted with premium ingredients and topped with hand-piped buttercream.',
+    description: 'Our fresh cupcakes are baked fresh daily in small batches. Each flavor is crafted with premium ingredients and topped with hand-piped buttercream.',
     badge: 'Bestseller',
     mainImage: '/images/products/cupcakes/Cupcake front image.png',
     basePrice: 149,
@@ -123,7 +123,7 @@ const CATEGORIES = {
     name: 'Croissants',
     tagline: 'Flaky, buttery, and baked to golden perfection.',
     description: 'Our croissants are laminated with premium French butter, folded 27 layers for the ultimate flaky crunch.',
-    badge: 'Artisan',
+    badge: 'Handcrafted',
     mainImage: '/images/products/croissants/Butter_Croissant.png',
     basePrice: 149,
     items: [
@@ -151,7 +151,7 @@ const TODAYS_FAVORITES = [
   { ...CATEGORIES.cupcakes.items[2], category: 'cupcakes', categoryName: 'Cupcakes', badge: 'Bestseller', desc: 'Fluffy, moist, topped with our signature cream cheese frosting.' },
   { ...CATEGORIES.cookies.items[0], category: 'cookies', categoryName: 'Cookies', badge: 'Popular', desc: 'Classic chocolate chip with a gooey center and crispy edges.' },
   { ...CATEGORIES.muffins.items[0], category: 'muffins', categoryName: 'Muffins', badge: 'Fresh Daily', desc: 'Bursting with fresh blueberries and a golden crumbly top.' },
-  { ...CATEGORIES.croissants.items[3], category: 'croissants', categoryName: 'Croissants', badge: 'Artisan', desc: 'Flaky buttery layers with a rich pistachio cream filling.' },
+  { ...CATEGORIES.croissants.items[3], category: 'croissants', categoryName: 'Croissants', badge: 'Handcrafted', desc: 'Flaky buttery layers with a rich pistachio cream filling.' },
   { ...CATEGORIES.chocholava.items[0], category: 'chocholava', categoryName: 'Chocholava', badge: 'Premium', badgeClass: 'premium', desc: 'Molten chocolate center that flows out with pure indulgence.' },
   { ...CATEGORIES.tiramisu.items[0], category: 'tiramisu', categoryName: 'Tiramisu', badge: 'Signature', desc: 'Coffee-soaked mascarpone layers dusted with premium cocoa.' },
   { ...CATEGORIES.donuts.items[0], category: 'donuts', categoryName: 'Donuts', badge: 'Handmade', desc: 'Hand-rolled, fried to perfection, with our signature glaze.' },

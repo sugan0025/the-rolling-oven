@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-brand">
-          <img src="/images/logo.jpeg" alt="The Rolling Oven - Artisan Bakery Logo" className="footer-logo" loading="lazy" />
+          <img src="/images/logo.jpeg" alt="The Rolling Oven Bakery Logo" className="footer-logo" loading="lazy" />
           <p className="footer-tagline">Your Cravings, Our Creations</p>
           <p className="footer-desc">
             Sathyamangalam, Erode, Tamil Nadu<br />

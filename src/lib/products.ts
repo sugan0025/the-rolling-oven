@@ -30,7 +30,7 @@ export const CATEGORIES: Record<string, Category> = {
   cupcakes: {
     name: 'Cupcakes',
     tagline: 'Fluffy, moist, and topped with our signature buttercream swirl.',
-    description: 'Our artisan cupcakes are baked fresh daily in small batches. Each flavor is crafted with premium ingredients and topped with hand-piped buttercream.',
+    description: 'Our cupcakes are baked fresh daily in small batches. Each flavor is crafted with premium ingredients and topped with hand-piped buttercream.',
     badge: 'Bestseller',
     mainImage: '/images/products/cupcakes/Cupcake front image.png',
     basePrice: 149,
@@ -130,7 +130,7 @@ export const CATEGORIES: Record<string, Category> = {
     name: 'Croissants',
     tagline: 'Flaky, buttery, and baked to golden perfection.',
     description: 'Our croissants are laminated with premium French butter, folded 27 layers for the ultimate flaky crunch.',
-    badge: 'Artisan',
+    badge: 'Handcrafted',
     mainImage: '/images/products/croissants/Butter_Croissant.png',
     basePrice: 149,
     items: [

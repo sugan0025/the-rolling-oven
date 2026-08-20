@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     cookies: [
       "Cookies Sathyamangalam", "Chocolate chip cookies Erode", "Butter cookies Tamil Nadu",
       "Shortbread cookies", "Almond macaroons Erode", "Fresh baked cookies near me",
-      "Artisan cookies Sathyamangalam"
+      "Homemade cookies Sathyamangalam"
     ],
     muffins: [
       "Blueberry muffins Sathyamangalam", "Chocolate chip muffins Erode", "Banana nut muffin Tamil Nadu",
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ],
     croissants: [
       "Butter croissants Sathyamangalam", "French croissants Erode", "Chocolate croissants Tamil Nadu",
-      "Pistachio cream croissant", "Artisan laminated pastries Erode"
+      "Pistachio cream croissant", "Fresh laminated pastries Erode"
     ]
   };
 
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       `${category.name} Sathyamangalam`,
       `${category.name} Erode`,
       "The Rolling Oven",
-      "Artisan Bakery Tamil Nadu",
+      "Homemade Bakery Tamil Nadu",
       ...specificKeywords
     ],
     alternates: {
