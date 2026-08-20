@@ -10,7 +10,7 @@
 // warning for the next person.
 //
 // total_hours_wasted_here = 32
-// coffee_cups_consumed = 48
+// hours_of_sleep_sacrificed_to_the_oven_gods = 48
 // ============================================
 // THE ROLLING OVEN — Complete E-Commerce System
 // Cart, Email, Product Pages, Interactions, GA4 Tracking
