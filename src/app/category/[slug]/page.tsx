@@ -148,13 +148,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       />
 
       <main className="category-page">
-        {/* Ambient Frosted Category Glow */}
-        <div
-          className="category-frosted-ambient"
-          style={{ backgroundImage: `url(${category.mainImage})` }}
-          aria-hidden="true"
-        ></div>
-
         {/* Hero Banner */}
         <section className="category-hero">
           <a href="/" className="back-btn" id="back-to-home">

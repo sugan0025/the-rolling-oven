@@ -1168,25 +1168,7 @@ html.lenis, html.lenis body {
   pointer-events: none !important;
 }
 
-/* ============================================
-   FROSTED AMBIENT CATEGORY BACKDROP
-   ============================================ */
-.category-frosted-ambient {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(90px) brightness(0.35) saturate(1.4);
-  opacity: 0.18;
-  pointer-events: none;
-  z-index: 0;
-  transform: scale(1.15);
-  will-change: transform;
-}
+
 
 
 

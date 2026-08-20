@@ -31,3 +31,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# agent scratch
+AGENTS.md
+CLAUDE.md
