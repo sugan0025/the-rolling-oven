@@ -8,6 +8,9 @@ export const orderSchema = z.object({
   order_type: z.string().optional(),
   items: z.array(z.any()).min(1, 'Order must contain at least one item'),
   total_amount: z.string().or(z.number()),
+  utm_source: z.string().optional().nullable(),
+  utm_medium: z.string().optional().nullable(),
+  utm_campaign: z.string().optional().nullable(),
 });
 
 export const feedbackSchema = z.object({

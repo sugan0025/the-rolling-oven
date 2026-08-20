@@ -14,12 +14,16 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validatedData = orderSchema.parse(body);
 
+    const utmData = validatedData.utm_source 
+      ? `\n\n--- Marketing Data ---\nSource: ${validatedData.utm_source}\nMedium: ${validatedData.utm_medium || 'N/A'}\nCampaign: ${validatedData.utm_campaign || 'N/A'}`
+      : '';
+
     // Explicitly map to Supabase column structure
     const dbRow = {
       customer_name: validatedData.customer_name,
       customer_email: validatedData.customer_email,
       customer_phone: validatedData.customer_phone,
-      special_instructions: validatedData.special_instructions || null,
+      special_instructions: (validatedData.special_instructions || '') + utmData,
       order_type: validatedData.order_type || 'Cart Checkout',
       items: validatedData.items,
       total_amount: String(validatedData.total_amount),
@@ -34,7 +38,10 @@ export async function POST(request: Request) {
         .map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`)
         .join(' | '),
       total_amount: String(validatedData.total_amount),
-      notes: validatedData.special_instructions || 'None',
+      notes: (validatedData.special_instructions || 'None') + utmData,
+      utm_source: validatedData.utm_source || '',
+      utm_medium: validatedData.utm_medium || '',
+      utm_campaign: validatedData.utm_campaign || '',
     };
 
     // Fire BOTH emails simultaneously

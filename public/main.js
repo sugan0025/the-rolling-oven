@@ -297,7 +297,11 @@ async function sendOrderEmail(orderData) {
     special_instructions: orderData.notes || 'None',
     order_type: 'Cart Checkout',
     items: orderData.items.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
-    total_amount: orderData.total.toString()
+    total_amount: orderData.total.toString(),
+    // Attach UTM Parameters if they exist in session
+    utm_source: sessionStorage.getItem('utm_source') || null,
+    utm_medium: sessionStorage.getItem('utm_medium') || null,
+    utm_campaign: sessionStorage.getItem('utm_campaign') || null
   };
 
   const response = await fetch('/api/order', {
@@ -1018,6 +1022,8 @@ function initApp() {
   initFooterCategoryLinks();
   initFeedbackModal();
   initLenisScroll();
+  initTracking();
+  initDeepLinks();
 }
 
 
@@ -1025,4 +1031,40 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
 } else {
   initApp();
+}
+
+// ============================================
+// DIGITAL MARKETING & UTM TRACKING
+// ============================================
+function initTracking() {
+  const params = new URLSearchParams(window.location.search);
+  const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  let hasUTM = false;
+
+  utmParams.forEach(param => {
+    const value = params.get(param);
+    if (value) {
+      sessionStorage.setItem(param, value);
+      hasUTM = true;
+    }
+  });
+
+  if (hasUTM) {
+    console.log('UTM parameters captured and stored in session.');
+  }
+}
+
+// ============================================
+// DEEP LINKING LOGIC (Instagram Links)
+// ============================================
+function initDeepLinks() {
+  const params = new URLSearchParams(window.location.search);
+  const categoryId = params.get('category');
+  
+  if (categoryId && CATEGORIES[categoryId]) {
+    // If a category query param exists, wait for rendering and open it
+    setTimeout(() => {
+      openCategoryPage(categoryId);
+    }, 500);
+  }
 }

@@ -286,7 +286,7 @@ export default function Home() {
                 </div>
                 <div><strong>WhatsApp</strong><span>Quick orders & queries</span></div>
               </a>
-              <a href="https://instagram.com/therollingoven" target="_blank" className="contact-method" id="contact-instagram">
+              <a href="https://www.instagram.com/the_rolling_oven_26?igsh=MTB1bDBrcjNlaW5q&igsi=MTB1bDBrcjNlaW5q" target="_blank" className="contact-method" id="contact-instagram">
                 <div className="method-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                 </div>
@@ -370,7 +370,10 @@ export default function Home() {
         <div className="footer-brand">
           <img src="/images/logo.jpeg" alt="The Rolling Oven - Artisan Bakery Logo" className="footer-logo" loading="lazy" />
           <p className="footer-tagline">Your Cravings, Our Creations</p>
-          <p className="footer-desc">Handcrafted baked goods made with love, delivered fresh to your doorstep.</p>
+          <p className="footer-desc">
+            Sathyamangalam, Erode<br />
+            therollingoven26@gmail.com
+          </p>
         </div>
         <div className="footer-links-group">
           <h4 className="footer-heading">Quick Links</h4>
