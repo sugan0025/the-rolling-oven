@@ -197,6 +197,16 @@ function removeFromCart(index) {
   saveCart();
   updateCartBadge();
   renderCart();
+
+  // Google Analytics Tracking: remove_from_cart
+  if (typeof gtag !== 'undefined' && item) {
+    gtag('event', 'remove_from_cart', {
+      currency: 'INR',
+      value: item.price * item.qty,
+      items: [{ item_name: item.name, item_category: item.category, price: item.price, quantity: item.qty }]
+    });
+  }
+
   showToast('error', 'Removed', `${item.name} removed from cart`);
 }
 
@@ -302,6 +312,8 @@ async function sendOrderEmail(orderData) {
     customer_name: orderData.name,
     customer_email: orderData.email,
     customer_phone: orderData.phone,
+    delivery_address: orderData.address,
+    pincode: orderData.pincode,
     special_instructions: orderData.notes || 'None',
     order_type: 'Cart Checkout',
     items: orderData.items.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
@@ -309,7 +321,9 @@ async function sendOrderEmail(orderData) {
     // Attach UTM Parameters if they exist in session
     utm_source: sessionStorage.getItem('utm_source') || null,
     utm_medium: sessionStorage.getItem('utm_medium') || null,
-    utm_campaign: sessionStorage.getItem('utm_campaign') || null
+    utm_campaign: sessionStorage.getItem('utm_campaign') || null,
+    // Anti-spam Honeypot
+    b_website: orderData.b_website || null,
   };
 
   const response = await fetch('/api/order', {
@@ -468,6 +482,14 @@ function updateCarousel() {
 function initCategoryPage() {
   const grid = document.getElementById('category-product-grid');
   if (!grid) return;
+
+  // Google Analytics: view_item_list
+  if (typeof gtag !== 'undefined') {
+    const heading = document.querySelector('.category-hero h1')?.textContent || 'Category';
+    gtag('event', 'view_item_list', {
+      item_list_name: heading,
+    });
+  }
 
   grid.querySelectorAll('.sub-add-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -695,15 +717,32 @@ function initOrderModal() {
   document.getElementById('order-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submit-order-btn');
+    
+    // Prevent double submission immediately
+    if (btn.disabled) return;
     const original = btn.innerHTML;
-    btn.innerHTML = '<span>Sending...</span>';
+    btn.innerHTML = '<span>Processing Order...</span>';
     btn.disabled = true;
+
+    // Check honeypot
+    const hpVal = document.getElementById('order-hp')?.value || '';
+    if (hpVal.trim().length > 0) {
+      // Bot detected - simulate instant success
+      closeOrderModal();
+      document.getElementById('order-form').reset();
+      btn.innerHTML = original;
+      btn.disabled = false;
+      return;
+    }
     
     const orderData = {
       name: document.getElementById('order-name').value,
       email: document.getElementById('order-email').value,
       phone: document.getElementById('order-phone').value,
+      address: document.getElementById('order-address').value,
+      pincode: document.getElementById('order-pincode').value,
       notes: document.getElementById('order-notes').value,
+      b_website: hpVal,
       items: [...cart],
       total: getCartTotal(),
       isDirectOrder: false
@@ -727,6 +766,7 @@ function initOrderModal() {
       }
 
       cart = [];
+      saveCart();
       updateCartBadge();
       renderCart();
       closeOrderModal();
@@ -735,20 +775,35 @@ function initOrderModal() {
     } catch (err) {
       console.error(err);
       showToast('error', 'Error Processing Order', 'Please try again or contact us directly.');
+    } finally {
+      btn.innerHTML = original;
+      btn.disabled = false;
     }
-
-    btn.innerHTML = original;
-    btn.disabled = false;
   });
 }
 
 function initContactForm() {
-  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+  const contactForm = document.getElementById('contact-form');
+  if (!contactForm) return;
+
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submit-inquiry');
+    
+    // Prevent double submission immediately
+    if (btn.disabled) return;
     const original = btn.innerHTML;
     btn.innerHTML = '<span>Sending...</span>';
     btn.disabled = true;
+
+    // Check honeypot
+    const hpVal = document.getElementById('contact-hp')?.value || '';
+    if (hpVal.trim().length > 0) {
+      contactForm.reset();
+      btn.innerHTML = original;
+      btn.disabled = false;
+      return;
+    }
 
     const formData = {
       name: document.getElementById('form-name').value,
@@ -756,19 +811,29 @@ function initContactForm() {
       phone: document.getElementById('form-phone').value,
       product: document.getElementById('form-product').value,
       message: document.getElementById('form-message').value,
+      b_website: hpVal,
     };
 
     try {
       await sendContactForm(formData);
+      
+      // Google Analytics event for inquiry
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+          event_category: 'Contact',
+          event_label: formData.product,
+        });
+      }
+
       showToast('success', 'Inquiry Sent! ✨', 'We\'ll get back to you soon.');
-      document.getElementById('contact-form').reset();
+      contactForm.reset();
     } catch (err) {
       console.error(err);
       showToast('error', 'Error Sending Inquiry', 'Please try again or call us directly.');
+    } finally {
+      btn.innerHTML = original;
+      btn.disabled = false;
     }
-
-    btn.innerHTML = original;
-    btn.disabled = false;
   });
 }
 

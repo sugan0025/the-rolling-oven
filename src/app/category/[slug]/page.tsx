@@ -15,15 +15,58 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const priceRange = `₹${Math.min(...category.items.map(i => i.price))} – ₹${Math.max(...category.items.map(i => i.price))}`;
 
+  const categoryKeywords: Record<string, string[]> = {
+    cupcakes: [
+      "Cupcakes Sathyamangalam", "Best cupcakes Erode", "Red velvet cupcakes Tamil Nadu",
+      "Vanilla buttercream cupcakes", "Chocolate cupcakes delivery", "Custom birthday cupcakes",
+      "Eggless cupcakes Sathyamangalam", "Online cupcake order Erode"
+    ],
+    cookies: [
+      "Cookies Sathyamangalam", "Chocolate chip cookies Erode", "Butter cookies Tamil Nadu",
+      "Shortbread cookies", "Almond macaroons Erode", "Fresh baked cookies near me",
+      "Artisan cookies Sathyamangalam"
+    ],
+    muffins: [
+      "Blueberry muffins Sathyamangalam", "Chocolate chip muffins Erode", "Banana nut muffin Tamil Nadu",
+      "Fresh breakfast muffins", "Bakery muffins near me"
+    ],
+    donuts: [
+      "Donuts Sathyamangalam", "Glazed donuts Erode", "Chocolate frosted donuts Tamil Nadu",
+      "Strawberry donuts", "Fresh donuts near me", "Donut delivery Erode"
+    ],
+    chocholava: [
+      "Chocolate lava cake Sathyamangalam", "Molten choco lava Erode", "Dark chocolate lava cake Tamil Nadu",
+      "Warm dessert delivery", "Best lava cake near me"
+    ],
+    tiramisu: [
+      "Tiramisu dessert Sathyamangalam", "Classic Italian tiramisu Erode", "Coffee mascarpone dessert Tamil Nadu",
+      "Authentic tiramisu cup", "Gourmet desserts Sathyamangalam"
+    ],
+    croissants: [
+      "Butter croissants Sathyamangalam", "French croissants Erode", "Chocolate croissants Tamil Nadu",
+      "Pistachio cream croissant", "Artisan laminated pastries Erode"
+    ]
+  };
+
+  const specificKeywords = categoryKeywords[slug] || [];
+
   return {
-    title: `${category.name} — Fresh ${category.name} in Sathyamangalam`,
-    description: `${category.description} Starting from ${priceRange}. Order online from The Rolling Oven, Sathyamangalam, Erode.`,
+    title: `${category.name} — Fresh ${category.name} in Sathyamangalam, Erode | The Rolling Oven`,
+    description: `${category.description} Starting from ${priceRange}. Order fresh, handcrafted ${category.name.toLowerCase()} online from The Rolling Oven, Sathyamangalam, Erode, Tamil Nadu.`,
+    keywords: [
+      category.name,
+      `${category.name} Sathyamangalam`,
+      `${category.name} Erode`,
+      "The Rolling Oven",
+      "Artisan Bakery Tamil Nadu",
+      ...specificKeywords
+    ],
     alternates: {
       canonical: `https://the-rolling-oven.vercel.app/category/${slug}`,
     },
     openGraph: {
-      title: `${category.name} | The Rolling Oven`,
-      description: category.tagline,
+      title: `${category.name} — Handcrafted at The Rolling Oven`,
+      description: `${category.tagline} Starting from ${priceRange}. Order online for delivery in Sathyamangalam & Erode.`,
       url: `https://the-rolling-oven.vercel.app/category/${slug}`,
       images: [
         {
@@ -42,8 +85,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const category = getCategoryBySlug(slug);
   if (!category) notFound();
 
-  // JSON-LD Product structured data for SEO
-  const jsonLd = {
+  // JSON-LD ItemList & Product structured data
+  const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: `${category.name} — The Rolling Oven`,
@@ -67,11 +110,41 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     })),
   };
 
+  // JSON-LD BreadcrumbList structured data for Google Search appearance
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://the-rolling-oven.vercel.app',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Our Bakes',
+        item: 'https://the-rolling-oven.vercel.app/#showcase',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: category.name,
+        item: `https://the-rolling-oven.vercel.app/category/${slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <main className="category-page">

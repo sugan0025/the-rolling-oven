@@ -200,6 +200,16 @@ export default function Home() {
             <div className="glass-card">
               <h3 className="form-title">Send Inquiry</h3>
               <form className="contact-form" id="contact-form">
+                {/* Anti-spam Honeypot */}
+                <input
+                  type="text"
+                  name="b_website"
+                  id="contact-hp"
+                  className="hp-field"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ display: "none" }}
+                />
                 <div className="form-group">
                   <input type="text" id="form-name" className="form-input" placeholder=" " required />
                   <label htmlFor="form-name" className="form-label">Your Name</label>

@@ -1155,3 +1155,16 @@ html.lenis, html.lenis body {
     gap: var(--space-sm);
   }
 }
+
+/* Anti-Spam Honeypot Invisible Field */
+.hp-field {
+  display: none !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
+

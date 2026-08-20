@@ -23,16 +23,27 @@ export const metadata: Metadata = {
     default: "The Rolling Oven | Artisan Bakery in Sathyamangalam, Erode",
     template: "%s | The Rolling Oven"
   },
-  description: "Freshly baked artisan treats, custom cakes, cupcakes, and desserts made with love. Serving Sathyamangalam, Erode, and Tamil Nadu.",
+  description: "Freshly baked artisan treats, custom birthday cakes, cupcakes, brownies, cookies, donuts, and desserts made with love. Handcrafted daily in Sathyamangalam, Erode, Tamil Nadu.",
   keywords: [
-    "The Rolling Oven", 
-    "Artisan Bakery Tamil Nadu", 
-    "Custom cakes Sathyamangalam", 
-    "Best cupcakes Erode", 
-    "Fresh desserts Tamil Nadu",
-    "Bakery Sathyamangalam",
-    "Donuts Erode",
-    "Local bakery near me"
+    "The Rolling Oven",
+    "The Rolling Oven Bakery",
+    "Artisan Bakery Tamil Nadu",
+    "Bakery in Sathyamangalam",
+    "Best bakery in Erode",
+    "Custom cakes Sathyamangalam",
+    "Birthday cakes Erode",
+    "Best cupcakes Sathyamangalam",
+    "Chocolate lava cake Tamil Nadu",
+    "Fresh donuts Sathyamangalam",
+    "Authentic croissants Erode",
+    "Tiramisu dessert Tamil Nadu",
+    "Homemade cookies Sathyamangalam",
+    "Blueberry muffins Erode",
+    "Eggless cakes Sathyamangalam",
+    "Online bakery delivery Erode",
+    "Artisan dessert shop near me",
+    "Bakery shop Gobichettipalayam",
+    "Coimbatore dessert catering"
   ],
   authors: [{ name: "The Rolling Oven" }],
   creator: "The Rolling Oven",
@@ -46,8 +57,8 @@ export const metadata: Metadata = {
     canonical: 'https://the-rolling-oven.vercel.app/',
   },
   openGraph: {
-    title: 'The Rolling Oven | Artisan Bakery',
-    description: 'Freshly baked artisan treats, custom cakes, cupcakes, and desserts. Serving Sathyamangalam, Erode, and Tamil Nadu.',
+    title: 'The Rolling Oven | Artisan Bakery in Sathyamangalam, Erode',
+    description: 'Freshly baked artisan treats, custom cakes, cupcakes, and desserts. Handcrafted daily in Sathyamangalam, Erode, Tamil Nadu.',
     url: 'https://the-rolling-oven.vercel.app',
     siteName: 'The Rolling Oven',
     images: [
@@ -63,7 +74,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Rolling Oven | Artisan Bakery',
+    title: 'The Rolling Oven | Artisan Bakery in Sathyamangalam, Erode',
     description: 'Freshly baked artisan treats, custom cakes, cupcakes, and desserts in Tamil Nadu.',
     images: ['https://the-rolling-oven.vercel.app/images/logo.jpeg'],
   },
@@ -119,15 +130,21 @@ export default function RootLayout({
               "image": "https://the-rolling-oven.vercel.app/images/logo.jpeg",
               "url": "https://the-rolling-oven.vercel.app",
               "email": "therollingoven26@gmail.com",
+              "priceRange": "₹₹",
+              "servesCuisine": "Bakery, Desserts, Pastries",
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Sathyamangalam",
                 "addressRegion": "Tamil Nadu",
+                "postalCode": "638401",
                 "addressCountry": "IN"
               },
               "areaServed": [
                 "Sathyamangalam",
-                "Erode"
+                "Erode",
+                "Gobichettipalayam",
+                "Coimbatore",
+                "Tamil Nadu"
               ],
               "openingHoursSpecification": [
                 {
@@ -231,8 +248,19 @@ export default function RootLayout({
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
             <h3 className="form-title">Complete Your Order</h3>
-            <p className="modal-subtitle">We'll confirm your order via email shortly.</p>
+            <p className="modal-subtitle">We'll prepare your freshly baked items with love.</p>
             <form className="contact-form" id="order-form">
+              {/* Anti-spam Honeypot */}
+              <input
+                type="text"
+                name="b_website"
+                id="order-hp"
+                className="hp-field"
+                tabIndex={-1}
+                autoComplete="off"
+                style={{ display: "none" }}
+              />
+
               <div className="form-group">
                 <input type="text" id="order-name" className="form-input" placeholder=" " required />
                 <label htmlFor="order-name" className="form-label">Your Name</label>
@@ -245,6 +273,17 @@ export default function RootLayout({
                 <input type="tel" id="order-phone" className="form-input" placeholder=" " required />
                 <label htmlFor="order-phone" className="form-label">Phone Number</label>
               </div>
+              
+              {/* P0 Fix: Delivery Address & Pincode */}
+              <div className="form-group">
+                <input type="text" id="order-address" className="form-input" placeholder=" " required />
+                <label htmlFor="order-address" className="form-label">Delivery Address (Door / Street / Area)</label>
+              </div>
+              <div className="form-group">
+                <input type="text" id="order-pincode" className="form-input" placeholder=" " required />
+                <label htmlFor="order-pincode" className="form-label">Pincode (e.g. 638401)</label>
+              </div>
+
               <div className="form-group">
                 <textarea id="order-notes" className="form-input form-textarea" placeholder=" " rows={2}></textarea>
                 <label htmlFor="order-notes" className="form-label">Special Instructions (Optional)</label>
@@ -271,7 +310,7 @@ export default function RootLayout({
               <img src="/images/logo.jpeg" alt="The Rolling Oven - Artisan Bakery Logo" className="footer-logo" loading="lazy" />
               <p className="footer-tagline">Your Cravings, Our Creations</p>
               <p className="footer-desc">
-                Sathyamangalam, Erode<br />
+                Sathyamangalam, Erode, Tamil Nadu<br />
                 therollingoven26@gmail.com
               </p>
             </div>
@@ -301,12 +340,12 @@ export default function RootLayout({
               <ul className="footer-links footer-hours">
                 <li><span>Mon - Sat</span><span>9 AM – 8 PM</span></li>
                 <li><span>Sunday</span><span>10 AM – 6 PM</span></li>
-                <li><span>Orders</span><span>24hr advance</span></li>
+                <li><span>Orders</span><span>Fresh Daily</span></li>
               </ul>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© 2026 The Rolling Oven. All rights reserved. Made with ❤️</p>
+            <p>© 2026 The Rolling Oven. All rights reserved. Made with ❤️ in Tamil Nadu</p>
           </div>
         </footer>
 

@@ -1,14 +1,6 @@
 import { NextResponse } from 'next/server';
 import { checkRateLimit } from '../../../lib/rate-limit';
-import { z } from 'zod';
-
-const contactSchema = z.object({
-  name: z.string().min(1).max(100),
-  email: z.string().email().max(150),
-  phone: z.string().min(5).max(20),
-  product: z.string().max(100),
-  message: z.string().max(1000).optional(),
-});
+import { contactSchema } from '../../../lib/validations';
 
 export async function POST(request: Request) {
   try {
@@ -19,6 +11,12 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     const data = contactSchema.parse(body);
+
+    // Anti-spam honeypot detection: silently drop bot submissions
+    if (data.b_website && data.b_website.trim().length > 0) {
+      console.warn('Bot inquiry blocked via honeypot:', ip);
+      return NextResponse.json({ success: true });
+    }
 
     // Send inquiry notification to owner via EmailJS
     const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
@@ -33,9 +31,9 @@ export async function POST(request: Request) {
           customer_name: data.name,
           customer_email: data.email,
           customer_phone: data.phone,
-          order_items: `Inquiry about: ${data.product}`,
+          order_items: `Inquiry regarding: ${data.product}`,
           total_amount: 'N/A (Inquiry)',
-          notes: data.message || 'No message provided',
+          notes: data.message || 'No specific notes provided',
         },
       }),
     });
@@ -49,7 +47,7 @@ export async function POST(request: Request) {
   } catch (err: any) {
     console.error('Contact API Error:', err);
     if (err.name === 'ZodError') {
-      return NextResponse.json({ error: 'Validation failed' }, { status: 400 });
+      return NextResponse.json({ error: 'Validation failed', details: err.errors }, { status: 400 });
     }
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
