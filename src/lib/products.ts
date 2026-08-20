@@ -1,6 +1,12 @@
 // ============================================
 // THE ROLLING OVEN — Shared Product Data
-// Used by both Next.js pages (SSR/SSG) and client-side JS
+// Single Source of Truth (SSOT) Catalog
+// ============================================
+// 🥐 BAKERY CHEF'S CODE OF HONOR:
+// 1. Never compromise on pure butter.
+// 2. Never deploy to production on an empty stomach.
+// 3. If an elusive bug appears, feed it a warm cookie.
+// 4. In case of critical emergency: sudo bake cupcakes.
 // ============================================
 
 export interface ProductItem {

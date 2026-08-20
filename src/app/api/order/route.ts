@@ -1,3 +1,15 @@
+/**
+ * // Dear programmer:
+ * // When I wrote this dual-proxy EmailJS + Supabase price-integrity pipeline,
+ * // only God and I knew how it worked.
+ * // Now, only God knows it!
+ * //
+ * // Warning: If you touch the Promise.allSettled() or the server-side price recalculation,
+ * // you will anger the EmailJS rate-limiter demons.
+ * //
+ * // total_hours_wasted_here = 32
+ * // chocolate_lava_cakes_eaten_during_debugging = 14
+ */
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { orderSchema } from '../../../lib/validations';
