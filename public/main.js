@@ -1008,6 +1008,7 @@ function initApp() {
 
   // Init interactions
   initScrollAnimations();
+  initFloatingPastriesScroll();
   initStatCounters();
   initMobileMenu();
   initCart();
@@ -1024,6 +1025,34 @@ function initApp() {
   // Restore cart badge on load
   updateCartBadge();
   renderCart();
+}
+
+function initFloatingPastriesScroll() {
+  const items = document.querySelectorAll('.floating-pastry-item');
+  if (items.length === 0) return;
+
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        items.forEach((item, index) => {
+          const speed = parseFloat(item.dataset.speed || '0.07');
+          const rotSpeed = parseFloat(item.dataset.rot || '0.02');
+          
+          // Clamped displacement between 5px and 12px max
+          const offsetY = Math.sin(scrollY * 0.0035 + index * 0.7) * 11;
+          const offsetRot = (scrollY * rotSpeed) % 10;
+          
+          item.style.setProperty('--scroll-y', `${offsetY.toFixed(2)}px`);
+          item.style.setProperty('--scroll-rot', `${offsetRot.toFixed(2)}deg`);
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 
