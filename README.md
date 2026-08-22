@@ -197,16 +197,65 @@ Telemetry groups user location intent across Western Tamil Nadu:
 <!-- ║    PROJECT ARCHITECTURE MAP   ║ -->
 <!-- ╚═══════════════════════════════╝ -->
 
-<h2>🗂️ Project Architecture &amp; Directory Map</h2>
+<h2>🗂️ Real-World Project Tree Structure</h2>
 
-| Layer &amp; Module | Key Files &amp; Artifacts | Architectural Responsibilities |
-|:---|:---|:---|
-| 🌐 **`src/app/`**<br><sub>*Next.js 16 App Router*</sub> | `page.tsx`<br>`layout.tsx`<br>`globals.css`<br>`sitemap.ts` | **Storefront Shell &amp; Design Tokens:** Pre-rendered modular hero, GA4 tracking scripts injection, zero-framework luxury CSS tokens, and automated XML sitemap generation. |
-| ⚡ **`src/app/category/`**<br><sub>*Dynamic SSG Hubs*</sub> | `[slug]/page.tsx` | **15 Static Category Routes:** Pre-rendered at build time in **&lt;900ms** with dynamic item grids, SEO structured JSON-LD data, and responsive layout. |
-| 🛡️ **`src/app/api/`**<br><sub>*Serverless API Endpoints*</sub> | `order/route.ts`<br>`contact/route.ts`<br>`feedback/route.ts` | **Zero-Trust Security Gateways:** IP rate limiting (5 req/min), honeypot spambot drop, Zod schema validation, Supabase PostgreSQL persistence, and dual EmailJS dispatch. |
-| 📦 **`src/lib/`**<br><sub>*Business Logic &amp; Security*</sub> | `products.ts`<br>`rate-limit.ts`<br>`validations.ts` | **Data Engine &amp; Single Source of Truth:** 54-item verified bakery catalog with price definitions, sliding-window IP tracker, and Zod type schemas. |
-| 📸 **`public/`**<br><sub>*Static Media &amp; Branding*</sub> | `images/products/*`<br>`favicon.ico` | **Optimized Product Catalog Media:** 54 synchronized high-resolution bakery photographs, multi-format favicon assets, and client-side UI handlers. |
-| 🎨 **`assets/`**<br><sub>*Live Vector System*</sub> | `architecture-diagram.svg`<br>`cart-flow-banner.svg`<br>`card-*.svg` | **Interactive Glass Vector System:** SMIL-animated real-time system architecture, 5-stage D2C order pipeline visual, and frosted glass feature cards. |
+```
+the-rolling-oven/
+├── 📂 assets/                              # Vector SVGs, SMIL animations & live architecture flows
+│   ├── 🎨 architecture-diagram.svg         # Real-time SMIL animated system architecture
+│   ├── 🛒 cart-flow-banner.svg             # 5-stage D2C commerce pipeline visual
+│   ├── ⚡ card-engine.svg                  # Sub-900ms SSG storefront glass card
+│   ├── 📊 card-telemetry.svg               # GA4 e-commerce CRO glass card
+│   ├── 🛡️ card-security.svg                # Zero-trust edge firewall glass card
+│   ├── 📦 card-dispatch.svg                # Supabase ledger & dual proxy glass card
+│   ├── 🌊 header-banner.svg                # SMIL-animated gradient header banner
+│   └── 🌊 footer-banner.svg                # SMIL-animated gradient footer banner
+│
+├── 📂 public/                              # Static client assets & product photography
+│   ├── 📂 images/products/                 # 54 verified high-res bakery catalog assets
+│   ├── 🖼️ apple-touch-icon.png             # iOS home screen touch icon
+│   ├── 🖼️ favicon.ico / .png               # Multi-format branding favicons
+│   └── 📜 main.js                          # Client-side UI interactions & toast handlers
+│
+├── 📂 src/
+│   ├── 📂 app/                             # Next.js 16 App Router Architecture
+│   │   ├── 📂 api/                         # Serverless API routes & edge security gates
+│   │   │   ├── 📂 contact/                 # Customer inquiry endpoint with rate limiting
+│   │   │   │   └── 📄 route.ts             # POST /api/contact with honeypot validation
+│   │   │   ├── 📂 feedback/                # Customer review submission endpoint
+│   │   │   │   └── 📄 route.ts             # POST /api/feedback with moderation checks
+│   │   │   └── 📂 order/                   # Transactional checkout & order dispatch
+│   │   │       └── 📄 route.ts             # Rate-limit, Zod check, DB write & EmailJS proxy
+│   │   ├── 📂 category/[slug]/             # 15 dynamic SSG category hubs (<900ms compile)
+│   │   │   └── 📄 page.tsx                 # Category hero, dynamic item grid & meta tags
+│   │   ├── 🎨 globals.css                  # Zero-framework luxury CSS design system
+│   │   ├── 📄 layout.tsx                   # Root viewport shell + GA4 & Schema.org JSON-LD
+│   │   ├── 📄 page.tsx                     # Modular high-converting homepage
+│   │   ├── 🤖 robots.ts                    # Search engine crawler directives
+│   │   └── 🗺️ sitemap.ts                   # Dynamic XML sitemap generator (all routes)
+│   │
+│   ├── 📂 components/                      # Modular React UI component layer
+│   │   ├── 📂 home/                        # Homepage presentation modules
+│   │   │   ├── 📄 HeroSection.tsx          # Dynamic artisan hero with primary CTA
+│   │   │   ├── 📄 ShowcaseSection.tsx      # Infinite trending product showcase
+│   │   │   ├── 📄 FavoritesSection.tsx     # Curated artisan specialties
+│   │   │   ├── 📄 TestimonialsSection.tsx  # Verified customer social proof
+│   │   │   ├── 📄 AboutSection.tsx         # Bakery story & regional coverage
+│   │   │   └── 📄 ContactSection.tsx       # Hyper-local delivery inquiry form
+│   │   ├── 📄 CartDrawer.tsx               # Persistent client-side cart (localStorage sync)
+│   │   ├── 📄 OrderModal.tsx               # 1-step checkout modal with phone validation
+│   │   ├── 📄 Navbar.tsx                   # Glassmorphic responsive navigation header
+│   │   ├── 📄 Footer.tsx                   # Regional footer with WhatsApp & contact links
+│   │   └── 📄 ToastContainer.tsx           # Interactive UI feedback & notification alerts
+│   │
+│   └── 📂 lib/                             # Single Source of Truth & security engine
+│       ├── 📜 products.ts                  # SSOT 54-item bakery catalog with price models
+│       ├── 🛡️ rate-limit.ts                # In-memory sliding-window IP rate limiter
+│       └── 🛡️ validations.ts               # Strict Zod schema typing for order payloads
+│
+├── ⚙️ next.config.js / tsconfig.json        # TypeScript & build configurations
+└── 📦 package.json                         # Dependencies (Next.js 16, Supabase, Zod)
+```
 
 <!-- Animated Glowing Divider -->
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
