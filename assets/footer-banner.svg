@@ -1,26 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="130" viewBox="0 0 900 130">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="180" viewBox="0 0 900 180">
   <defs>
-    <linearGradient id="footerWave" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#1a1b27"/>
-      <stop offset="25%" stop-color="#E28743" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="#FFB347">
-        <animate attributeName="stop-color" values="#FFB347;#FFD700;#FFA07A;#FFB347" dur="4s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="75%" stop-color="#E28743" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#0d1117"/>
+    <!-- Ocean Wave Gradients (Rich Amber & Golden Sunset Sea) -->
+    <linearGradient id="oceanBack" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E28743" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#FFB347" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#E28743" stop-opacity="0.2"/>
+    </linearGradient>
+
+    <linearGradient id="oceanMid" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E28743" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#FF9800" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#E28743" stop-opacity="0.5"/>
+    </linearGradient>
+
+    <linearGradient id="oceanFront" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d1117" stop-opacity="1"/>
+      <stop offset="25%" stop-color="#E28743" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#FFB347" stop-opacity="1"/>
+      <stop offset="75%" stop-color="#FFD700" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0d1117" stop-opacity="1"/>
+    </linearGradient>
+
+    <linearGradient id="glowCrest" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFB347" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFF8DC" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFB347" stop-opacity="0"/>
     </linearGradient>
   </defs>
 
-  <rect width="900" height="130" fill="#0d1117"/>
+  <!-- Deep Ocean Background -->
+  <rect width="900" height="180" fill="#0d1117"/>
 
-  <!-- SMIL Animated Wave Curve (Guaranteed native GitHub Camo Animation) -->
-  <path fill="url(#footerWave)" d="M0,0 C200,45 400,10 600,40 C750,60 850,20 900,30 L900,0 L0,0 Z">
-    <animate attributeName="d" dur="6s" repeatCount="indefinite"
-      values="M0,0 C200,45 400,10 600,40 C750,60 850,20 900,30 L900,0 L0,0 Z;
-              M0,0 C200,15 400,45 600,15 C750,45 850,15 900,25 L900,0 L0,0 Z;
-              M0,0 C200,45 400,10 600,40 C750,60 850,20 900,30 L900,0 L0,0 Z" />
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 1: DEEP BACKGROUND SWELL (Slow 9s roll)                   -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <path fill="url(#oceanBack)" d="M0,0 C150,55 300,10 450,50 C600,85 750,20 900,45 L900,0 L0,0 Z">
+    <animate attributeName="d" dur="9s" repeatCount="indefinite"
+      values="M0,0 C150,55 300,10 450,50 C600,85 750,20 900,45 L900,0 L0,0 Z;
+              M0,0 C150,20 300,65 450,25 C600,60 750,75 900,20 L900,0 L0,0 Z;
+              M0,0 C150,60 300,25 450,70 C600,30 750,45 900,55 L900,0 L0,0 Z;
+              M0,0 C150,55 300,10 450,50 C600,85 750,20 900,45 L900,0 L0,0 Z" />
   </path>
-  
-  <text x="450" y="82" font-family="'Segoe UI',Roboto,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">🥐 The Rolling Oven  •  Next.js 16 • Supabase PostgreSQL • GA4 Telemetry</text>
-  <text x="450" y="104" font-family="'Segoe UI',Roboto,sans-serif" font-size="11" fill="#E28743" text-anchor="middle">Engineered by Suganesan S (Sugan) • MBA in Business Analytics &amp; Marketing (BIT Sathy)</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 2: MID-OCEAN SWELL (Medium 6s roll)                       -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <path fill="url(#oceanMid)" d="M0,0 C200,40 380,80 560,35 C720,0 820,60 900,30 L900,0 L0,0 Z">
+    <animate attributeName="d" dur="6s" repeatCount="indefinite"
+      values="M0,0 C200,40 380,80 560,35 C720,0 820,60 900,30 L900,0 L0,0 Z;
+              M0,0 C200,75 380,25 560,70 C720,45 820,15 900,60 L900,0 L0,0 Z;
+              M0,0 C200,20 380,65 560,20 C720,60 820,40 900,25 L900,0 L0,0 Z;
+              M0,0 C200,40 380,80 560,35 C720,0 820,60 900,30 L900,0 L0,0 Z" />
+  </path>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 3: FOREGROUND ROLLING OCEAN CREST (Fast 4.5s surge)       -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <path fill="url(#oceanFront)" d="M0,0 C120,65 240,15 360,60 C480,95 600,30 720,75 C810,100 870,45 900,60 L900,0 L0,0 Z">
+    <animate attributeName="d" dur="4.5s" repeatCount="indefinite"
+      values="M0,0 C120,65 240,15 360,60 C480,95 600,30 720,75 C810,100 870,45 900,60 L900,0 L0,0 Z;
+              M0,0 C120,30 240,80 360,35 C480,65 600,85 720,40 C810,60 870,80 900,45 L900,0 L0,0 Z;
+              M0,0 C120,75 240,40 360,80 C480,30 600,55 720,85 C810,40 870,30 900,70 L900,0 L0,0 Z;
+              M0,0 C120,65 240,15 360,60 C480,95 600,30 720,75 C810,100 870,45 900,60 L900,0 L0,0 Z" />
+  </path>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- LAYER 4: FOAM HIGHLIGHT CREST                                  -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <path fill="none" stroke="url(#glowCrest)" stroke-width="2.5" d="M0,0 C120,65 240,15 360,60 C480,95 600,30 720,75 C810,100 870,45 900,60">
+    <animate attributeName="d" dur="4.5s" repeatCount="indefinite"
+      values="M0,0 C120,65 240,15 360,60 C480,95 600,30 720,75 C810,100 870,45 900,60;
+              M0,0 C120,30 240,80 360,35 C480,65 600,85 720,40 C810,60 870,80 900,45;
+              M0,0 C120,75 240,40 360,80 C480,30 600,55 720,85 C810,40 870,30 900,70;
+              M0,0 C120,65 240,15 360,60 C480,95 600,30 720,75 C810,100 870,45 900,60" />
+  </path>
+
+  <!-- Footer Brand Text & Engineering Signature -->
+  <text x="450" y="132" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">🥐 The Rolling Oven  •  Next.js 16 • Supabase PostgreSQL • GA4 Telemetry</text>
+  <text x="450" y="156" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" font-weight="600" fill="#FFB347" text-anchor="middle">Engineered by Suganesan S (Sugan) • MBA in Business Analytics &amp; Marketing (BIT Sathy)</text>
 </svg>
