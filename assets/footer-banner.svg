@@ -1,85 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="200" viewBox="0 0 900 200">
   <defs>
-    <!-- Dramatic Amber & Golden Ocean Gradients -->
-    <linearGradient id="hugeOceanBack" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Rich Golden Ocean & Warm Amber Gradients (Rising from Floor) -->
+    <linearGradient id="backWaveGold" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#E28743" stop-opacity="0.35"/>
-      <stop offset="50%" stop-color="#FFB347" stop-opacity="0.45"/>
-      <stop offset="100%" stop-color="#E28743" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#FFB347" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#E28743" stop-opacity="0.3"/>
     </linearGradient>
 
-    <linearGradient id="hugeOceanMid" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="midWaveGold" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#E28743" stop-opacity="0.7"/>
       <stop offset="50%" stop-color="#FF9800" stop-opacity="0.8"/>
       <stop offset="100%" stop-color="#FFB347" stop-opacity="0.6"/>
     </linearGradient>
 
-    <linearGradient id="hugeOceanFront" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Main Vibrant Foreground Golden Swell -->
+    <linearGradient id="frontWaveGold" x1="0%" y1="100%" x2="0%" y2="0%">
       <stop offset="0%" stop-color="#0d1117" stop-opacity="1"/>
-      <stop offset="20%" stop-color="#E28743" stop-opacity="1"/>
-      <stop offset="50%" stop-color="#FFB347" stop-opacity="1"/>
-      <stop offset="80%" stop-color="#FFD700" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#1a1b27" stop-opacity="1"/>
+      <stop offset="25%" stop-color="#E28743" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#FFB347" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="1"/>
     </linearGradient>
 
-    <linearGradient id="foamWhite" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#FFB347" stop-opacity="0.2"/>
-      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.95"/>
-      <stop offset="100%" stop-color="#FFD700" stop-opacity="0.3"/>
+    <!-- Glowing White/Gold Crest Ridge -->
+    <linearGradient id="crestRim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.6"/>
+      <stop offset="20%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="55%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="80%" stop-color="#FFD700" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#E28743" stop-opacity="0.4"/>
     </linearGradient>
 
-    <filter id="foamGlow">
-      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#FFD700" flood-opacity="0.8"/>
+    <filter id="whiteRimGlow">
+      <feDropShadow dx="0" dy="-2" stdDeviation="5" flood-color="#FFD700" flood-opacity="0.9"/>
     </filter>
   </defs>
 
-  <!-- Deep Ocean Void -->
-  <rect width="900" height="240" fill="#0d1117"/>
+  <!-- Deep Dark Ocean Sky Background -->
+  <rect width="900" height="200" fill="#0d1117"/>
+
+  <!-- Top Signature Floating in the Dark Sky Above the Wave -->
+  <text x="450" y="32" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">🥐 The Rolling Oven  •  Next.js 16 • Supabase PostgreSQL • GA4 Telemetry</text>
+  <text x="450" y="52" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="11" font-weight="600" fill="#E28743" text-anchor="middle">Engineered by Suganesan S (Sugan) • MBA in Business Analytics &amp; Marketing (BIT Sathy)</text>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYER 1: HUGE BACKGROUND TIDAL SWELL (Slow 7.5s)                -->
+  <!-- LAYER 1: DEEP BACKGROUND SWELL (Rising from Bottom y=200)       -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <path fill="url(#hugeOceanBack)" d="M0,0 C150,130 300,15 450,110 C600,175 750,25 900,105 L900,0 L0,0 Z">
-    <animate attributeName="d" dur="7.5s" repeatCount="indefinite"
-      values="M0,0 C150,130 300,15 450,110 C600,175 750,25 900,105 L900,0 L0,0 Z;
-              M0,0 C150,35 300,150 450,45 C600,130 750,165 900,40 L900,0 L0,0 Z;
-              M0,0 C150,145 300,50 450,155 C600,45 750,105 900,135 L900,0 L0,0 Z;
-              M0,0 C150,130 300,15 450,110 C600,175 750,25 900,105 L900,0 L0,0 Z" />
+  <path fill="url(#backWaveGold)" d="M0,200 L0,120 C150,70 300,140 450,80 C600,135 750,60 900,110 L900,200 Z">
+    <animate attributeName="d" dur="8s" repeatCount="indefinite"
+      values="M0,200 L0,120 C150,70 300,140 450,80 C600,135 750,60 900,110 L900,200 Z;
+              M0,200 L0,90 C150,135 300,75 450,120 C600,70 750,130 900,85 L900,200 Z;
+              M0,200 L0,130 C150,80 300,130 450,75 C600,125 750,80 900,115 L900,200 Z;
+              M0,200 L0,120 C150,70 300,140 450,80 C600,135 750,60 900,110 L900,200 Z" />
   </path>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYER 2: HUGE MID-OCEAN WAVE SURGE (Medium 5.5s)                -->
+  <!-- LAYER 2: MID-OCEAN WAVE SWELL (Rising from Bottom y=200)        -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <path fill="url(#hugeOceanMid)" d="M0,0 C180,95 360,175 540,80 C700,15 800,140 900,70 L900,0 L0,0 Z">
-    <animate attributeName="d" dur="5.5s" repeatCount="indefinite"
-      values="M0,0 C180,95 360,175 540,80 C700,15 800,140 900,70 L900,0 L0,0 Z;
-              M0,0 C180,165 360,55 540,150 C700,105 800,30 900,135 L900,0 L0,0 Z;
-              M0,0 C180,45 360,145 540,50 C700,140 800,95 900,55 L900,0 L0,0 Z;
-              M0,0 C180,95 360,175 540,80 C700,15 800,140 900,70 L900,0 L0,0 Z" />
+  <path fill="url(#midWaveGold)" d="M0,200 L0,135 C180,85 360,150 540,90 C700,145 800,75 900,125 L900,200 Z">
+    <animate attributeName="d" dur="6s" repeatCount="indefinite"
+      values="M0,200 L0,135 C180,85 360,150 540,90 C700,145 800,75 900,125 L900,200 Z;
+              M0,200 L0,105 C180,145 360,85 540,135 C700,85 800,135 900,95 L900,200 Z;
+              M0,200 L0,140 C180,95 360,135 540,80 C700,130 800,90 900,120 L900,200 Z;
+              M0,200 L0,135 C180,85 360,150 540,90 C700,145 800,75 900,125 L900,200 Z" />
   </path>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYER 3: TOWERING FOREGROUND OCEAN BREAKER (Fast 4s surge)      -->
+  <!-- LAYER 3: HUGE FOREGROUND GOLDEN RISING WAVE (From Screenshot!)  -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <path fill="url(#hugeOceanFront)" d="M0,0 C120,150 240,30 360,135 C480,195 600,60 720,165 C810,210 870,95 900,130 L900,0 L0,0 Z">
-    <animate attributeName="d" dur="4s" repeatCount="indefinite"
-      values="M0,0 C120,150 240,30 360,135 C480,195 600,60 720,165 C810,210 870,95 900,130 L900,0 L0,0 Z;
-              M0,0 C120,65 240,175 360,75 C480,140 600,185 720,85 C810,135 870,175 900,100 L900,0 L0,0 Z;
-              M0,0 C120,165 240,85 360,175 C480,65 600,120 720,185 C810,85 870,65 900,150 L900,0 L0,0 Z;
-              M0,0 C120,150 240,30 360,135 C480,195 600,60 720,165 C810,210 870,95 900,130 L900,0 L0,0 Z" />
+  <path fill="url(#frontWaveGold)" d="M0,200 L0,115 C90,65 190,80 260,135 C380,60 560,50 670,125 C760,85 840,110 900,195 L900,200 Z">
+    <animate attributeName="d" dur="4.5s" repeatCount="indefinite"
+      values="M0,200 L0,115 C90,65 190,80 260,135 C380,60 560,50 670,125 C760,85 840,110 900,195 L900,200 Z;
+              M0,200 L0,85 C90,125 190,65 260,110 C380,85 560,75 670,105 C760,120 840,85 900,185 L900,200 Z;
+              M0,200 L0,125 C90,75 190,95 260,130 C380,50 560,60 670,130 C760,75 840,120 900,190 L900,200 Z;
+              M0,200 L0,115 C90,65 190,80 260,135 C380,60 560,50 670,125 C760,85 840,110 900,195 L900,200 Z" />
   </path>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYER 4: GLOWING FOAM SPRAY CREST LINE                          -->
+  <!-- LAYER 4: GLOWING WHITE FOAM CREST RIDGE (Top of Arch)           -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <path fill="none" stroke="url(#foamWhite)" stroke-width="4" filter="url(#foamGlow)" d="M0,0 C120,150 240,30 360,135 C480,195 600,60 720,165 C810,210 870,95 900,130">
-    <animate attributeName="d" dur="4s" repeatCount="indefinite"
-      values="M0,0 C120,150 240,30 360,135 C480,195 600,60 720,165 C810,210 870,95 900,130;
-              M0,0 C120,65 240,175 360,75 C480,140 600,185 720,85 C810,135 870,175 900,100;
-              M0,0 C120,165 240,85 360,175 C480,65 600,120 720,185 C810,85 870,65 900,150;
-              M0,0 C120,150 240,30 360,135 C480,195 600,60 720,165 C810,210 870,95 900,130" />
+  <path fill="none" stroke="url(#crestRim)" stroke-width="3.5" filter="url(#whiteRimGlow)" d="M0,115 C90,65 190,80 260,135 C380,60 560,50 670,125 C760,85 840,110 900,195">
+    <animate attributeName="d" dur="4.5s" repeatCount="indefinite"
+      values="M0,115 C90,65 190,80 260,135 C380,60 560,50 670,125 C760,85 840,110 900,195;
+              M0,85 C90,125 190,65 260,110 C380,85 560,75 670,105 C760,120 840,85 900,185;
+              M0,125 C90,75 190,95 260,130 C380,50 560,60 670,130 C760,75 840,120 900,190;
+              M0,115 C90,65 190,80 260,135 C380,60 560,50 670,125 C760,85 840,110 900,195" />
   </path>
-
-  <!-- Footer Brand Text & Engineering Signature (Floating at bottom center) -->
-  <text x="450" y="200" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="15" font-weight="800" fill="#ffffff" text-anchor="middle">🥐 The Rolling Oven  •  Next.js 16 • Supabase PostgreSQL • GA4 Telemetry</text>
-  <text x="450" y="222" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="700" fill="#FFD700" text-anchor="middle">Engineered by Suganesan S (Sugan) • MBA in Business Analytics &amp; Marketing (BIT Sathy)</text>
 </svg>
