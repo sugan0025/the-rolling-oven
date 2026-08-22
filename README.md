@@ -37,33 +37,33 @@ Designed as a **Full-Stack D2C Commerce & Growth Analytics Engine**, the platfor
 
 ```mermaid
 graph TD
-    User([Customer / Mobile Browser]) -->|HTTPS / Next.js SSG| CDN[Vercel Edge Network]
+    User(["Customer / Mobile Browser"]) -->|HTTPS / Next.js SSG| CDN["Vercel Edge Network"]
     
-    subgraph "Frontend Layer (Next.js 16 App Router)"
-        CDN --> Home[Homepage / Hero Showcase]
-        CDN --> CatRoute[/category/[slug] Dynamic SSG Hubs/]
-        CDN --> Cart[Persistent localStorage Cart]
-        CDN --> Checkout[1-Step Checkout Modal]
+    subgraph Frontend ["Frontend Layer (Next.js 16 App Router)"]
+        CDN --> Home["Homepage / Hero Showcase"]
+        CDN --> CatRoute["Dynamic SSG Hubs (/category/slug)"]
+        CDN --> Cart["Persistent localStorage Cart"]
+        CDN --> Checkout["1-Step Checkout Modal"]
     end
     
-    subgraph "Analytics & Telemetry Layer"
-        User -.->|Event Stream| GA4[Google Analytics 4: G-GWTWBBBDQ2]
-        GA4 --> Funnel[Funnel Exploration & Attribution Modeling]
+    subgraph Analytics ["Analytics & Telemetry Layer"]
+        User -.->|Event Stream| GA4["Google Analytics 4 (G-GWTWBBBDQ2)"]
+        GA4 --> Funnel["Funnel Exploration & Attribution Modeling"]
     end
 
-    subgraph "API & Security Layer (/api/order)"
-        Checkout -->|POST Order Payload| RateLimit[Sliding-Window IP Rate Limiter]
-        RateLimit --> HoneyPot{Honeypot Triggered?}
-        HoneyPot -->|Yes (Bot)| SilentDrop[200 OK Silent Drop]
-        HoneyPot -->|No| ZodValidator[Zod Schema Validation]
-        ZodValidator --> PriceEngine[Server-Side Price Recalculation Engine]
+    subgraph Security ["API & Security Layer (/api/order)"]
+        Checkout -->|POST Order Payload| RateLimit["Sliding-Window IP Rate Limiter"]
+        RateLimit --> HoneyPot{"Honeypot Triggered?"}
+        HoneyPot -->|Yes (Bot)| SilentDrop["200 OK Silent Drop"]
+        HoneyPot -->|No| ZodValidator["Zod Schema Validation"]
+        ZodValidator --> PriceEngine["Server-Side Price Engine"]
     end
 
-    subgraph "Persistence & Dispatch Layer"
-        PriceEngine --> DB[(Supabase PostgreSQL Ledger)]
-        PriceEngine --> PromiseAll[Promise.allSettled Multi-Dispatch]
-        PromiseAll --> EmailCustomer[EmailJS: Customer Receipt]
-        PromiseAll --> EmailOwner[EmailJS: Owner Order Dispatch]
+    subgraph Dispatch ["Persistence & Dispatch Layer"]
+        PriceEngine --> DB[("Supabase PostgreSQL Ledger")]
+        PriceEngine --> PromiseAll["Promise.allSettled Dispatch"]
+        PromiseAll --> EmailCustomer["EmailJS: Customer Receipt"]
+        PromiseAll --> EmailOwner["EmailJS: Owner Order Alert"]
     end
 ```
 
