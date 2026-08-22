@@ -7,7 +7,7 @@
 <!-- ╚═══════════════════════════════╝ -->
 <div align="center">
 
-<img src="./assets/header-banner.svg" width="100%" alt="The Rolling Oven Header" />
+<img src="./assets/header-banner.svg" width="100%" alt="The Rolling Oven Animated Header" />
 
 <br><br>
 
@@ -52,7 +52,7 @@
   <b>A production-grade, direct-to-consumer e-commerce storefront engineered to eliminate aggregator commissions, capture 100% first-party customer data, and deliver sub-second SSG rendering across Western Tamil Nadu.</b>
 </p>
 
-[🥐 Live Storefront](https://the-rolling-oven.vercel.app) • [🏗️ System Architecture](#️-system-architecture) • [🛒 Order Pipeline](#-real-time-d2c-order-pipeline) • [📊 GA4 Telemetry](#-analytics--growth-intelligence-ga4) • [🗂️ Project Structure](#️-interactive-project-structure)
+[🥐 Live Storefront](https://the-rolling-oven.vercel.app) • [🏗️ System Architecture](#️-system-architecture) • [🛒 Order Pipeline](#-real-time-d2c-order-pipeline) • [📊 GA4 Telemetry](#-analytics--growth-intelligence-ga4) • [🗂️ Project Structure](#️-project-architecture--directory-map)
 
 </div>
 
@@ -145,70 +145,20 @@ Engineering Stack   : Next.js 16 (SSG) • TypeScript • Supabase PostgreSQL �
   <b>A modular, fault-tolerant edge architecture bridging static pre-rendering, telemetry, and transactional persistence.</b>
 </p>
 
-```mermaid
-flowchart TD
-    %% Custom Styling Definitions
-    classDef clientStyle fill:#24170e,stroke:#E28743,stroke-width:2px,color:#ffffff;
-    classDef cdnStyle fill:#0d1b2a,stroke:#388bfd,stroke-width:2px,color:#ffffff;
-    classDef secStyle fill:#251214,stroke:#f85149,stroke-width:2px,color:#ffffff;
-    classDef telemStyle fill:#261405,stroke:#E37400,stroke-width:2px,color:#ffffff;
-    classDef engineStyle fill:#261e08,stroke:#FFD700,stroke-width:2px,color:#ffffff;
-    classDef dbStyle fill:#0d2118,stroke:#3ecf8e,stroke-width:2px,color:#ffffff;
-    classDef dispatchStyle fill:#1a102f,stroke:#bc8cff,stroke-width:2px,color:#ffffff;
+<div align="center">
+  <img src="./assets/architecture-diagram.svg" width="100%" alt="The Rolling Oven Real-Time System Architecture" />
+</div>
 
-    subgraph Client ["📱 Customer & Mobile Client Layer"]
-        User["Customer Browser / Mobile App"]:::clientStyle
-    end
+<br>
 
-    subgraph EdgeCDN ["⚡ Vercel Edge Network & SSG Pre-Rendering"]
-        CDN["Global Edge CDN Cache"]:::cdnStyle
-        Home["Modular Homepage & Showcase"]:::cdnStyle
-        CatRoute["15 Static Category Hubs (SSG <900ms)"]:::cdnStyle
-        CartUI["Client-Side Persistent Cart (localStorage)"]:::cdnStyle
-    end
-
-    subgraph TelemetryStream ["📊 Analytics & Telemetry Layer"]
-        GA4["Google Analytics 4 (G-GWTWBBBDQ2)"]:::telemStyle
-        FunnelEngine["E-Commerce Funnel Explorer"]:::telemStyle
-        UTMTracker["Multi-Touch UTM Attribution"]:::telemStyle
-    end
-
-    subgraph SecurityGate ["🛡️ API Security & Zero-Trust Firewall"]
-        RateLimiter["Sliding-Window IP Rate Limiter"]:::secStyle
-        HoneyPot{"Honeypot Trap Triggered?"}:::secStyle
-        BotDrop["200 OK Silent Drop Anti-Spam"]:::secStyle
-        ZodValidator["Zod Schema Validation Engine"]:::secStyle
-        PriceEngine["Server-Side Price Engine SSOT"]:::engineStyle
-    end
-
-    subgraph Persistence ["💾 Persistence & Dual Dispatch Gateway"]
-        SupabaseDB[("Supabase PostgreSQL Database")]:::dbStyle
-        PromiseAll["Promise.allSettled Multi-Dispatch"]:::dispatchStyle
-        EmailCust["EmailJS: Customer Receipt"]:::dispatchStyle
-        EmailOwner["EmailJS: Owner Order Alert"]:::dispatchStyle
-    end
-
-    %% Data Connections with Safe Quoted Labels
-    User -->|"HTTPS / Next.js SSG"| CDN
-    CDN --> Home
-    CDN --> CatRoute
-    CDN --> CartUI
-
-    User -.->|"Event Stream: Discovery to Purchase"| GA4
-    GA4 --> FunnelEngine
-    GA4 --> UTMTracker
-
-    CartUI -->|"POST /api/order JSON"| RateLimiter
-    RateLimiter --> HoneyPot
-    HoneyPot -->|"Spambot Detected"| BotDrop
-    HoneyPot -->|"Verified User"| ZodValidator
-    ZodValidator --> PriceEngine
-
-    PriceEngine -->|"Write Validated Order"| SupabaseDB
-    PriceEngine -->|"Trigger Async Multi-Dispatch"| PromiseAll
-    PromiseAll --> EmailCust
-    PromiseAll --> EmailOwner
-```
+| Architectural Tier | Implementation &amp; Technologies | Core Responsibilities |
+|---|---|---|
+| **📱 Mobile &amp; Client Layer** | Mobile Viewport, Responsive Glassmorphism | Customer order creation, category exploration, live cart drawer |
+| **⚡ Edge CDN &amp; SSG** | Next.js 16 App Router, Vercel Edge Network | Sub-900ms build-time rendering of all 15 category hubs and assets |
+| **📊 Telemetry Stream** | Google Analytics 4 (`G-GWTWBBBDQ2`) | Enhanced e-commerce events, UTM multi-touch attribution, CRO analytics |
+| **🛡️ API Security Gate** | Sliding-Window IP Limiter, Honeypot Trap | Anti-spam mitigation (5 req/min), spambot silent drop, Zod schema validation |
+| **⚖️ Price Engine** | Server-Side Catalog Recalculation (`products.ts`) | Zero-trust verification discarding client-sent price payloads |
+| **💾 Ledger &amp; Proxy** | Supabase PostgreSQL, EmailJS Proxy | ACID order row persistence, `Promise.allSettled` dual email dispatch |
 
 <!-- Animated Glowing Divider -->
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
@@ -244,63 +194,19 @@ Telemetry groups user location intent across Western Tamil Nadu:
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
-<!-- ║   INTERACTIVE PROJECT TREE    ║ -->
+<!-- ║    PROJECT ARCHITECTURE MAP   ║ -->
 <!-- ╚═══════════════════════════════╝ -->
 
-<h2>🗂️ Interactive Project Structure</h2>
+<h2>🗂️ Project Architecture &amp; Directory Map</h2>
 
-<details open>
-<summary><h3>📂 <code>src/app/</code> — Next.js 16 App Router &amp; Dynamic SSG Routes <sub>(Click to collapse ▾)</sub></h3></summary>
-<br>
-
-| Path | Type | Role & Description |
+| Module / Directory | Key Files | Architectural Role &amp; Implementation |
 |---|---|---|
-| [`src/app/page.tsx`](file:///src/app/page.tsx) | Page | Modular homepage with hero showcase, interactive infinite shelf & toast triggers |
-| [`src/app/category/[slug]/`](file:///src/app/category) | Route | 15 dynamic SSG category hubs compiled statically in **&lt;900ms** |
-| [`src/app/layout.tsx`](file:///src/app/layout.tsx) | Layout | Root viewport shell with Google Analytics 4 (`G-GWTWBBBDQ2`) & Schema.org JSON-LD |
-| [`src/app/globals.css`](file:///src/app/globals.css) | Styles | Zero-framework luxury CSS design system with custom CSS variables & animations |
-| [`src/app/sitemap.ts`](file:///src/app/sitemap.ts) | SEO | Automated XML sitemap generation indexing all dynamic category routes |
-| [`src/app/robots.ts`](file:///src/app/robots.ts) | SEO | Crawler directives optimizing search indexing for local bakery keywords |
-
-</details>
-
-<details open>
-<summary><h3>📂 <code>src/app/api/</code> — Serverless Security &amp; Dispatch Endpoints <sub>(Click to collapse ▾)</sub></h3></summary>
-<br>
-
-| Path | Endpoint | Security &amp; Business Implementation |
-|---|---|---|
-| [`src/app/api/order/route.ts`](file:///src/app/api/order/route.ts) | `POST /api/order` | IP rate-limiting, honeypot filter, Zod schema validation, DB insert & dual EmailJS dispatch |
-| [`src/app/api/contact/route.ts`](file:///src/app/api/contact/route.ts) | `POST /api/contact` | Rate-limited customer inquiry handler with anti-spam honeypot defense |
-| [`src/app/api/feedback/route.ts`](file:///src/app/api/feedback/route.ts) | `POST /api/feedback` | Customer review submission with sanitization and moderation checks |
-
-</details>
-
-<details open>
-<summary><h3>📂 <code>src/lib/</code> — Core Business Logic, Security &amp; SSOT Catalog <sub>(Click to collapse ▾)</sub></h3></summary>
-<br>
-
-| Path | Role | Key Capabilities |
-|---|---|---|
-| [`src/lib/products.ts`](file:///src/lib/products.ts) | SSOT Catalog | 54-item verified catalog with pricing, flavor variants, categories, and image mappings |
-| [`src/lib/rate-limit.ts`](file:///src/lib/rate-limit.ts) | Security Guard | In-memory sliding-window IP rate limiter preventing automated DDoS and spam bursts |
-| [`src/lib/validations.ts`](file:///src/lib/validations.ts) | Type Integrity | Strict Zod validation schemas verifying order payloads and contact submissions |
-
-</details>
-
-<details>
-<summary><h3>📂 <code>public/</code> &amp; <code>assets/</code> — Visual Assets, Photography &amp; Glass Cards <sub>(Click to expand ▾)</sub></h3></summary>
-<br>
-
-| Path | Asset Type | Description |
-|---|---|---|
-| `public/images/products/` | Media | 54 high-resolution bakery product photographs synchronized with catalog data |
-| `assets/header-banner.svg` | Vector | Native SVG glowing header with amber wave curves |
-| `assets/cart-flow-banner.svg` | Vector | 5-stage interactive D2C order pipeline visual |
-| `assets/card-*.svg` | Vector | 4 frosted glass cards for Engine, Telemetry, Security & Dispatch |
-| `assets/footer-banner.svg` | Vector | Matching glowing footer banner |
-
-</details>
+| 🌐 **`src/app/`**<br><sub>*Next.js 16 App Router*</sub> | [`page.tsx`](file:///src/app/page.tsx)<br>[`layout.tsx`](file:///src/app/layout.tsx)<br>[`globals.css`](file:///src/app/globals.css) | **Modular Storefront &amp; Design System:** Pre-rendered homepage showcase, root HTML shell with GA4 script injection, zero-framework CSS tokens, and keyframe animations. |
+| ⚡ **`src/app/category/[slug]/`**<br><sub>*Dynamic SSG Hubs*</sub> | [`page.tsx`](file:///src/app/category/[slug]/page.tsx) | **15 Static Category Routes:** Pre-rendered at compile time in **&lt;900ms** with frosted glass backdrops, dynamic item grids, and SEO tags. |
+| 🛡️ **`src/app/api/`**<br><sub>*Serverless Security &amp; API*</sub> | [`order/route.ts`](file:///src/app/api/order/route.ts)<br>[`contact/route.ts`](file:///src/app/api/contact/route.ts)<br>[`feedback/route.ts`](file:///src/app/api/feedback/route.ts) | **Transactional API Gateways:** IP rate limiting (5 req/min), honeypot anti-bot defense, Zod payload validation, PostgreSQL order ledger write, and dual EmailJS dispatch. |
+| 📦 **`src/lib/`**<br><sub>*Core Logic &amp; SSOT Catalog*</sub> | [`products.ts`](file:///src/lib/products.ts)<br>[`rate-limit.ts`](file:///src/lib/rate-limit.ts)<br>[`validations.ts`](file:///src/lib/validations.ts) | **Zero-Trust Security &amp; Data Engine:** Single Source of Truth 54-item catalog, sliding-window IP tracker, and Zod type schemas. |
+| 📸 **`public/images/products/`**<br><sub>*Static Product Media*</sub> | `54 High-Res Assets` | **Verified Asset Storage:** 100% catalog-synchronized product photography, compressed and optimized for sub-second CDN delivery. |
+| 🎨 **`assets/`**<br><sub>*Visual Vector System*</sub> | `architecture-diagram.svg`<br>`cart-flow-banner.svg`<br>`card-*.svg` | **Interactive Glass Vector System:** Real-time animated SVGs, frosted glass cards, and flowcharts with zero external runtime dependencies. |
 
 <!-- Animated Glowing Divider -->
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
@@ -380,6 +286,6 @@ GitHub Profile      : https://github.com/sugan0025
 
 <br><br>
 
-<img src="./assets/footer-banner.svg" width="100%" alt="Footer Banner" />
+<img src="./assets/footer-banner.svg" width="100%" alt="Footer Animated Banner" />
 
 </div>
