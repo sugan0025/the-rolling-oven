@@ -199,14 +199,14 @@ Telemetry groups user location intent across Western Tamil Nadu:
 
 <h2>🗂️ Project Architecture &amp; Directory Map</h2>
 
-| Module / Directory | Key Files | Architectural Role &amp; Implementation |
-|---|---|---|
-| 🌐 **`src/app/`**<br><sub>*Next.js 16 App Router*</sub> | [`page.tsx`](file:///src/app/page.tsx)<br>[`layout.tsx`](file:///src/app/layout.tsx)<br>[`globals.css`](file:///src/app/globals.css) | **Modular Storefront &amp; Design System:** Pre-rendered homepage showcase, root HTML shell with GA4 script injection, zero-framework CSS tokens, and keyframe animations. |
-| ⚡ **`src/app/category/[slug]/`**<br><sub>*Dynamic SSG Hubs*</sub> | [`page.tsx`](file:///src/app/category/[slug]/page.tsx) | **15 Static Category Routes:** Pre-rendered at compile time in **&lt;900ms** with frosted glass backdrops, dynamic item grids, and SEO tags. |
-| 🛡️ **`src/app/api/`**<br><sub>*Serverless Security &amp; API*</sub> | [`order/route.ts`](file:///src/app/api/order/route.ts)<br>[`contact/route.ts`](file:///src/app/api/contact/route.ts)<br>[`feedback/route.ts`](file:///src/app/api/feedback/route.ts) | **Transactional API Gateways:** IP rate limiting (5 req/min), honeypot anti-bot defense, Zod payload validation, PostgreSQL order ledger write, and dual EmailJS dispatch. |
-| 📦 **`src/lib/`**<br><sub>*Core Logic &amp; SSOT Catalog*</sub> | [`products.ts`](file:///src/lib/products.ts)<br>[`rate-limit.ts`](file:///src/lib/rate-limit.ts)<br>[`validations.ts`](file:///src/lib/validations.ts) | **Zero-Trust Security &amp; Data Engine:** Single Source of Truth 54-item catalog, sliding-window IP tracker, and Zod type schemas. |
-| 📸 **`public/images/products/`**<br><sub>*Static Product Media*</sub> | `54 High-Res Assets` | **Verified Asset Storage:** 100% catalog-synchronized product photography, compressed and optimized for sub-second CDN delivery. |
-| 🎨 **`assets/`**<br><sub>*Visual Vector System*</sub> | `architecture-diagram.svg`<br>`cart-flow-banner.svg`<br>`card-*.svg` | **Interactive Glass Vector System:** Real-time animated SVGs, frosted glass cards, and flowcharts with zero external runtime dependencies. |
+| Layer &amp; Module | Key Files &amp; Artifacts | Architectural Responsibilities |
+|:---|:---|:---|
+| 🌐 **`src/app/`**<br><sub>*Next.js 16 App Router*</sub> | `page.tsx`<br>`layout.tsx`<br>`globals.css`<br>`sitemap.ts` | **Storefront Shell &amp; Design Tokens:** Pre-rendered modular hero, GA4 tracking scripts injection, zero-framework luxury CSS tokens, and automated XML sitemap generation. |
+| ⚡ **`src/app/category/`**<br><sub>*Dynamic SSG Hubs*</sub> | `[slug]/page.tsx` | **15 Static Category Routes:** Pre-rendered at build time in **&lt;900ms** with dynamic item grids, SEO structured JSON-LD data, and responsive layout. |
+| 🛡️ **`src/app/api/`**<br><sub>*Serverless API Endpoints*</sub> | `order/route.ts`<br>`contact/route.ts`<br>`feedback/route.ts` | **Zero-Trust Security Gateways:** IP rate limiting (5 req/min), honeypot spambot drop, Zod schema validation, Supabase PostgreSQL persistence, and dual EmailJS dispatch. |
+| 📦 **`src/lib/`**<br><sub>*Business Logic &amp; Security*</sub> | `products.ts`<br>`rate-limit.ts`<br>`validations.ts` | **Data Engine &amp; Single Source of Truth:** 54-item verified bakery catalog with price definitions, sliding-window IP tracker, and Zod type schemas. |
+| 📸 **`public/`**<br><sub>*Static Media &amp; Branding*</sub> | `images/products/*`<br>`favicon.ico` | **Optimized Product Catalog Media:** 54 synchronized high-resolution bakery photographs, multi-format favicon assets, and client-side UI handlers. |
+| 🎨 **`assets/`**<br><sub>*Live Vector System*</sub> | `architecture-diagram.svg`<br>`cart-flow-banner.svg`<br>`card-*.svg` | **Interactive Glass Vector System:** SMIL-animated real-time system architecture, 5-stage D2C order pipeline visual, and frosted glass feature cards. |
 
 <!-- Animated Glowing Divider -->
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
