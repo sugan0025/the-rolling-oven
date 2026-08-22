@@ -32,6 +32,9 @@ yarn-error.log*
 # vercel
 .vercel
 
-# agent scratch
+# agent & AI scratch files
+.agents/
 AGENTS.md
 CLAUDE.md
+PROJECT_MEMORY_DOSSIER.md
+*.tmp

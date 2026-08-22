@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="200" viewBox="0 0 900 200">
+  <defs>
+    <linearGradient id="headerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#1a1b27;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1117;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1"/>
+      <stop offset="25%" style="stop-color:#E28743;stop-opacity:0.9"/>
+      <stop offset="50%" style="stop-color:#FFB347;stop-opacity:1"/>
+      <stop offset="75%" style="stop-color:#E28743;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#1a1b27;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="textGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="goldGlow">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#FFB347" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="900" height="200" fill="url(#headerBg)"/>
+
+  <!-- Decorative Background Grid Lines -->
+  <line x1="0" y1="50" x2="900" y2="50" stroke="#30363d" stroke-opacity="0.2" stroke-width="1"/>
+  <line x1="0" y1="100" x2="900" y2="100" stroke="#30363d" stroke-opacity="0.2" stroke-width="1"/>
+  <line x1="0" y1="150" x2="900" y2="150" stroke="#30363d" stroke-opacity="0.2" stroke-width="1"/>
+
+  <!-- Main Title -->
+  <text x="450" y="80" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="44" font-weight="800" fill="url(#textGold)" text-anchor="middle" filter="url(#goldGlow)">🥐 The Rolling Oven</text>
+
+  <!-- Subtitle -->
+  <text x="450" y="115" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="16" font-weight="600" fill="#E28743" text-anchor="middle" letter-spacing="1">HIGH-PERFORMANCE D2C STOREFRONT &amp; GROWTH ENGINE</text>
+
+  <!-- Tagline Badges Text -->
+  <text x="450" y="142" font-family="'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">Next.js 16 SSG &lt;900ms  •  Supabase PostgreSQL Ledger  •  GA4 E-Commerce Telemetry</text>
+
+  <!-- Animated Bottom Wave Curve -->
+  <path d="M0,170 C150,195 300,155 450,180 C600,205 750,165 900,185 L900,200 L0,200 Z" fill="url(#waveGrad)"/>
+</svg>
