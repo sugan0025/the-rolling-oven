@@ -25,11 +25,11 @@
 
 Designed as a **Full-Stack D2C Commerce & Growth Analytics Engine**, the platform eliminates the 25%–35% commission fees imposed by third-party delivery aggregators while retaining 100% first-party customer ownership, automated order processing, and conversion rate optimization (CRO) telemetry.
 
-### 🌟 Key Performance Metrics
-* ⚡ **Sub-Second SSG Build:** Full static-site generation (SSG) of 15 dynamic routes in **<900ms**.
-* 🎯 **Top-of-Funnel Conversion:** Verified **83.33%** transition rate from storefront landing to category exploration.
-* 🛡️ **Zero-Trust Price Integrity:** Server-side price recalculation preventing client-side DevTools tampering.
-* 📦 **Zero Asset Waste:** 54 verified high-res product assets with 100% disk-to-catalog synchronization.
+### 🌟 Engineering & Architecture Highlights
+* ⚡ **Sub-Second SSG Pre-Rendering:** Static-site generation (SSG) of all 15 dynamic category routes in **<900ms**.
+* 📊 **End-to-End E-Commerce Telemetry:** Instrumented GA4 e-commerce tracking (`G-GWTWBBBDQ2`) covering full discovery-to-checkout funnels.
+* 🛡️ **Zero-Trust Price Integrity:** Server-side price recalculation engine preventing client-side cart tampering.
+* 📦 **Zero Asset Waste:** 54 verified high-resolution product assets with 100% catalog-to-storage synchronization.
 
 ---
 
