@@ -335,6 +335,7 @@ GitHub Profile      : https://github.com/sugan0025
 
 <br><br>
 
-<img src="./assets/footer-banner.svg" width="100%" alt="Footer Animated Banner" />
+<img src="./assets/footer-wave.svg" width="100%" alt="Footer Animated Ocean Wave" />
 
 </div>
+
