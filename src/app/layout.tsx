@@ -6,6 +6,7 @@ import CartDrawer from "../components/CartDrawer";
 import OrderModal from "../components/OrderModal";
 import ToastContainer from "../components/ToastContainer";
 import Footer from "../components/Footer";
+import FloatingWhatsApp from "../components/FloatingWhatsApp";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -203,6 +204,9 @@ export default function RootLayout({
 
         {/* ===== FOOTER ===== */}
         <Footer />
+
+        {/* ===== FLOATING WHATSAPP BUTTON ===== */}
+        <FloatingWhatsApp />
 
         <Script src="/main.js" strategy="lazyOnload" type="module" />
       </body>

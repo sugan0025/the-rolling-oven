@@ -655,6 +655,39 @@ function initMobileMenu() {
   });
 }
 
+const BAKERY_WHATSAPP_NUMBER = '916383645415';
+
+function getWhatsAppCartMessage(cartItems, total) {
+  let text = `👋 *Hello The Rolling Oven!* I would like to place an order:\n\n`;
+  text += `🧁 *Order Items:*\n`;
+  cartItems.forEach(item => {
+    text += `• ${item.name} × ${item.qty} (₹${item.price * item.qty})\n`;
+  });
+  text += `\n💰 *Total Amount:* ₹${total}\n\n`;
+  text += `📍 *Delivery Area:* Sathyamangalam / Erode\n`;
+  text += `Please confirm availability and delivery details!`;
+  return encodeURIComponent(text);
+}
+
+function getWhatsAppCheckoutMessage(orderData) {
+  let text = `👋 *Hello The Rolling Oven!* I just placed an order on your website:\n\n`;
+  text += `📋 *Order Summary:*\n`;
+  orderData.items.forEach(item => {
+    text += `• ${item.name} × ${item.qty} (₹${item.price * item.qty})\n`;
+  });
+  text += `\n💰 *Total:* ₹${orderData.total}\n\n`;
+  text += `👤 *Customer Details:*\n`;
+  text += `• Name: ${orderData.name}\n`;
+  text += `• Phone: ${orderData.phone}\n`;
+  text += `• Address: ${orderData.address}\n`;
+  text += `• Pincode: ${orderData.pincode}\n`;
+  if (orderData.notes && orderData.notes.trim()) {
+    text += `• Instructions: ${orderData.notes}\n`;
+  }
+  text += `\nPlease confirm my delivery time. Thank you!`;
+  return encodeURIComponent(text);
+}
+
 function initCart() {
   const closeBtn = document.getElementById('cart-close-btn');
   const overlay = document.getElementById('cart-overlay');
@@ -674,10 +707,8 @@ function initCart() {
   // Cart button in nav opens cart
   const cartIconBtn = document.querySelector('.nav-cta');
   if (cartIconBtn) {
-    // Only intercept if it's the cart button (has cart-badge)
     if (cartIconBtn.querySelector('.cart-badge')) {
       cartIconBtn.addEventListener('click', (e) => {
-        // Prevent default only for the cart button, let Order Now do its thing
         if (e.currentTarget.getAttribute('href') === '#') {
           e.preventDefault();
           openCart();
@@ -686,13 +717,37 @@ function initCart() {
     }
   }
 
-  // Make openCart global so other elements can call it if needed
   window.openCart = openCart;
 
   closeBtn.addEventListener('click', closeCart);
   overlay.addEventListener('click', closeCart);
 
-  // Place order button in cart bypasses cart and opens modal
+  // 1-Click WhatsApp Order Button in Cart
+  const waBtn = document.getElementById('whatsapp-order-btn');
+  if (waBtn) {
+    waBtn.addEventListener('click', () => {
+      if (cart.length === 0) return;
+      const total = getCartTotal();
+      const msg = getWhatsAppCartMessage(cart, total);
+
+      // Google Analytics Tracking
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'begin_checkout', {
+          currency: 'INR',
+          value: total,
+          items: cart.map(i => ({ item_name: i.name, price: i.price, quantity: i.qty }))
+        });
+        gtag('event', 'whatsapp_order_click', {
+          currency: 'INR',
+          value: total
+        });
+      }
+
+      window.open(`https://wa.me/${BAKERY_WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+    });
+  }
+
+  // Place order button in cart opens online checkout modal
   document.getElementById('place-order-btn').addEventListener('click', () => {
     if (cart.length === 0) return;
     closeCart();
@@ -794,10 +849,17 @@ function initOrderModal() {
       renderCart();
       closeOrderModal();
       document.getElementById('order-form').reset();
-      showOrderSuccess(orderData);
+      
+      // Notify user & trigger WhatsApp confirmation
+      showToast('success', 'Order Confirmed! 🎉', 'Opening WhatsApp to confirm delivery details with the bakery...');
+      const waMsg = getWhatsAppCheckoutMessage(orderData);
+      setTimeout(() => {
+        window.open(`https://wa.me/${BAKERY_WHATSAPP_NUMBER}?text=${waMsg}`, '_blank');
+      }, 1200);
+
     } catch (err) {
       console.error(err);
-      showToast('error', 'Error Processing Order', 'Please try again or contact us directly.');
+      showToast('error', 'Error Processing Order', 'Please try again or contact us directly on WhatsApp.');
     } finally {
       btn.innerHTML = original;
       btn.disabled = false;
