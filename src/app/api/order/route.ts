@@ -76,37 +76,46 @@ export async function POST(request: Request) {
 
     // Build email params (shared between customer receipt and owner notification)
     const emailParams = {
-      customer_name: validatedData.customer_name,
-      customer_email: validatedData.customer_email,
-      customer_phone: validatedData.customer_phone,
+      customer_name: validatedData.customer_name || 'WhatsApp Shopper',
+      customer_email: validatedData.customer_email || 'None',
+      customer_phone: validatedData.customer_phone || 'WhatsApp Chat',
       order_items: verifiedItems
         .map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`)
         .join(' | '),
       total_amount: String(finalTotal),
       notes: (validatedData.special_instructions || 'None') + addressBlock + utmData,
-      delivery_address: validatedData.delivery_address,
-      pincode: validatedData.pincode,
+      delivery_address: validatedData.delivery_address || 'Direct WhatsApp Checkout',
+      pincode: validatedData.pincode || '638401',
       utm_source: validatedData.utm_source || '',
       utm_medium: validatedData.utm_medium || '',
       utm_campaign: validatedData.utm_campaign || '',
     };
 
-    // Fire BOTH emails simultaneously via EmailJS
-    const emailResults = await Promise.allSettled([
-      fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          service_id: process.env.EMAILJS_SERVICE_ID,
-          template_id: process.env.EMAILJS_TEMPLATE_ID,
-          user_id: process.env.EMAILJS_PUBLIC_KEY,
-          accessToken: process.env.EMAILJS_PRIVATE_KEY,
-          template_params: {
-            to_email: validatedData.customer_email,
-            ...emailParams,
-          },
-        }),
-      }),
+    // Build email promises list
+    const emailPromises: Promise<Response>[] = [];
+
+    // Customer email receipt (only if valid email provided and not a WhatsApp placeholder)
+    if (validatedData.customer_email && validatedData.customer_email.includes('@') && !validatedData.customer_email.includes('whatsapp')) {
+      emailPromises.push(
+        fetch('https://api.emailjs.com/api/v1.0/email/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            service_id: process.env.EMAILJS_SERVICE_ID,
+            template_id: process.env.EMAILJS_TEMPLATE_ID,
+            user_id: process.env.EMAILJS_PUBLIC_KEY,
+            accessToken: process.env.EMAILJS_PRIVATE_KEY,
+            template_params: {
+              to_email: validatedData.customer_email,
+              ...emailParams,
+            },
+          }),
+        })
+      );
+    }
+
+    // Owner notification email (always sent to bakery)
+    emailPromises.push(
       fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -120,8 +129,10 @@ export async function POST(request: Request) {
             ...emailParams,
           },
         }),
-      }),
-    ]);
+      })
+    );
+
+    const emailResults = await Promise.allSettled(emailPromises);
 
     // Log email errors if any
     for (let i = 0; i < emailResults.length; i++) {

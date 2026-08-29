@@ -722,20 +722,45 @@ function initCart() {
   closeBtn.addEventListener('click', closeCart);
   overlay.addEventListener('click', closeCart);
 
-  // 1-Click WhatsApp Order Button in Cart
+  // 1-Click WhatsApp Order Button in Cart (Saves to Supabase DB & Opens WhatsApp)
   const waBtn = document.getElementById('whatsapp-order-btn');
   if (waBtn) {
-    waBtn.addEventListener('click', () => {
+    waBtn.addEventListener('click', async () => {
       if (cart.length === 0) return;
       const total = getCartTotal();
-      const msg = getWhatsAppCartMessage(cart, total);
+      const itemsSnapshot = [...cart];
+      const msg = getWhatsAppCartMessage(itemsSnapshot, total);
+
+      const orderData = {
+        name: 'WhatsApp Direct Customer',
+        email: 'whatsapp-order@the-rolling-oven.com',
+        phone: 'WhatsApp Order',
+        address: 'Direct WhatsApp Checkout',
+        pincode: '638401',
+        notes: 'Order placed via 1-Click WhatsApp Button in Cart',
+        b_website: null,
+        items: itemsSnapshot,
+        total: total,
+        isDirectOrder: true
+      };
+
+      // Asynchronously log order into Supabase DB
+      try {
+        sendOrderEmail({
+          ...orderData,
+          order_type: 'WhatsApp Direct Checkout'
+        });
+      } catch (err) {
+        console.warn('Background Supabase logging:', err);
+      }
 
       // Google Analytics Tracking
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'begin_checkout', {
-          currency: 'INR',
+        gtag('event', 'purchase', {
+          transaction_id: 'WA_' + Math.floor(Math.random() * 1000000),
           value: total,
-          items: cart.map(i => ({ item_name: i.name, price: i.price, quantity: i.qty }))
+          currency: 'INR',
+          items: itemsSnapshot.map(i => ({ item_name: i.name, price: i.price, quantity: i.qty }))
         });
         gtag('event', 'whatsapp_order_click', {
           currency: 'INR',
@@ -743,6 +768,14 @@ function initCart() {
         });
       }
 
+      // Clear cart & notify user
+      cart = [];
+      saveCart();
+      updateCartBadge();
+      renderCart();
+      closeCart();
+
+      showToast('success', 'Order Logged! 💬', 'Opening WhatsApp to complete your order...');
       window.open(`https://wa.me/${BAKERY_WHATSAPP_NUMBER}?text=${msg}`, '_blank');
     });
   }
