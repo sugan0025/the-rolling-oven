@@ -807,12 +807,23 @@ function openOrderModal() {
   const summaryBox = document.getElementById('order-summary-box');
   if (summaryBox) {
     summaryBox.style.display = 'block';
+    
+    if (cart.length === 0) {
+       summaryBox.innerHTML = `<div style="text-align:center; padding: 20px; color: #a1a1aa;">Your cart is empty.</div>`;
+       const btn = document.getElementById('submit-order-btn');
+       if(btn) btn.style.display = 'none';
+       return;
+    }
+
+    const btn = document.getElementById('submit-order-btn');
+    if(btn) btn.style.display = 'flex';
+
     summaryBox.innerHTML = `
       <strong style="display:block;margin-bottom:8px;color:var(--cream);">Order Summary</strong>
       ${cart.map((item, i) => `
         <div class="order-line" style="align-items: flex-start;">
           <span style="display: flex; align-items: center; gap: 8px;">
-            <button type="button" onclick="removeFromCart(${i}); openOrderModal();" title="Remove Item" style="background:transparent; border:none; color:#71717a; padding:0; display:flex; align-items:center; cursor:pointer; margin-top:2px; transition: color 0.2s;">
+            <button type="button" onclick="removeModalItem(${i})" title="Remove Item" style="background:transparent; border:none; color:#71717a; padding:0; display:flex; align-items:center; cursor:pointer; margin-top:2px; transition: color 0.2s;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="8" y1="12" x2="16" y2="12"></line>
@@ -827,6 +838,22 @@ function openOrderModal() {
     `;
   }
 }
+
+// Global helper to remove item from modal and redraw
+window.removeModalItem = function(index) {
+  // Call the existing logic which updates local storage and cart drawer
+  removeFromCart(index);
+  
+  // Redraw the modal contents
+  openOrderModal();
+  
+  if (cart.length === 0) {
+    showToast('info', 'Cart Empty', 'Your cart is now empty.');
+    setTimeout(() => {
+      closeOrderModal();
+    }, 1000);
+  }
+};
 
 function closeOrderModal() {
   document.getElementById('order-modal-overlay').classList.remove('active');
