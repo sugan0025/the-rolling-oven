@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
-import { CATEGORIES } from '@/lib/products';
-
-// Initialize Razorpay
-const razorpay = new Razorpay({
-  key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
+import { CATEGORIES } from '../../../../lib/products';
 
 export async function POST(req: Request) {
   try {
+    // Initialize Razorpay inside the handler to prevent build-time evaluation errors
+    const razorpay = new Razorpay({
+      key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
+      key_secret: process.env.RAZORPAY_KEY_SECRET || '',
+    });
+
     const { items } = await req.json();
 
     if (!items || !Array.isArray(items) || items.length === 0) {
