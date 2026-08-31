@@ -1255,26 +1255,28 @@ html.lenis, html.lenis body {
   z-index: 9999;
   display: flex;
   align-items: center;
-  gap: 12px;
-  text-decoration: none;
-}
-.floating-whatsapp-btn {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
   background: linear-gradient(135deg, #25D366, #128C7E);
   color: #FFFFFF;
+  border-radius: 56px;
+  height: 56px;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  overflow: hidden;
+  max-width: 56px; /* Initially just the circle */
+}
+.floating-whatsapp:hover {
+  max-width: 250px; /* Expands to show text */
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+}
+.floating-whatsapp-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
-  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
   position: relative;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-.floating-whatsapp-btn:hover {
-  transform: scale(1.1) rotate(6deg);
-  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
 }
 .floating-whatsapp-pulse {
   position: absolute;
@@ -1289,24 +1291,75 @@ html.lenis, html.lenis body {
   50% { transform: scale(1.3); opacity: 0; }
   100% { transform: scale(1.3); opacity: 0; }
 }
-.floating-whatsapp-tooltip {
-  background: rgba(26, 15, 8, 0.95);
-  color: var(--cream);
-  border: 1px solid var(--gold);
-  backdrop-filter: blur(15px);
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  font-size: 0.85rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-medium);
+.floating-whatsapp-text {
   white-space: nowrap;
-  pointer-events: none;
-  animation: fadeIn 0.4s ease;
+  font-weight: 600;
+  padding-right: 24px;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.4s ease;
+}
+.floating-whatsapp:hover .floating-whatsapp-text {
+  opacity: 1;
+  transform: translateX(0);
 }
 @media (max-width: 768px) {
   .floating-whatsapp { bottom: 20px; left: 16px; }
-  .floating-whatsapp-tooltip { display: none; }
-  .floating-whatsapp-btn { width: 50px; height: 50px; }
+  .floating-whatsapp-text { display: none; }
+}
+
+/* ==========================================================================
+   Checkout UI Additions
+   ========================================================================== */
+.payment-method-group {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+.payment-method-title {
+  font-family: var(--font-primary);
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5px;
+}
+.payment-options {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+.payment-option {
+  cursor: pointer;
+  position: relative;
+}
+.payment-option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.payment-option-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  color: var(--cream);
+}
+.payment-option input:checked ~ .payment-option-content {
+  background: rgba(197, 160, 89, 0.15);
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+.payment-icon {
+  font-size: 1.5rem;
+}
+.payment-text {
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 

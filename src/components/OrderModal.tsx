@@ -49,6 +49,28 @@ export default function OrderModal() {
             <textarea id="order-notes" className="form-input form-textarea" placeholder=" " rows={2}></textarea>
             <label htmlFor="order-notes" className="form-label">Special Instructions (Optional)</label>
           </div>
+          
+          {/* Payment Method Selection */}
+          <div className="payment-method-group">
+            <h4 className="payment-method-title">Select Payment Method</h4>
+            <div className="payment-options">
+              <label className="payment-option">
+                <input type="radio" name="payment_method" value="online" defaultChecked />
+                <span className="payment-option-content">
+                  <span className="payment-icon">💳</span>
+                  <span className="payment-text">Pay Online (UPI / Card)</span>
+                </span>
+              </label>
+              <label className="payment-option">
+                <input type="radio" name="payment_method" value="cod" />
+                <span className="payment-option-content">
+                  <span className="payment-icon">💵</span>
+                  <span className="payment-text">Cash on Delivery</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
           <div className="order-summary-box" id="order-summary-box"></div>
           <button type="submit" className="btn btn-primary btn-full" id="submit-order-btn">
             <span>Confirm & Send Order</span>

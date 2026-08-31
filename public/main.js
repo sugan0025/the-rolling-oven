@@ -825,6 +825,41 @@ function initOrderModal() {
     if (e.target === e.currentTarget) closeOrderModal();
   });
 
+  // WhatsApp Redirect Helper
+  const redirectToWhatsApp = (orderData, paymentId, isCod) => {
+    const whatsappNumber = '916383645415';
+    const paymentStatus = isCod ? '💵 *Cash on Delivery (Pending)*' : `✅ *Paid Online* (ID: ${paymentId})`;
+    
+    let itemsList = '';
+    orderData.items.forEach(item => {
+      itemsList += `▪ ${item.qty}x ${item.name} - ₹${item.price * item.qty}\n`;
+    });
+
+    const message = `
+🎉 *NEW ORDER CONFIRMED!* 🎉
+
+Hi The Rolling Oven! I just placed an order on your website. Here are my details:
+
+👤 *Name:* ${orderData.name}
+📞 *Phone:* ${orderData.phone}
+📍 *Delivery Address:* 
+${orderData.address}
+${orderData.pincode}
+
+🛒 *Order Summary:*
+${itemsList}
+💰 *Total Amount:* ₹${orderData.total}
+💳 *Payment:* ${paymentStatus}
+
+📝 *Notes:* ${orderData.notes || 'None'}
+
+${isCod ? '_Please confirm my COD order!_' : '_Please find my payment screenshot attached below._'}
+    `.trim();
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   document.getElementById('order-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submit-order-btn');
@@ -859,10 +894,51 @@ function initOrderModal() {
       isDirectOrder: false
     };
 
+    const paymentMethodEl = document.querySelector('input[name="payment_method"]:checked');
+    const paymentMethod = paymentMethodEl ? paymentMethodEl.value : 'online';
+
     try {
-      // 1. Call our new create-order API to securely calculate amount and get order_id
-      const orderRes = await fetch('/api/razorpay/create-order', {
-        method: 'POST',
+      if (paymentMethod === 'cod') {
+        // --- COD FLOW ---
+        const finalOrderData = {
+          customer_name: orderData.name,
+          customer_email: orderData.email,
+          customer_phone: orderData.phone,
+          delivery_address: orderData.address,
+          pincode: orderData.pincode,
+          special_instructions: orderData.notes,
+          items: orderData.items,
+          total_amount: orderData.total,
+          utm_source: sessionStorage.getItem('utm_source'),
+          utm_medium: sessionStorage.getItem('utm_medium'),
+          utm_campaign: sessionStorage.getItem('utm_campaign'),
+          order_type: 'Cash on Delivery'
+        };
+
+        const verifyRes = await fetch('/api/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(finalOrderData)
+        });
+        
+        if (!verifyRes.ok) throw new Error('Order submission failed');
+        
+        // Success Flow
+        cart = [];
+        saveCart();
+        updateCartBadge();
+        renderCart();
+        closeOrderModal();
+        document.getElementById('order-form').reset();
+        
+        showToast('success', 'Order Confirmed! 🎉', 'Redirecting to WhatsApp...');
+        setTimeout(() => redirectToWhatsApp(orderData, null, true), 1500);
+
+      } else {
+        // --- ONLINE RAZORPAY FLOW ---
+        // 1. Call our new create-order API to securely calculate amount and get order_id
+        const orderRes = await fetch('/api/razorpay/create-order', {
+          method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items: orderData.items })
       });
@@ -938,7 +1014,8 @@ function initOrderModal() {
                });
              }
              
-             showToast('success', 'Payment Successful! 🎉', 'Your order is confirmed and an email receipt has been sent.');
+             showToast('success', 'Payment Successful! 🎉', 'Redirecting to WhatsApp...');
+             setTimeout(() => redirectToWhatsApp(orderData, response.razorpay_payment_id, false), 1500);
              
           } catch(e) {
              console.error(e);
@@ -988,6 +1065,7 @@ function initOrderModal() {
          btn.disabled = false;
       });
       rzp.open();
+      } // <-- Closes the else block for Online Razorpay Flow
 
     } catch (err) {
       console.error(err);
