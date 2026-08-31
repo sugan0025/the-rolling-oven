@@ -25,7 +25,8 @@ export async function POST(req: Request) {
       if (!product) {
         return NextResponse.json({ error: `Invalid item: ${item.name}` }, { status: 400 });
       }
-      total += product.price * item.quantity;
+      const itemQty = item.qty || item.quantity || 1;
+      total += product.price * itemQty;
     }
 
     if (total <= 0) {
