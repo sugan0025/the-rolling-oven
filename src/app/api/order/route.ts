@@ -7,8 +7,9 @@
  * // Warning: If you touch the Promise.allSettled() or the server-side price recalculation,
  * // you will anger the EmailJS rate-limiter demons.
  * //
- * // total_hours_wasted_here = 32
- * // chocolate_lava_cakes_eaten_during_debugging = 14
+ * // total_hours_wasted_here = 35
+ * // chocolate_lava_cakes_eaten_during_debugging = 16
+ * // emailjs_free_tier_limits_evaded = 1
  */
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
@@ -114,8 +115,10 @@ export async function POST(request: Request) {
     };
 
     // Build email promises list
-    const emailPromises: Promise<Response>[] = [];
+    // const emailPromises: Promise<Response>[] = [];
 
+    // [DISABLED to preserve EmailJS Free Tier for Abandoned Cart]
+    /*
     // Customer email receipt (only if valid email provided and not a WhatsApp placeholder)
     if (validatedData.customer_email && validatedData.customer_email.includes('@') && !validatedData.customer_email.includes('whatsapp')) {
       emailPromises.push(
@@ -167,6 +170,7 @@ export async function POST(request: Request) {
         console.error(`EmailJS ${label} error:`, t);
       }
     }
+    */
 
     // Insert into Supabase
     try {

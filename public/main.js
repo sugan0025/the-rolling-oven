@@ -9,8 +9,9 @@
 // please increase this counter as a
 // warning for the next person.
 //
-// total_hours_wasted_here = 32
-// hours_of_sleep_sacrificed_to_the_oven_gods = 48
+// total_hours_wasted_here = 35
+// hours_of_sleep_sacrificed_to_the_oven_gods = 52
+// zomato_style_toasts_built_while_hallucinating = 3
 // ============================================
 // THE ROLLING OVEN — Complete E-Commerce System
 // Cart, Email, Product Pages, Interactions, GA4 Tracking
@@ -825,6 +826,29 @@ function initOrderModal() {
     if (e.target === e.currentTarget) closeOrderModal();
   });
 
+  // ============================================
+  // ABANDONED CART EXIT-INTENT TRACKER
+  // ============================================
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      const emailInput = document.getElementById('order-email');
+      // If they typed an email, have items in cart, and we haven't sent one recently (24 hrs)
+      if (emailInput && emailInput.value.includes('@') && cart && cart.length > 0) {
+        const lastSent = localStorage.getItem('tro_abandon_sent');
+        const now = Date.now();
+        if (!lastSent || (now - parseInt(lastSent)) > 24 * 60 * 60 * 1000) {
+          localStorage.setItem('tro_abandon_sent', now.toString());
+          fetch('/api/abandon-cart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: emailInput.value }),
+            keepalive: true
+          }).catch(err => console.warn('Abandoned cart tracking silent failure', err));
+        }
+      }
+    }
+  });
+
   // WhatsApp Redirect Helper
   const redirectToWhatsApp = (orderData, paymentId, isCod) => {
     const whatsappNumber = '916383645415';
@@ -1279,6 +1303,62 @@ function initLenisScroll() {
 }
 
 // ============================================
+// ON-SITE MARKETING AUTOMATIONS (ZOMATO STYLE)
+// ============================================
+const MARKETING_MESSAGES = {
+  linger: [
+    "Still thinking? Your sweet tooth already decided. 👀",
+    "Be honest. You were already thinking about us. 🍰",
+    "Your cart is feeling a little… desserted. 💔😂",
+    "Don't leave your food halfway through the relationship. 💔",
+    "Your fridge is trying its best. We understand. 😌"
+  ],
+  exit_intent: [
+    "We saw you resisting. Cute. 😌",
+    "Your desserts are waiting. Don't make them think you never cared. 🥺",
+    "You added them. You wanted them. Let's not play games. 👀",
+    "Warning: leaving this page may cause sudden dessert cravings. 🍫"
+  ]
+};
+
+function initMarketingAutomations() {
+  let lingerTimer;
+  let exitFired = false;
+  let lingerFired = false;
+  let lastActivity = Date.now();
+
+  const resetLinger = () => {
+    lastActivity = Date.now();
+  };
+
+  // Track activity to avoid popping toasts if they are actively doing stuff
+  window.addEventListener('mousemove', resetLinger);
+  window.addEventListener('click', resetLinger);
+  window.addEventListener('keydown', resetLinger);
+  window.addEventListener('scroll', resetLinger);
+
+  // Check every 10 seconds for Linger
+  setInterval(() => {
+    // Only fire if they have items in cart, haven't fired already, and idle for > 45 seconds
+    if (cart.length > 0 && !lingerFired && (Date.now() - lastActivity > 45000)) {
+      lingerFired = true;
+      const msg = MARKETING_MESSAGES.linger[Math.floor(Math.random() * MARKETING_MESSAGES.linger.length)];
+      showToast('info', 'Hey there...', msg);
+    }
+  }, 10000);
+
+  // Exit Intent Tracker
+  document.addEventListener('mouseleave', (e) => {
+    // If mouse goes off the top edge of the screen (typically moving to address bar / close tab)
+    if (e.clientY < 10 && cart.length > 0 && !exitFired) {
+      exitFired = true;
+      const msg = MARKETING_MESSAGES.exit_intent[Math.floor(Math.random() * MARKETING_MESSAGES.exit_intent.length)];
+      showToast('info', 'Wait! 🛑', msg);
+    }
+  });
+}
+
+// ============================================
 // INITIALIZE
 // ============================================
 function initApp() {
@@ -1301,6 +1381,7 @@ function initApp() {
   initFeedbackModal();
   initLenisScroll();
   initTracking();
+  initMarketingAutomations();
 
   // Category page specific
   initCategoryPage();
