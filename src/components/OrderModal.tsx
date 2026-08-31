@@ -57,14 +57,18 @@ export default function OrderModal() {
               <label className="payment-option">
                 <input type="radio" name="payment_method" value="online" defaultChecked />
                 <span className="payment-option-content">
-                  <span className="payment-icon">💳</span>
+                  <span className="payment-icon">
+                    <img src="/images/icons/card-3d.png" alt="Pay Online" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+                  </span>
                   <span className="payment-text">Pay Online (UPI / Card)</span>
                 </span>
               </label>
               <label className="payment-option">
                 <input type="radio" name="payment_method" value="cod" />
                 <span className="payment-option-content">
-                  <span className="payment-icon">💵</span>
+                  <span className="payment-icon">
+                    <img src="/images/icons/cash-3d.png" alt="Cash on Delivery" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+                  </span>
                   <span className="payment-text">Cash on Delivery</span>
                 </span>
               </label>

@@ -809,7 +809,20 @@ function openOrderModal() {
     summaryBox.style.display = 'block';
     summaryBox.innerHTML = `
       <strong style="display:block;margin-bottom:8px;color:var(--cream);">Order Summary</strong>
-      ${cart.map(item => `<div class="order-line"><span>${item.name} × ${item.qty}</span><span>₹${item.price * item.qty}</span></div>`).join('')}
+      ${cart.map((item, i) => `
+        <div class="order-line" style="align-items: flex-start;">
+          <span style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" onclick="removeFromCart(${i}); openOrderModal();" title="Remove Item" style="background:transparent; border:none; color:#71717a; padding:0; display:flex; align-items:center; cursor:pointer; margin-top:2px; transition: color 0.2s;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+            </button>
+            <span>${item.name} <span style="color:#a1a1aa; font-size: 0.9em;">× ${item.qty}</span></span>
+          </span>
+          <span>₹${item.price * item.qty}</span>
+        </div>
+      `).join('')}
       <div class="order-line total"><span>Total</span><span>₹${getCartTotal()}</span></div>
     `;
   }
