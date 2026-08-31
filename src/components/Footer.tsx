@@ -39,6 +39,16 @@ export default function Footer() {
             <li><span>Orders</span><span>Fresh Daily</span></li>
           </ul>
         </div>
+        <div className="footer-links-group">
+          <h4 className="footer-heading">Legal</h4>
+          <ul className="footer-links">
+            <li><a href="/terms-and-conditions" className="footer-nav-link">Terms & Conditions</a></li>
+            <li><a href="/privacy-policy" className="footer-nav-link">Privacy Policy</a></li>
+            <li><a href="/refund-policy" className="footer-nav-link">Cancellation & Refund</a></li>
+            <li><a href="/shipping-policy" className="footer-nav-link">Shipping & Exchange</a></li>
+            <li><a href="/contact" className="footer-nav-link">Contact Us</a></li>
+          </ul>
+        </div>
       </div>
       <div className="footer-bottom">
         <p>© 2026 The Rolling Oven. All rights reserved. Made with ❤️ in Tamil Nadu</p>
