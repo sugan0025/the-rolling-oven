@@ -183,6 +183,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${playfair.variable} ${inter.variable} ${dancingScript.variable}`}>
+        {/* Inject Environment Variables to legacy frontend script */}
+        <Script id="env-vars" strategy="beforeInteractive">
+          {`window.RAZORPAY_KEY = "${process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID}";`}
+        </Script>
 
         {/* ===== PARTICLES CANVAS ===== */}
         <canvas id="particles-canvas"></canvas>

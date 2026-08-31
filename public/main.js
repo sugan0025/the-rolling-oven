@@ -882,7 +882,7 @@ function initOrderModal() {
 
       // 3. Configure Razorpay checkout popup
       const options = {
-        key: "rzp_test_TWIoSbHLcR3LGi", // Razorpay Test Key
+        key: window.RAZORPAY_KEY, // Razorpay Key injected from layout
         amount: orderResp.amount,
         currency: orderResp.currency,
         name: "The Rolling Oven",

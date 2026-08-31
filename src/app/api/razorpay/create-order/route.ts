@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 import { CATEGORIES } from '../../../../lib/products';
+import { checkRateLimit } from '../../../../lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get('x-forwarded-for') || '127.0.0.1';
+    if (!checkRateLimit(`create_order_${ip}`, 10, 60000)) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    }
     // Initialize Razorpay inside the handler to prevent build-time evaluation errors
     const razorpay = new Razorpay({
       key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',

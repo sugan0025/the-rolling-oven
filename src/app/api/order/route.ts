@@ -171,7 +171,8 @@ export async function POST(request: Request) {
     // Insert into Supabase
     try {
       const supabaseUrl = process.env.SUPABASE_URL;
-      const supabaseKey = process.env.SUPABASE_ANON_KEY;
+      // Use Service Role Key to bypass RLS securely on the server, fallback to anon key for backward compatibility
+      const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
       if (supabaseUrl && supabaseKey) {
         const supabase = createClient(supabaseUrl, supabaseKey);
         const { error: dbError } = await supabase.from('orders').insert([dbRow]);
