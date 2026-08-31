@@ -57,19 +57,41 @@ export async function POST(request: Request) {
 
     const finalTotal = serverTotal > 0 ? serverTotal : validatedData.total_amount;
 
+    // Razorpay Signature Verification
+    if (validatedData.razorpay_payment_id && validatedData.razorpay_order_id && validatedData.razorpay_signature) {
+      const crypto = require('crypto');
+      const secret = process.env.RAZORPAY_KEY_SECRET;
+      if (!secret) throw new Error('Razorpay secret missing');
+      
+      const generatedSignature = crypto
+        .createHmac('sha256', secret)
+        .update(validatedData.razorpay_order_id + "|" + validatedData.razorpay_payment_id)
+        .digest('hex');
+        
+      if (generatedSignature !== validatedData.razorpay_signature) {
+        console.error('Razorpay signature mismatch', { generatedSignature, received: validatedData.razorpay_signature });
+        return NextResponse.json({ error: 'Invalid payment signature' }, { status: 400 });
+      }
+    }
+
     const utmData = validatedData.utm_source 
       ? `\n\n--- Marketing Attribution ---\nSource: ${validatedData.utm_source}\nMedium: ${validatedData.utm_medium || 'N/A'}\nCampaign: ${validatedData.utm_campaign || 'N/A'}`
       : '';
 
     const addressBlock = `\n\n--- Delivery Details ---\nAddress: ${validatedData.delivery_address}\nPincode: ${validatedData.pincode}`;
 
+    let razorpayDetails = '';
+    if (validatedData.razorpay_payment_id) {
+      razorpayDetails = `\n\n--- Razorpay Payment (PAID) ---\nPayment ID: ${validatedData.razorpay_payment_id}\nOrder ID: ${validatedData.razorpay_order_id}`;
+    }
+
     // Explicitly map to Supabase column structure
     const dbRow = {
       customer_name: validatedData.customer_name,
       customer_email: validatedData.customer_email,
       customer_phone: validatedData.customer_phone,
-      special_instructions: (validatedData.special_instructions || 'None') + addressBlock + utmData,
-      order_type: validatedData.order_type || 'Cart Checkout',
+      special_instructions: (validatedData.special_instructions || 'None') + addressBlock + utmData + razorpayDetails,
+      order_type: validatedData.razorpay_payment_id ? 'Razorpay Online Checkout' : (validatedData.order_type || 'Cart Checkout'),
       items: verifiedItems,
       total_amount: String(finalTotal),
     };
@@ -83,7 +105,7 @@ export async function POST(request: Request) {
         .map((i: any) => `${i.name} (x${i.qty}) - ₹${i.price || 0}`)
         .join(' | '),
       total_amount: String(finalTotal),
-      notes: (validatedData.special_instructions || 'None') + addressBlock + utmData,
+      notes: (validatedData.special_instructions || 'None') + addressBlock + utmData + razorpayDetails,
       delivery_address: validatedData.delivery_address || 'Direct WhatsApp Checkout',
       pincode: validatedData.pincode || '638401',
       utm_source: validatedData.utm_source || '',

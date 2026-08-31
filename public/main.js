@@ -860,40 +860,122 @@ function initOrderModal() {
     };
 
     try {
-      await sendOrderEmail(orderData);
+      // 1. Call our new create-order API to securely calculate amount and get order_id
+      const orderRes = await fetch('/api/razorpay/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: orderData.items })
+      });
+      const orderResp = await orderRes.json();
+      
+      if (!orderRes.ok) throw new Error(orderResp.error || 'Failed to create Razorpay order');
 
-      // Google Analytics Tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'purchase', {
-          transaction_id: 'ORDER_' + Math.floor(Math.random() * 1000000),
-          value: orderData.total === 'TBD' ? 0 : orderData.total,
-          currency: 'INR',
-          items: orderData.items.map(i => ({ item_name: i.name, price: i.price, quantity: i.qty }))
-        });
-        gtag('event', 'generate_lead', {
-          currency: 'INR',
-          value: orderData.total === 'TBD' ? 0 : orderData.total
+      // 2. Load Razorpay script dynamically if not present
+      if (typeof window.Razorpay === 'undefined') {
+        await new Promise((resolve) => {
+          const script = document.createElement('script');
+          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+          script.onload = resolve;
+          document.head.appendChild(script);
         });
       }
 
-      cart = [];
-      saveCart();
-      updateCartBadge();
-      renderCart();
-      closeOrderModal();
-      document.getElementById('order-form').reset();
-      
-      // Notify user & trigger WhatsApp confirmation
-      showToast('success', 'Order Confirmed! 🎉', 'Opening WhatsApp to confirm delivery details with the bakery...');
-      const waMsg = getWhatsAppCheckoutMessage(orderData);
-      setTimeout(() => {
-        window.open(`https://wa.me/${BAKERY_WHATSAPP_NUMBER}?text=${waMsg}`, '_blank');
-      }, 1200);
+      // 3. Configure Razorpay checkout popup
+      const options = {
+        key: "rzp_test_TWIoSbHLcR3LGi", // Razorpay Test Key
+        amount: orderResp.amount,
+        currency: orderResp.currency,
+        name: "The Rolling Oven",
+        description: "Fresh Bakery Order",
+        image: "/favicon.png",
+        order_id: orderResp.id,
+        handler: async function (response) {
+          btn.innerHTML = '<span>Verifying Payment...</span>';
+          
+          // 4. Construct final payload matching orderSchema
+          const finalOrderData = {
+            customer_name: orderData.name,
+            customer_email: orderData.email,
+            customer_phone: orderData.phone,
+            delivery_address: orderData.address,
+            pincode: orderData.pincode,
+            special_instructions: orderData.notes,
+            items: orderData.items,
+            total_amount: orderData.total,
+            utm_source: sessionStorage.getItem('utm_source'),
+            utm_medium: sessionStorage.getItem('utm_medium'),
+            utm_campaign: sessionStorage.getItem('utm_campaign'),
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+          };
+          
+          try {
+             // Verify & save the order to Supabase
+             const verifyRes = await fetch('/api/order', {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify(finalOrderData)
+             });
+             
+             if (!verifyRes.ok) throw new Error('Payment verification failed');
+             
+             // Success Flow (Clear cart, show toast)
+             cart = [];
+             saveCart();
+             updateCartBadge();
+             renderCart();
+             closeOrderModal();
+             document.getElementById('order-form').reset();
+             
+             // Google Analytics Tracking
+             if (typeof gtag !== 'undefined') {
+               gtag('event', 'purchase', {
+                 transaction_id: orderResp.id,
+                 value: orderResp.total_inr,
+                 currency: 'INR',
+                 items: orderData.items.map(i => ({ item_name: i.name, price: i.price, quantity: i.qty }))
+               });
+             }
+             
+             showToast('success', 'Payment Successful! 🎉', 'Your order is confirmed and an email receipt has been sent.');
+             
+          } catch(e) {
+             console.error(e);
+             showToast('error', 'Verification Error', 'Payment succeeded but order verification failed.');
+          } finally {
+             btn.innerHTML = original;
+             btn.disabled = false;
+          }
+        },
+        prefill: {
+          name: orderData.name,
+          email: orderData.email,
+          contact: orderData.phone
+        },
+        theme: {
+          color: "#c28e46"
+        },
+        modal: {
+          ondismiss: function() {
+            btn.innerHTML = original;
+            btn.disabled = false;
+            showToast('warning', 'Payment Cancelled', 'You closed the payment window without finishing.');
+          }
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (response){
+         showToast('error', 'Payment Failed', response.error.description);
+         btn.innerHTML = original;
+         btn.disabled = false;
+      });
+      rzp.open();
 
     } catch (err) {
       console.error(err);
-      showToast('error', 'Error Processing Order', 'Please try again or contact us directly on WhatsApp.');
-    } finally {
+      showToast('error', 'Error Starting Checkout', 'Please try again or contact us directly on WhatsApp.');
       btn.innerHTML = original;
       btn.disabled = false;
     }

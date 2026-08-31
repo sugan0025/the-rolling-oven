@@ -14,6 +14,9 @@ export const orderSchema = z.object({
   utm_medium: z.string().optional().nullable(),
   utm_campaign: z.string().optional().nullable(),
   b_website: z.string().optional().nullable(), // Anti-spam Honeypot
+  razorpay_payment_id: z.string().optional().nullable(),
+  razorpay_order_id: z.string().optional().nullable(),
+  razorpay_signature: z.string().optional().nullable(),
 });
 
 export const contactSchema = z.object({

@@ -208,7 +208,7 @@ export default function RootLayout({
         {/* ===== FLOATING WHATSAPP BUTTON ===== */}
         <FloatingWhatsApp />
 
-        <Script src="/main.js" strategy="lazyOnload" type="module" />
+        <Script src="/main.js?v=2" strategy="lazyOnload" type="module" />
       </body>
     </html>
   );
