@@ -268,11 +268,17 @@ function renderCart() {
       </div>
       <div class="cart-item-actions">
         <div class="cart-qty-controls">
-          <button class="cart-qty-btn" onclick="changeQty(${i}, -1)">−</button>
+          <button class="cart-qty-btn" onclick="changeQty(${i}, -1)" title="Decrease quantity" aria-label="Decrease quantity">−</button>
           <span class="cart-qty-num">${item.qty}</span>
-          <button class="cart-qty-btn" onclick="changeQty(${i}, 1)">+</button>
+          <button class="cart-qty-btn" onclick="changeQty(${i}, 1)" title="Increase quantity" aria-label="Increase quantity">+</button>
         </div>
-        <button class="cart-remove-btn" onclick="removeFromCart(${i})">Remove</button>
+        <button class="cart-remove-btn" onclick="removeFromCart(${i})" title="Remove ${item.name}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+          <span>Remove</span>
+        </button>
       </div>
     </div>
   `).join('');
@@ -865,6 +871,35 @@ function initOrderModal() {
   document.getElementById('order-modal-overlay').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) closeOrderModal();
   });
+
+  // Restore saved checkout info from sessionStorage
+  try {
+    const savedCheckout = JSON.parse(sessionStorage.getItem('tro_checkout_draft') || '{}');
+    if (savedCheckout.name && document.getElementById('order-name')) document.getElementById('order-name').value = savedCheckout.name;
+    if (savedCheckout.email && document.getElementById('order-email')) document.getElementById('order-email').value = savedCheckout.email;
+    if (savedCheckout.phone && document.getElementById('order-phone')) document.getElementById('order-phone').value = savedCheckout.phone;
+    if (savedCheckout.address && document.getElementById('order-address')) document.getElementById('order-address').value = savedCheckout.address;
+    if (savedCheckout.pincode && document.getElementById('order-pincode')) document.getElementById('order-pincode').value = savedCheckout.pincode;
+
+    // Auto-save checkout info on input
+    ['order-name', 'order-email', 'order-phone', 'order-address', 'order-pincode'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', () => {
+          const draft = {
+            name: document.getElementById('order-name')?.value || '',
+            email: document.getElementById('order-email')?.value || '',
+            phone: document.getElementById('order-phone')?.value || '',
+            address: document.getElementById('order-address')?.value || '',
+            pincode: document.getElementById('order-pincode')?.value || '',
+          };
+          sessionStorage.setItem('tro_checkout_draft', JSON.stringify(draft));
+        });
+      }
+    });
+  } catch(e) {
+    console.warn('Draft restore not available', e);
+  }
 
   // ============================================
   // ABANDONED CART EXIT-INTENT TRACKER

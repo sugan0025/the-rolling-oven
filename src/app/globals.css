@@ -1341,25 +1341,45 @@ html.lenis, html.lenis body {
 .payment-option-content {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 14px;
+  padding: 14px 18px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(197, 160, 89, 0.3);
+  border: 1px solid rgba(201, 169, 110, 0.25);
   border-radius: var(--radius-md);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   color: var(--cream);
+  user-select: none;
+}
+.payment-option:hover .payment-option-content {
+  background: rgba(201, 169, 110, 0.08);
+  border-color: rgba(201, 169, 110, 0.5);
+  transform: translateY(-1px);
 }
 .payment-option input:checked ~ .payment-option-content {
-  background: rgba(197, 160, 89, 0.15);
+  background: rgba(201, 169, 110, 0.16);
   border-color: var(--gold);
-  box-shadow: inset 0 0 0 1px var(--gold);
+  box-shadow: 0 0 20px rgba(201, 169, 110, 0.2), inset 0 0 0 1px var(--gold);
+}
+.payment-option input:focus-visible ~ .payment-option-content {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 .payment-icon {
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.payment-option:hover .payment-icon {
+  transform: scale(1.08);
 }
 .payment-text {
   font-weight: 500;
   font-size: 1rem;
+  letter-spacing: 0.2px;
 }
 
 

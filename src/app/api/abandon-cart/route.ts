@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientIp } from '../../../lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    if (!checkRateLimit(`abandon_cart_${ip}`, 5, 60000)) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    }
+
     const body = await req.json();
     
     if (!body.email || !body.email.includes('@')) {

@@ -13,8 +13,9 @@
  */
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import crypto from 'crypto';
 import { orderSchema } from '../../../lib/validations';
-import { checkRateLimit } from '../../../lib/rate-limit';
+import { checkRateLimit, getClientIp } from '../../../lib/rate-limit';
 import { CATEGORIES } from '../../../lib/products';
 
 // Helper to find official catalog price server-side
@@ -28,9 +29,9 @@ function getCatalogPrice(itemName: string): number | null {
 
 export async function POST(request: Request) {
   try {
-    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
-    if (!checkRateLimit(`order_${ip}`, 3, 60000)) {
-      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    const ip = getClientIp(request);
+    if (!checkRateLimit(`order_${ip}`, 5, 60000)) {
+      return NextResponse.json({ error: 'Too many requests. Please try again in a minute.' }, { status: 429 });
     }
 
     const body = await request.json();
@@ -42,7 +43,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     }
 
-    // Server-side Price Verification & Recalculation
+    // Server-side Price Verification & Recalculation (Tamper-Proof)
     let serverTotal = 0;
     const verifiedItems = validatedData.items.map((item: any) => {
       const catalogPrice = getCatalogPrice(item.name);
@@ -58,19 +59,31 @@ export async function POST(request: Request) {
 
     const finalTotal = serverTotal > 0 ? serverTotal : validatedData.total_amount;
 
-    // Razorpay Signature Verification
-    if (validatedData.razorpay_payment_id && validatedData.razorpay_order_id && validatedData.razorpay_signature) {
-      const crypto = require('crypto');
+    // Razorpay Cryptographic Signature Verification (Timing-Safe Anti-Tamper)
+    if (validatedData.razorpay_payment_id || validatedData.razorpay_order_id || validatedData.razorpay_signature) {
+      if (!validatedData.razorpay_payment_id || !validatedData.razorpay_order_id || !validatedData.razorpay_signature) {
+        return NextResponse.json({ error: 'Incomplete payment credentials' }, { status: 400 });
+      }
+
       const secret = process.env.RAZORPAY_KEY_SECRET;
-      if (!secret) throw new Error('Razorpay secret missing');
+      if (!secret) {
+        console.error('CRITICAL: RAZORPAY_KEY_SECRET is not configured on server');
+        return NextResponse.json({ error: 'Payment gateway configuration error' }, { status: 500 });
+      }
       
       const generatedSignature = crypto
         .createHmac('sha256', secret)
-        .update(validatedData.razorpay_order_id + "|" + validatedData.razorpay_payment_id)
+        .update(`${validatedData.razorpay_order_id}|${validatedData.razorpay_payment_id}`)
         .digest('hex');
         
-      if (generatedSignature !== validatedData.razorpay_signature) {
-        console.error('Razorpay signature mismatch', { generatedSignature, received: validatedData.razorpay_signature });
+      const expectedBuffer = Buffer.from(generatedSignature, 'utf8');
+      const receivedBuffer = Buffer.from(validatedData.razorpay_signature, 'utf8');
+
+      if (expectedBuffer.length !== receivedBuffer.length || !crypto.timingSafeEqual(expectedBuffer, receivedBuffer)) {
+        console.error('Razorpay signature verification failed (Timing-Safe Check)', {
+          orderId: validatedData.razorpay_order_id,
+          paymentId: validatedData.razorpay_payment_id,
+        });
         return NextResponse.json({ error: 'Invalid payment signature' }, { status: 400 });
       }
     }

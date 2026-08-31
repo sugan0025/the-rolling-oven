@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { checkRateLimit } from '../../../lib/rate-limit';
+import { checkRateLimit, getClientIp } from '../../../lib/rate-limit';
 import { contactSchema } from '../../../lib/validations';
 
 export async function POST(request: Request) {
   try {
-    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
+    const ip = getClientIp(request);
     if (!checkRateLimit(`contact_${ip}`, 5, 60000)) {
       return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
     }

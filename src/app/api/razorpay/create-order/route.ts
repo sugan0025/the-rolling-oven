@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 import { CATEGORIES } from '../../../../lib/products';
-import { checkRateLimit } from '../../../../lib/rate-limit';
+import { checkRateLimit, getClientIp } from '../../../../lib/rate-limit';
 
 export async function POST(req: Request) {
   try {
-    const ip = req.headers.get('x-forwarded-for') || '127.0.0.1';
+    const ip = getClientIp(req);
     if (!checkRateLimit(`create_order_${ip}`, 10, 60000)) {
       return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
     }
@@ -26,11 +26,11 @@ export async function POST(req: Request) {
     const allProducts = Object.values(CATEGORIES).flatMap(c => c.items);
 
     for (const item of items) {
-      const product = allProducts.find(p => p.name === item.name);
+      const product = allProducts.find(p => p.name.toLowerCase() === (item.name || '').toLowerCase());
       if (!product) {
         return NextResponse.json({ error: `Invalid item: ${item.name}` }, { status: 400 });
       }
-      const itemQty = item.qty || item.quantity || 1;
+      const itemQty = Math.max(1, Math.min(99, Number(item.qty || item.quantity) || 1));
       total += product.price * itemQty;
     }
 
