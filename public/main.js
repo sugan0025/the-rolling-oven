@@ -828,30 +828,30 @@ function initOrderModal() {
   // WhatsApp Redirect Helper
   const redirectToWhatsApp = (orderData, paymentId, isCod) => {
     const whatsappNumber = '916383645415';
-    const paymentStatus = isCod ? '💵 *Cash on Delivery (Pending)*' : `✅ *Paid Online* (ID: ${paymentId})`;
+    const paymentStatus = isCod ? '\uD83D\uDCB5 *Cash on Delivery (Pending)*' : `\u2705 *Paid Online* (ID: ${paymentId})`;
     
     let itemsList = '';
     orderData.items.forEach(item => {
-      itemsList += `▪ ${item.qty}x ${item.name} - ₹${item.price * item.qty}\n`;
+      itemsList += `\u25AA ${item.qty}x ${item.name} - ₹${item.price * item.qty}\n`;
     });
 
     const message = `
-🎉 *NEW ORDER CONFIRMED!* 🎉
+\uD83C\uDF89 *NEW ORDER CONFIRMED!* \uD83C\uDF89
 
 Hi The Rolling Oven! I just placed an order on your website. Here are my details:
 
-👤 *Name:* ${orderData.name}
-📞 *Phone:* ${orderData.phone}
-📍 *Delivery Address:* 
+\uD83D\uDC64 *Name:* ${orderData.name}
+\uD83D\uDCDE *Phone:* ${orderData.phone}
+\uD83D\uDCCD *Delivery Address:* 
 ${orderData.address}
 ${orderData.pincode}
 
-🛒 *Order Summary:*
+\uD83D\uDED2 *Order Summary:*
 ${itemsList}
-💰 *Total Amount:* ₹${orderData.total}
-💳 *Payment:* ${paymentStatus}
+\uD83D\uDCB0 *Total Amount:* ₹${orderData.total}
+\uD83D\uDCB3 *Payment:* ${paymentStatus}
 
-📝 *Notes:* ${orderData.notes || 'None'}
+\uD83D\uDCDD *Notes:* ${orderData.notes || 'None'}
 
 ${isCod ? '_Please confirm my COD order!_' : '_Please find my payment screenshot attached below._'}
     `.trim();

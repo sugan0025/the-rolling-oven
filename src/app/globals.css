@@ -1261,7 +1261,7 @@ html.lenis, html.lenis body {
   height: 56px;
   text-decoration: none;
   box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: max-width 0.4s ease-out, box-shadow 0.3s ease, transform 0.3s ease;
   overflow: hidden;
   max-width: 56px; /* Initially just the circle */
 }
