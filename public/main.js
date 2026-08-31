@@ -956,6 +956,22 @@ function initOrderModal() {
         theme: {
           color: "#c28e46"
         },
+        config: {
+          display: {
+            blocks: {
+              upi: {
+                name: "Pay via UPI (Scan QR)",
+                instruments: [
+                  { method: "upi" }
+                ]
+              },
+            },
+            sequence: ["block.upi"],
+            preferences: {
+              show_default_blocks: true
+            }
+          }
+        },
         modal: {
           ondismiss: function() {
             btn.innerHTML = original;
