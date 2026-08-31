@@ -962,7 +962,7 @@ function initOrderModal() {
               upi: {
                 name: "Pay via UPI (Scan QR)",
                 instruments: [
-                  { method: "upi" }
+                  { method: "upi", flows: ["qr"] }
                 ]
               },
             },
