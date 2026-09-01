@@ -1,16 +1,60 @@
-export default function Shipping() {
+import Link from 'next/link';
+
+export const metadata = {
+  title: 'Shipping & Delivery Policy | The Rolling Oven',
+  description: 'Delivery radius, shipping charges, and handling policies for The Rolling Oven.',
+};
+
+export default function ShippingPolicy() {
   return (
-    <div className="max-w-4xl mx-auto py-12 px-6">
-      <h1 className="text-3xl font-bold mb-6 text-brand-dark">Shipping and Exchange Policy</h1>
-      <div className="space-y-4 text-gray-700">
-        <p>Last updated: August 2026</p>
-        <h2 className="text-xl font-semibold mt-4">Shipping and Delivery</h2>
-        <p>We currently deliver within designated city limits. All orders are processed and baked fresh. Deliveries are typically scheduled between our standard operating hours. You will be notified of the estimated delivery time upon order confirmation.</p>
-        <h2 className="text-xl font-semibold mt-4">Delivery Charges</h2>
-        <p>Delivery charges are calculated at checkout based on your location and distance from our bakery. Certain minimum order values may qualify for free delivery.</p>
-        <h2 className="text-xl font-semibold mt-4">Exchange Policy</h2>
-        <p>Due to the perishable nature of our baked goods, we do not accept returns or exchanges. If you are unsatisfied with your order due to a quality issue or damage, please refer to our Cancellation and Refund Policy and contact our support team.</p>
+    <main className="legal-page">
+      <div className="legal-container">
+        <Link href="/" className="legal-back-link">
+          ← Back to Bakery Home
+        </Link>
+        <div className="legal-card">
+          <span className="legal-badge">Fulfillment & Logistics</span>
+          <h1 className="legal-title">Shipping & Delivery Policy</h1>
+          <p className="legal-date">Last updated: August 2026</p>
+
+          <div className="legal-content">
+            <p>
+              Thank you for ordering with <strong>The Rolling Oven</strong>. We strive to deliver our warm, freshly baked treats straight from our ovens to your doorstep in pristine condition.
+            </p>
+
+            <h2>1. Delivery Areas & Service Radius</h2>
+            <p>
+              We provide express doorstep delivery across <strong>Sathyamangalam, Gobichettipalayam, Erode, and adjoining regions in Tamil Nadu</strong>. For specialty bulk orders or wedding cake catering in Coimbatore or Tirupur, please contact us in advance to arrange custom refrigerated transport.
+            </p>
+
+            <h2>2. Baking Cycles & Dispatch Times</h2>
+            <p>
+              Because our bakes are handcrafted without artificial preservatives:
+            </p>
+            <ul>
+              <li><strong>Standard Menu Items (Cupcakes, Cookies, Muffins, Chocolava):</strong> Dispatched within 2 to 4 hours of confirmation.</li>
+              <li><strong>Custom Tiered Birthday & Celebration Cakes:</strong> Require at least 24 hours advance notice for intricate design and temperature setting.</li>
+            </ul>
+
+            <h2>3. Delivery Charges</h2>
+            <p>
+              Delivery fees are computed based on travel distance from our central kitchen in Sathyamangalam (Pincode: 638401). Orders exceeding our promotional threshold qualify for complimentary free delivery.
+            </p>
+
+            <h2>4. Delivery Protocol & Handover</h2>
+            <p>
+              Our delivery personnel will contact you via phone or WhatsApp upon arrival. Please ensure someone is available at the provided address to receive the fresh baked goods promptly, particularly temperature-sensitive items like chocolava, tiramisu, and fresh buttercream cakes.
+            </p>
+
+            <div className="legal-highlight-box">
+              <strong>Order Inquiries & Live Tracking:</strong>
+              <p style={{ margin: '8px 0 0', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                Have a question about your active delivery? WhatsApp our dispatcher directly at <a href="https://wa.me/916383645415" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold)', textDecoration: 'underline' }}>+91 63836 45415</a>.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

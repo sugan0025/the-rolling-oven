@@ -1,17 +1,54 @@
-export default function Contact() {
+import Link from 'next/link';
+
+export const metadata = {
+  title: 'Contact Us | The Rolling Oven',
+  description: 'Get in touch with The Rolling Oven bakery in Sathyamangalam, Erode, Tamil Nadu for orders and inquiries.',
+};
+
+export default function ContactPage() {
   return (
-    <div className="max-w-4xl mx-auto py-12 px-6">
-      <h1 className="text-3xl font-bold mb-6 text-brand-dark">Contact Us</h1>
-      <div className="space-y-4 text-gray-700">
-        <p>If you have any questions, concerns, or need assistance with your order, please do not hesitate to contact us.</p>
-        <h2 className="text-xl font-semibold mt-4">Get in Touch</h2>
-        <ul className="list-disc pl-6 space-y-2">
-          <li><strong>Email:</strong> support@therollingoven.com</li>
-          <li><strong>Phone/WhatsApp:</strong> +91 63836 45415</li>
-          <li><strong>Address:</strong> [Your Bakery Physical Address, City, State, ZIP]</li>
-        </ul>
-        <p className="mt-4 text-sm text-gray-500">Our customer support team is available during standard business hours to assist you.</p>
+    <main className="legal-page">
+      <div className="legal-container">
+        <Link href="/" className="legal-back-link">
+          ← Back to Bakery Home
+        </Link>
+        <div className="legal-card">
+          <span className="legal-badge">Get in Touch</span>
+          <h1 className="legal-title">Contact Our Bakery</h1>
+          <p className="legal-date">We are here to make your sweet cravings a reality</p>
+
+          <div className="legal-content">
+            <p>
+              Whether you need a custom birthday cake, catering for a celebration, or have questions regarding an existing order, we are always delighted to connect with you!
+            </p>
+
+            <h2>Direct Contact Channels</h2>
+            <div className="legal-highlight-box">
+              <p style={{ margin: '0 0 10px', fontSize: '1rem', color: 'var(--cream)' }}>
+                📍 <strong>Bakery Address:</strong> Sathyamangalam, Erode District, Tamil Nadu — 638401
+              </p>
+              <p style={{ margin: '0 0 10px', fontSize: '1rem', color: 'var(--cream)' }}>
+                📞 <strong>WhatsApp / Phone:</strong> <a href="https://wa.me/916383645415" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold)', textDecoration: 'underline' }}>+91 63836 45415</a>
+              </p>
+              <p style={{ margin: '0', fontSize: '1rem', color: 'var(--cream)' }}>
+                ✉️ <strong>Official Email:</strong> <a href="mailto:therollingoven26@gmail.com" style={{ color: 'var(--gold)', textDecoration: 'underline' }}>therollingoven26@gmail.com</a>
+              </p>
+            </div>
+
+            <h2>Bakery Operating Hours</h2>
+            <ul>
+              <li><strong>Monday to Saturday:</strong> 9:00 AM – 8:00 PM</li>
+              <li><strong>Sunday:</strong> 10:00 AM – 6:00 PM</li>
+              <li><strong>Online Orders & WhatsApp Booking:</strong> Open 24/7 (Processed during morning baking cycles)</li>
+            </ul>
+
+            <h2>Custom Cake Inquiries</h2>
+            <p>
+              For custom multi-tier wedding cakes, customized fondant sculptures, or corporate gifting boxes, please reach out at least 24 to 48 hours in advance so our head chef can craft your dessert to perfection.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

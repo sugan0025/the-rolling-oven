@@ -731,8 +731,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ============================================
    FOOTER
    ============================================ */
-.footer { position: relative; padding: var(--space-2xl) var(--space-xl) var(--space-xl); border-top: 1px solid var(--glass-border); z-index: 1; }
-.footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--space-2xl); }
+.footer { position: relative; padding: var(--space-3xl) var(--space-xl) var(--space-xl); border-top: 1px solid var(--glass-border); z-index: 1; }
+.footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.8fr 1fr 1.2fr 1.2fr 1.2fr; gap: var(--space-xl); }
 .footer-logo { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); margin-bottom: var(--space-md); }
 .footer-tagline { font-family: var(--font-script); font-size: 1.1rem; color: var(--gold); margin-bottom: var(--space-sm); }
 .footer-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
@@ -744,6 +744,127 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer-hours li span:last-child { color: var(--text-secondary); }
 .footer-bottom { max-width: 1200px; margin: var(--space-2xl) auto 0; padding-top: var(--space-xl); border-top: 1px solid var(--glass-border); text-align: center; }
 .footer-bottom p { font-size: 0.82rem; color: var(--text-muted); }
+
+/* ============================================
+   LEGAL & CONTENT PAGES
+   ============================================ */
+.legal-page {
+  position: relative;
+  min-height: 100vh;
+  padding: calc(var(--space-4xl) + 60px) var(--space-xl) var(--space-4xl);
+  z-index: 1;
+}
+.legal-container {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.legal-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--gold);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: var(--space-lg);
+  transition: var(--transition);
+  text-decoration: none;
+}
+.legal-back-link:hover {
+  color: var(--cream);
+  transform: translateX(-4px);
+}
+.legal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl) var(--space-2xl);
+  box-shadow: var(--shadow-card);
+}
+.legal-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  background: rgba(201, 169, 110, 0.1);
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-md);
+}
+.legal-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+  background: linear-gradient(135deg, var(--cream) 0%, var(--gold-shimmer) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.legal-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+}
+.legal-content {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+.legal-content p {
+  margin-bottom: var(--space-lg);
+}
+.legal-content h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--cream);
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.legal-content h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 1.2em;
+  background: var(--gold);
+  border-radius: 2px;
+}
+.legal-content ul {
+  margin-bottom: var(--space-lg);
+  padding-left: var(--space-md);
+}
+.legal-content li {
+  position: relative;
+  padding-left: var(--space-md);
+  margin-bottom: var(--space-sm);
+  list-style: none;
+}
+.legal-content li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 1.2em;
+  line-height: 1;
+}
+.legal-highlight-box {
+  background: rgba(201, 169, 110, 0.06);
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin: var(--space-xl) 0;
+  color: var(--cream);
+}
 
 /* ============================================
    ANIMATIONS
@@ -758,9 +879,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 @media (max-width: 1024px) {
   .testimonials-track { grid-template-columns: 1fr 1fr; }
   .testimonials-track .testimonial-card:last-child { grid-column: span 2; max-width: 500px; justify-self: center; }
-  .footer-container { grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+  .footer-container { grid-template-columns: repeat(3, 1fr); gap: var(--space-xl); }
   .product-page-banner { flex-direction: column; text-align: center; gap: var(--space-xl); }
   .product-page-banner-img { width: 180px; height: 180px; }
+  .legal-card { padding: var(--space-2xl) var(--space-xl); }
 }
 
 @media (max-width: 768px) {
@@ -773,9 +895,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .about-container, .contact-container { grid-template-columns: 1fr; gap: var(--space-2xl); }
   .testimonials-track { grid-template-columns: 1fr; }
   .testimonials-track .testimonial-card:last-child { grid-column: span 1; max-width: none; }
-  .footer-container { grid-template-columns: 1fr; }
+  .footer-container { grid-template-columns: 1fr 1fr; }
   .about-float-card { right: 10px; bottom: -10px; }
   .product-page-banner { padding: var(--space-xl); }
+  .legal-page { padding-top: calc(var(--space-3xl) + 50px); padding-left: var(--space-md); padding-right: var(--space-md); }
+  .legal-card { padding: var(--space-xl) var(--space-md); }
 }
 
 @media (max-width: 480px) {
