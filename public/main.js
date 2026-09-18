@@ -816,6 +816,15 @@ function openOrderModal() {
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 
+  // GA4: begin_checkout event
+  if (typeof gtag !== 'undefined' && cart.length > 0) {
+    gtag('event', 'begin_checkout', {
+      currency: 'INR',
+      value: getCartTotal(),
+      items: cart.map(i => ({ item_name: i.name, item_category: i.category, price: i.price, quantity: i.qty }))
+    });
+  }
+
   // Render order summary
   const summaryBox = document.getElementById('order-summary-box');
   if (summaryBox) {
@@ -972,6 +981,42 @@ ${isCod ? '_Please confirm my COD order!_' : '_Please find my payment screenshot
 
     // Prevent double submission immediately
     if (btn.disabled) return;
+
+    // Empty cart guard
+    if (!cart || cart.length === 0) {
+      showToast('error', 'Cart Empty', 'Please add items before checking out.');
+      return;
+    }
+
+    // Client-side form validation
+    const nameEl = document.getElementById('order-name');
+    const emailEl = document.getElementById('order-email');
+    const phoneEl = document.getElementById('order-phone');
+    const addressEl = document.getElementById('order-address');
+    const pincodeEl = document.getElementById('order-pincode');
+
+    // Clear previous errors
+    document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+    document.querySelectorAll('.form-error-msg').forEach(el => el.remove());
+
+    let hasError = false;
+    function markError(el, msg) {
+      el.classList.add('input-error');
+      const errSpan = document.createElement('span');
+      errSpan.className = 'form-error-msg';
+      errSpan.textContent = msg;
+      el.parentElement.appendChild(errSpan);
+      if (!hasError) { el.focus(); hasError = true; }
+    }
+
+    if (!nameEl.value.trim() || nameEl.value.trim().length < 2) markError(nameEl, 'Please enter your full name (min 2 characters)');
+    if (!emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())) markError(emailEl, 'Please enter a valid email address');
+    if (!phoneEl.value.trim() || !/^[6-9]\d{9}$/.test(phoneEl.value.trim())) markError(phoneEl, 'Enter a valid 10-digit Indian phone number');
+    if (!addressEl.value.trim() || addressEl.value.trim().length < 5) markError(addressEl, 'Please enter a complete delivery address');
+    if (!pincodeEl.value.trim() || !/^\d{6}$/.test(pincodeEl.value.trim())) markError(pincodeEl, 'Enter a valid 6-digit pincode');
+
+    if (hasError) return;
+
     const original = btn.innerHTML;
     btn.innerHTML = '<span>Processing Order...</span>';
     btn.disabled = true;
@@ -988,11 +1033,11 @@ ${isCod ? '_Please confirm my COD order!_' : '_Please find my payment screenshot
     }
 
     const orderData = {
-      name: document.getElementById('order-name').value,
-      email: document.getElementById('order-email').value,
-      phone: document.getElementById('order-phone').value,
-      address: document.getElementById('order-address').value,
-      pincode: document.getElementById('order-pincode').value,
+      name: nameEl.value.trim(),
+      email: emailEl.value.trim(),
+      phone: phoneEl.value.trim(),
+      address: addressEl.value.trim(),
+      pincode: pincodeEl.value.trim(),
       notes: document.getElementById('order-notes').value,
       b_website: hpVal,
       items: [...cart],
@@ -1030,6 +1075,17 @@ ${isCod ? '_Please confirm my COD order!_' : '_Please find my payment screenshot
         if (!verifyRes.ok) throw new Error('Order submission failed');
         
         // Success Flow
+        // GA4: purchase event for COD
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'purchase', {
+            transaction_id: 'COD_' + Date.now(),
+            value: orderData.total,
+            currency: 'INR',
+            payment_type: 'cod',
+            items: orderData.items.map(i => ({ item_name: i.name, price: i.price, quantity: i.qty }))
+          });
+        }
+
         cart = [];
         saveCart();
         updateCartBadge();

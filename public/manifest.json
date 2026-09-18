@@ -1,0 +1,24 @@
+{
+  "name": "The Rolling Oven",
+  "short_name": "Rolling Oven",
+  "description": "Freshly baked homemade treats, custom cakes, cupcakes, and desserts. Handcrafted daily in Sathyamangalam, Erode, Tamil Nadu.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A0F08",
+  "theme_color": "#1A0F08",
+  "orientation": "portrait-primary",
+  "categories": ["food", "shopping"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

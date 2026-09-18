@@ -7,6 +7,7 @@ import OrderModal from "../components/OrderModal";
 import ToastContainer from "../components/ToastContainer";
 import Footer from "../components/Footer";
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
+import CookieConsent from "../components/CookieConsent";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -108,10 +109,20 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#1A0F08" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css"
         />
+
+        {/* Preconnect to third-party origins for faster resource loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
+        <link rel="dns-prefetch" href="https://api.emailjs.com" />
+        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
         
         {/* Google Analytics - The Rolling Oven */}
         <Script
@@ -183,13 +194,16 @@ export default function RootLayout({
         />
       </head>
       <body className={`${playfair.variable} ${inter.variable} ${dancingScript.variable}`}>
+        {/* Skip-to-content link for keyboard/screen reader users (WCAG 2.1) */}
+        <a href="#main-content" className="skip-link">Skip to main content</a>
+
         {/* Inject Environment Variables to legacy frontend script */}
         <Script id="env-vars" strategy="beforeInteractive">
           {`window.RAZORPAY_KEY = "${process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID}";`}
         </Script>
 
         {/* ===== PARTICLES CANVAS ===== */}
-        <canvas id="particles-canvas"></canvas>
+        <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
         {/* ===== NAVBAR ===== */}
         <Navbar />
@@ -212,7 +226,10 @@ export default function RootLayout({
         {/* ===== FLOATING WHATSAPP BUTTON ===== */}
         <FloatingWhatsApp />
 
-        <Script src="/main.js?v=7" strategy="lazyOnload" type="module" />
+        {/* ===== COOKIE CONSENT ===== */}
+        <CookieConsent />
+
+        <Script src="/main.js?v=8" strategy="lazyOnload" type="module" />
       </body>
     </html>
   );

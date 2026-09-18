@@ -7,7 +7,7 @@ import ContactSection from "../components/home/ContactSection";
 
 export default function Home() {
   return (
-    <main>
+    <main id="main-content">
       <HeroSection />
       <ShowcaseSection />
       <FavoritesSection />
