@@ -203,6 +203,13 @@ function addToCart(name, price, image, category) {
   }
 
   showToast('success', 'Added to Cart!', `${name} — ₹${price}`);
+
+  // Request browser push notification permission on cart addition (for background abandoned cart recovery)
+  if ('Notification' in window && Notification.permission === 'default') {
+    try {
+      Notification.requestPermission().catch(() => {});
+    } catch(e) {}
+  }
 }
 
 function removeFromCart(index) {
@@ -1378,57 +1385,55 @@ function initLenisScroll() {
 }
 
 // ============================================
-// ON-SITE MARKETING AUTOMATIONS (ZOMATO STYLE)
+// NATIVE BROWSER PUSH NOTIFICATIONS (AMAZON / SWIGGY STYLE)
 // ============================================
-const MARKETING_MESSAGES = {
-  linger: [
-    "Still thinking? Your sweet tooth already decided. 👀",
-    "Be honest. You were already thinking about us. 🍰",
-    "Your cart is feeling a little… desserted. 💔😂",
-    "Don't leave your food halfway through the relationship. 💔",
-    "Your fridge is trying its best. We understand. 😌"
-  ],
-  exit_intent: [
-    "We saw you resisting. Cute. 😌",
-    "Your desserts are waiting. Don't make them think you never cared. 🥺",
-    "You added them. You wanted them. Let's not play games. 👀",
-    "Warning: leaving this page may cause sudden dessert cravings. 🍫"
-  ]
-};
-
 function initMarketingAutomations() {
-  let lingerTimer;
-  let exitFired = false;
-  let lingerFired = false;
-  let lastActivity = Date.now();
+  let backgroundReminderTimer = null;
 
-  const resetLinger = () => {
-    lastActivity = Date.now();
-  };
+  // Listen for user switching tabs, minimizing window, or navigating away
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      // User switched away from tab with items still in cart!
+      if (typeof cart !== 'undefined' && cart && cart.length > 0 && 'Notification' in window && Notification.permission === 'granted') {
+        const lastSent = sessionStorage.getItem('tro_push_sent');
+        // Limit to 1 background notification per session to avoid spam
+        if (!lastSent) {
+          // Trigger reminder after 20 seconds of being away from the tab
+          backgroundReminderTimer = setTimeout(() => {
+            if (document.visibilityState === 'hidden' && cart && cart.length > 0) {
+              const itemCount = cart.reduce((sum, i) => sum + i.qty, 0);
+              const total = getCartTotal();
+              const firstItem = cart[0]?.name || 'fresh bakes';
+              
+              sessionStorage.setItem('tro_push_sent', Date.now().toString());
 
-  // Track activity to avoid popping toasts if they are actively doing stuff
-  window.addEventListener('mousemove', resetLinger);
-  window.addEventListener('click', resetLinger);
-  window.addEventListener('keydown', resetLinger);
-  window.addEventListener('scroll', resetLinger);
+              try {
+                const notification = new Notification('The Rolling Oven 🧁', {
+                  body: `Your ${firstItem} (${itemCount} item${itemCount > 1 ? 's' : ''} • ₹${total}) is waiting! Don't let your treats get cold. Tap to complete your order.`,
+                  icon: '/images/logo.jpeg',
+                  badge: '/images/logo.jpeg',
+                  tag: 'tro-abandoned-cart-reminder',
+                  requireInteraction: false
+                });
 
-  // Check every 10 seconds for Linger
-  setInterval(() => {
-    // Only fire if they have items in cart, haven't fired already, and idle for > 45 seconds
-    if (cart.length > 0 && !lingerFired && (Date.now() - lastActivity > 45000)) {
-      lingerFired = true;
-      const msg = MARKETING_MESSAGES.linger[Math.floor(Math.random() * MARKETING_MESSAGES.linger.length)];
-      showToast('info', 'Hey there...', msg);
-    }
-  }, 10000);
-
-  // Exit Intent Tracker
-  document.addEventListener('mouseleave', (e) => {
-    // If mouse goes off the top edge of the screen (typically moving to address bar / close tab)
-    if (e.clientY < 10 && cart.length > 0 && !exitFired) {
-      exitFired = true;
-      const msg = MARKETING_MESSAGES.exit_intent[Math.floor(Math.random() * MARKETING_MESSAGES.exit_intent.length)];
-      showToast('info', 'Wait! 🛑', msg);
+                notification.onclick = function() {
+                  window.focus();
+                  if (typeof window.openCart === 'function') window.openCart();
+                  notification.close();
+                };
+              } catch (err) {
+                console.warn('Native notification dispatch error:', err);
+              }
+            }
+          }, 20000); // 20s away from tab
+        }
+      }
+    } else if (document.visibilityState === 'visible') {
+      // Customer returned to the website! Cancel any pending notification
+      if (backgroundReminderTimer) {
+        clearTimeout(backgroundReminderTimer);
+        backgroundReminderTimer = null;
+      }
     }
   });
 }
