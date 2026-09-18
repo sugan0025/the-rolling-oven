@@ -34,23 +34,22 @@ export const metadata: Metadata = {
   keywords: [
     "The Rolling Oven",
     "The Rolling Oven Bakery",
-    "Homemade Bakery Tamil Nadu",
     "Bakery in Sathyamangalam",
     "Best bakery in Erode",
-    "Custom cakes Sathyamangalam",
-    "Birthday cakes Erode",
+    "Order cakes online Sathyamangalam",
+    "Online cake delivery Erode",
+    "Custom birthday cakes Sathyamangalam",
     "Best cupcakes Sathyamangalam",
+    "Eggless cakes Sathyamangalam",
     "Chocolate lava cake Tamil Nadu",
     "Fresh donuts Sathyamangalam",
     "Authentic croissants Erode",
     "Tiramisu dessert Tamil Nadu",
     "Homemade cookies Sathyamangalam",
     "Blueberry muffins Erode",
-    "Eggless cakes Sathyamangalam",
-    "Online bakery delivery Erode",
-    "Fresh dessert shop near me",
+    "Home baker Sathyamangalam",
     "Bakery shop Gobichettipalayam",
-    "Coimbatore dessert catering"
+    "Fresh dessert doorstep delivery Tamil Nadu"
   ],
   authors: [{ name: "The Rolling Oven" }],
   creator: "The Rolling Oven",
@@ -70,7 +69,7 @@ export const metadata: Metadata = {
     siteName: 'The Rolling Oven',
     images: [
       {
-        url: 'https://the-rolling-oven.vercel.app/images/logo.jpeg',
+        url: 'https://the-rolling-oven.vercel.app/images/logo.webp',
         width: 800,
         height: 600,
         alt: 'The Rolling Oven Bakery Logo',
@@ -83,7 +82,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Rolling Oven | Homemade Bakery in Sathyamangalam, Erode',
     description: 'Freshly baked homemade treats, custom cakes, cupcakes, and desserts in Tamil Nadu.',
-    images: ['https://the-rolling-oven.vercel.app/images/logo.jpeg'],
+    images: ['https://the-rolling-oven.vercel.app/images/logo.webp'],
   },
   robots: {
     index: true,
@@ -100,13 +99,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
@@ -165,18 +165,30 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        {/* Structured Data (Schema.org Entity Disambiguation for Food Bakery) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Bakery",
+              "@type": ["Bakery", "FoodEstablishment"],
               "name": "The Rolling Oven",
-              "image": "https://the-rolling-oven.vercel.app/images/logo.jpeg",
+              "alternateName": "The Rolling Oven Bakery",
+              "description": "Handcrafted homemade bakery, custom cakes, cupcakes, cookies, and desserts in Sathyamangalam, Erode, Tamil Nadu.",
+              "image": "https://the-rolling-oven.vercel.app/images/logo.webp",
               "url": "https://the-rolling-oven.vercel.app",
+              "telephone": "+916383645415",
               "email": "therollingoven26@gmail.com",
               "priceRange": "₹₹",
-              "servesCuisine": "Bakery, Desserts, Pastries",
+              "currenciesAccepted": "INR",
+              "paymentAccepted": "Cash on Delivery, UPI, Credit Card, Debit Card",
+              "servesCuisine": "Bakery, Desserts, Pastries, Custom Cakes",
+              "hasMenu": "https://the-rolling-oven.vercel.app/#showcase",
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 11.5034,
+                "longitude": 77.2393
+              },
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Sathyamangalam",
@@ -185,11 +197,11 @@ export default function RootLayout({
                 "addressCountry": "IN"
               },
               "areaServed": [
-                "Sathyamangalam",
-                "Erode",
-                "Gobichettipalayam",
-                "Coimbatore",
-                "Tamil Nadu"
+                { "@type": "City", "name": "Sathyamangalam" },
+                { "@type": "City", "name": "Erode" },
+                { "@type": "City", "name": "Gobichettipalayam" },
+                { "@type": "City", "name": "Bhavanisagar" },
+                { "@type": "State", "name": "Tamil Nadu" }
               ],
               "openingHoursSpecification": [
                 {
