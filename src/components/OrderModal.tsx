@@ -71,27 +71,6 @@ export default function OrderModal() {
                   </span>
                   <span className="payment-text">Cash on Delivery</span>
                 </span>
-              </label>
-            </div>
-            {/* Sandbox Demo Notice */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 14px',
-              marginTop: '12px',
-              marginBottom: '4px',
-              background: 'rgba(212, 160, 23, 0.08)',
-              border: '1px solid rgba(212, 160, 23, 0.25)',
-              borderRadius: '10px',
-              fontSize: '0.8rem',
-              lineHeight: '1.4',
-              color: 'var(--text-secondary)'
-            }}>
-              <span style={{ fontSize: '1.1rem' }}>🛡️</span>
-              <span>
-                <strong style={{ color: 'var(--gold)' }}>Sandbox Demo:</strong> No real money charged. Use test UPI or card <code style={{ color: 'var(--gold)', background: 'rgba(0,0,0,0.3)', padding: '2px 5px', borderRadius: '4px' }}>4111 2222 3333 4444</code>.
-              </span>
             </div>
           </div>
 
