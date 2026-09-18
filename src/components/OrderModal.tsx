@@ -71,6 +71,7 @@ export default function OrderModal() {
                   </span>
                   <span className="payment-text">Cash on Delivery</span>
                 </span>
+              </label>
             </div>
           </div>
 
