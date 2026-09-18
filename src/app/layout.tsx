@@ -124,20 +124,46 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://api.emailjs.com" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
         
-        {/* Google Analytics - The Rolling Oven */}
+        {/* Google Consent Mode v2 + Analytics Initialization */}
+        <Script id="google-consent-mode" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+
+            var savedConsent = null;
+            try {
+              savedConsent = localStorage.getItem('tro_cookie_consent');
+            } catch(e) {}
+
+            if (savedConsent === 'accepted') {
+              gtag('consent', 'default', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted'
+              });
+            } else {
+              gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+              });
+              if (savedConsent === 'declined') {
+                window['ga-disable-G-GWTWBBBDQ2'] = true;
+              }
+            }
+
+            gtag('js', new Date());
+            gtag('config', 'G-GWTWBBBDQ2', {
+              'anonymize_ip': true
+            });
+          `}
+        </Script>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GWTWBBBDQ2"
           strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-GWTWBBBDQ2');
-          `}
-        </Script>
 
         <script
           type="application/ld+json"
