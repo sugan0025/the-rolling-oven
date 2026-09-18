@@ -229,7 +229,24 @@ export default function RootLayout({
         {/* ===== COOKIE CONSENT ===== */}
         <CookieConsent />
 
-        <Script src="/main.js?v=8" strategy="lazyOnload" type="module" />
+        {/* ===== PWA SERVICE WORKER REGISTRATION ===== */}
+        <Script id="pwa-sw" strategy="lazyOnload">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                  .then(function(reg) {
+                    console.log('PWA ServiceWorker registered with scope:', reg.scope);
+                  })
+                  .catch(function(err) {
+                    console.warn('PWA ServiceWorker registration failed:', err);
+                  });
+              });
+            }
+          `}
+        </Script>
+
+        <Script src="/main.js?v=9" strategy="lazyOnload" type="module" />
       </body>
     </html>
   );

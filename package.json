@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.109.0",
@@ -20,6 +21,7 @@
     "@types/node": "^26.2.0",
     "@types/react": "19.2.18",
     "@types/react-dom": "^19.2.4",
+    "sharp": "^0.35.4",
     "typescript": "7.0.2"
   }
 }

@@ -48,6 +48,8 @@ const nextConfig = {
               "img-src 'self' data: blob: https://the-rolling-oven.vercel.app",
               "connect-src 'self' https://www.google-analytics.com https://api.emailjs.com https://api.razorpay.com https://lumberjack-cx.razorpay.com https://*.supabase.co",
               "frame-src https://api.razorpay.com https://checkout.razorpay.com",
+              "worker-src 'self' blob:",
+              "manifest-src 'self'",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

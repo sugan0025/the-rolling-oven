@@ -22,9 +22,9 @@
   --bg-card:        rgba(28, 16, 8, 0.7);
   --text-primary:   #FDF5E6;
   --text-secondary: #C4A882;
-  --text-muted:     #8B7355;
+  --text-muted:     #9E8468; /* WCAG AA: 5.34:1 vs bg-dark */
   --success:        #4CAF50;
-  --danger:         #e53935;
+  --danger:         #EF5350; /* WCAG AA: 5.40:1 vs bg-dark */
 
   --font-display: 'Playfair Display', 'Georgia', serif;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;

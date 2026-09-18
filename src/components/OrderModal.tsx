@@ -58,7 +58,7 @@ export default function OrderModal() {
                 <input type="radio" name="payment_method" value="online" defaultChecked />
                 <span className="payment-option-content">
                   <span className="payment-icon">
-                    <img src="/images/icons/card-3d.png" alt="" style={{ width: '28px', height: '28px', objectFit: 'contain' }} aria-hidden="true" />
+                    <img src="/images/icons/card-3d.webp" alt="" style={{ width: '28px', height: '28px', objectFit: 'contain' }} aria-hidden="true" />
                   </span>
                   <span className="payment-text">Pay Online (UPI / Card)</span>
                 </span>
@@ -67,7 +67,7 @@ export default function OrderModal() {
                 <input type="radio" name="payment_method" value="cod" />
                 <span className="payment-option-content">
                   <span className="payment-icon">
-                    <img src="/images/icons/cash-3d.png" alt="" style={{ width: '28px', height: '28px', objectFit: 'contain' }} aria-hidden="true" />
+                    <img src="/images/icons/cash-3d.webp" alt="" style={{ width: '28px', height: '28px', objectFit: 'contain' }} aria-hidden="true" />
                   </span>
                   <span className="payment-text">Cash on Delivery</span>
                 </span>
