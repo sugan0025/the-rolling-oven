@@ -4,9 +4,19 @@ export default function FloatingWhatsApp() {
   const whatsappNumber = '916383645415';
   const defaultMessage = encodeURIComponent('👋 Hello The Rolling Oven! I would like to inquire about your fresh bakes and custom orders.');
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const isMobile = typeof navigator !== 'undefined' && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const targetUrl = isMobile
+      ? `https://api.whatsapp.com/send/?phone=${whatsappNumber}&text=${defaultMessage}`
+      : `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${defaultMessage}`;
+    window.open(targetUrl, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <a
-      href={`https://wa.me/${whatsappNumber}?text=${defaultMessage}`}
+      href={`https://api.whatsapp.com/send/?phone=${whatsappNumber}&text=${defaultMessage}`}
+      onClick={handleClick}
       target="_blank"
       rel="noopener noreferrer"
       className="floating-whatsapp"

@@ -671,6 +671,14 @@ function initMobileMenu() {
 
 const BAKERY_WHATSAPP_NUMBER = '916383645415';
 
+function openBakeryWhatsApp(encodedMsg) {
+  const isMobile = typeof navigator !== 'undefined' && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const url = isMobile
+    ? `https://api.whatsapp.com/send/?phone=${BAKERY_WHATSAPP_NUMBER}&text=${encodedMsg}`
+    : `https://web.whatsapp.com/send?phone=${BAKERY_WHATSAPP_NUMBER}&text=${encodedMsg}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
 function getWhatsAppCartMessage(cartItems, total) {
   let text = `👋 *Hello The Rolling Oven!* I would like to place an order:\n\n`;
   text += `🧁 *Order Items:*\n`;
@@ -790,7 +798,7 @@ function initCart() {
       closeCart();
 
       showToast('success', 'Order Logged! 💬', 'Opening WhatsApp to complete your order...');
-      window.open(`https://wa.me/${BAKERY_WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+      openBakeryWhatsApp(msg);
     });
   }
 
@@ -971,8 +979,7 @@ ${itemsList}
 ${isCod ? '_Please confirm my COD order!_' : '_Please find my payment screenshot attached below._'}
     `.trim();
 
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    openBakeryWhatsApp(encodeURIComponent(message));
   };
 
   document.getElementById('order-form').addEventListener('submit', async (e) => {
