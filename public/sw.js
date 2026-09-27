@@ -1,5 +1,5 @@
-// The Rolling Oven — Service Worker
-const CACHE_NAME = 'rolling-oven-v1';
+// The Rolling Oven — Service Worker (with Web Push)
+const CACHE_NAME = 'rolling-oven-v2';
 const OFFLINE_URL = '/offline.html';
 
 const PRECACHE_RESOURCES = [
@@ -32,6 +32,77 @@ self.addEventListener('activate', (event) => {
         })
       );
     }).then(() => self.clients.claim())
+  );
+});
+
+// ============================================
+// WEB PUSH NOTIFICATION HANDLER
+// This fires even when the browser is closed!
+// ============================================
+self.addEventListener('push', (event) => {
+  let data = {
+    title: 'The Rolling Oven 🧁',
+    body: 'You have a new notification!',
+    icon: '/images/logo.jpeg',
+    badge: '/icon-192.png',
+    tag: 'tro-general',
+    url: '/',
+  };
+
+  try {
+    if (event.data) {
+      const payload = event.data.json();
+      data = { ...data, ...payload };
+    }
+  } catch (e) {
+    // If JSON parse fails, try text
+    try {
+      if (event.data) {
+        data.body = event.data.text();
+      }
+    } catch (e2) {}
+  }
+
+  const options = {
+    body: data.body,
+    icon: data.icon || '/images/logo.jpeg',
+    badge: data.badge || '/icon-192.png',
+    tag: data.tag || 'tro-notification',
+    data: { url: data.url || '/' },
+    vibrate: [100, 50, 100],
+    requireInteraction: data.requireInteraction || false,
+    actions: data.actions || [
+      { action: 'open', title: '🛒 Order Now' },
+      { action: 'dismiss', title: 'Later' }
+    ],
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
+});
+
+// Handle notification clicks — opens the site or focuses existing tab
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  const targetUrl = event.notification.data?.url || '/';
+
+  if (event.action === 'dismiss') {
+    return; // User clicked "Later", do nothing
+  }
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      // If a tab is already open, focus it
+      for (const client of clientList) {
+        if (client.url.includes('the-rolling-oven') && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // Otherwise open a new tab
+      return clients.openWindow(targetUrl);
+    })
   );
 });
 

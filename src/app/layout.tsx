@@ -237,7 +237,8 @@ export default function RootLayout({
 
         {/* Inject Environment Variables to legacy frontend script */}
         <Script id="env-vars" strategy="beforeInteractive">
-          {`window.RAZORPAY_KEY = "${process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID}";`}
+          {`window.RAZORPAY_KEY = "${process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID}";
+            window.VAPID_PUBLIC_KEY = "${process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || ''}";`}
         </Script>
 
         {/* ===== PARTICLES CANVAS ===== */}

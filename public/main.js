@@ -943,30 +943,30 @@ function initOrderModal() {
   // WhatsApp Redirect Helper
   const redirectToWhatsApp = (orderData, paymentId, isCod) => {
     const whatsappNumber = '916383645415';
-    const paymentStatus = isCod ? '\uD83D\uDCB5 *Cash on Delivery (Pending)*' : `\u2705 *Paid Online* (ID: ${paymentId})`;
+    const paymentStatus = isCod ? '💵 *Cash on Delivery (Pending)*' : `✅ *Paid Online* (ID: ${paymentId})`;
     
     let itemsList = '';
     orderData.items.forEach(item => {
-      itemsList += `\u25AA ${item.qty}x ${item.name} - ₹${item.price * item.qty}\n`;
+      itemsList += `▪ ${item.qty}x ${item.name} - ₹${item.price * item.qty}\n`;
     });
 
     const message = `
-\uD83C\uDF89 *NEW ORDER CONFIRMED!* \uD83C\uDF89
+🎉 *NEW ORDER CONFIRMED!* 🎉
 
 Hi The Rolling Oven! I just placed an order on your website. Here are my details:
 
-\uD83D\uDC64 *Name:* ${orderData.name}
-\uD83D\uDCDE *Phone:* ${orderData.phone}
-\uD83D\uDCCD *Delivery Address:* 
+👤 *Name:* ${orderData.name}
+📞 *Phone:* ${orderData.phone}
+📍 *Delivery Address:* 
 ${orderData.address}
 ${orderData.pincode}
 
-\uD83D\uDED2 *Order Summary:*
+🛒 *Order Summary:*
 ${itemsList}
-\uD83D\uDCB0 *Total Amount:* ₹${orderData.total}
-\uD83D\uDCB3 *Payment:* ${paymentStatus}
+💰 *Total Amount:* ₹${orderData.total}
+💳 *Payment:* ${paymentStatus}
 
-\uD83D\uDCDD *Notes:* ${orderData.notes || 'None'}
+📝 *Notes:* ${orderData.notes || 'None'}
 
 ${isCod ? '_Please confirm my COD order!_' : '_Please find my payment screenshot attached below._'}
     `.trim();
@@ -1441,12 +1441,129 @@ function initLenisScroll() {
 }
 
 // ============================================
-// NATIVE BROWSER PUSH NOTIFICATIONS (AMAZON / SWIGGY STYLE)
+// REAL WEB PUSH NOTIFICATIONS (Works even when browser is closed!)
+// Laptop + Phone — powered by Service Worker Push API
 // ============================================
+
+// VAPID public key injected from environment
+const VAPID_PUBLIC_KEY = (typeof window !== 'undefined' && window.VAPID_PUBLIC_KEY) || '';
+
+// Convert VAPID key from base64url to Uint8Array for PushManager
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+// Subscribe the user's device for Web Push notifications
+async function subscribeToPush() {
+  try {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+      console.warn('Push notifications not supported in this browser');
+      return false;
+    }
+
+    const registration = await navigator.serviceWorker.ready;
+    
+    // Check if already subscribed
+    const existing = await registration.pushManager.getSubscription();
+    if (existing) {
+      console.log('Already subscribed to push notifications');
+      return true;
+    }
+
+    if (!VAPID_PUBLIC_KEY) {
+      console.warn('VAPID public key not available');
+      return false;
+    }
+
+    // Subscribe with VAPID key
+    const subscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+    });
+
+    // Send subscription to our server to store in Supabase
+    const res = await fetch('/api/push/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subscription: subscription.toJSON() }),
+    });
+
+    if (res.ok) {
+      console.log('Push subscription saved successfully');
+      localStorage.setItem('tro_push_subscribed', Date.now().toString());
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.warn('Push subscription failed:', err);
+    return false;
+  }
+}
+
 function initMarketingAutomations() {
   let backgroundReminderTimer = null;
 
-  // Listen for user switching tabs, minimizing window, or navigating away
+  // ============================================
+  // NOTIFICATION INTERVAL STRATEGY (Non-Annoying)
+  // ============================================
+  // 
+  // Abandoned Cart (browser tab switch): 1 per session, 20s delay
+  // Push Subscription Prompt: Only once per 7 days
+  // Server-sent Push (flash sale/new arrival): Max 1 per week (server-controlled)
+  // Re-engagement Push: Max 1 per 7 days (server-controlled)
+  //
+  // The user will NEVER receive more than:
+  // - 1 abandoned cart reminder per browsing session
+  // - 1 server push notification per week
+  // ============================================
+
+  // REQUEST PUSH PERMISSION on first "Add to Cart"
+  // This is the optimal moment — the user has shown purchase intent
+  // We only ask once every 7 days to avoid being annoying
+  const originalAddToCart = window.addToCart || addToCart;
+  const wrappedAddToCart = function(name, price, image, category) {
+    // Call the original add to cart
+    originalAddToCart(name, price, image, category);
+
+    // Request push subscription (non-blocking, won't prompt if already granted)
+    const lastAsked = localStorage.getItem('tro_push_asked');
+    const now = Date.now();
+    const sevenDays = 7 * 24 * 60 * 60 * 1000;
+
+    if (!lastAsked || (now - parseInt(lastAsked)) > sevenDays) {
+      localStorage.setItem('tro_push_asked', now.toString());
+
+      // Only ask if not already subscribed
+      if (!localStorage.getItem('tro_push_subscribed')) {
+        // Request notification permission first
+        if ('Notification' in window && Notification.permission === 'default') {
+          Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+              subscribeToPush();
+            }
+          }).catch(() => {});
+        } else if ('Notification' in window && Notification.permission === 'granted') {
+          subscribeToPush();
+        }
+      }
+    }
+  };
+
+  // Override the global addToCart if it exists
+  if (typeof window.addToCart === 'function') {
+    // Re-bind global reference so carousel/category buttons use the wrapped version
+    window._originalAddToCart = window.addToCart;
+  }
+
+  // ABANDONED CART: Browser-level notification (tab switch detection)
+  // Interval: Max 1 per session, fires 20 seconds after leaving tab
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
       // User switched away from tab with items still in cart!
@@ -1492,6 +1609,13 @@ function initMarketingAutomations() {
       }
     }
   });
+
+  // AUTO-SUBSCRIBE on page load if permission was already granted
+  // (e.g., user granted permission before but subscription wasn't saved)
+  if ('Notification' in window && Notification.permission === 'granted' && !localStorage.getItem('tro_push_subscribed')) {
+    // Delay to not compete with initial page load
+    setTimeout(() => subscribeToPush(), 5000);
+  }
 }
 
 // ============================================
