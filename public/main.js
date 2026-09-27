@@ -921,6 +921,35 @@ function initOrderModal() {
         });
       }
     });
+
+    // Real-time phone number lead capture to Supabase
+    const phoneInput = document.getElementById('order-phone');
+    if (phoneInput) {
+      const syncLeadToSupabase = () => {
+        const phone = phoneInput.value.replace(/\D/g, '');
+        if (phone.length === 10 && cart && cart.length > 0) {
+          fetch('/api/abandon-cart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              phone: phone,
+              name: document.getElementById('order-name')?.value || '',
+              email: document.getElementById('order-email')?.value || '',
+              cart: cart,
+              total: getCartTotal(),
+            }),
+            keepalive: true
+          }).catch(err => console.warn('Lead capture silent log:', err));
+        }
+      };
+
+      phoneInput.addEventListener('blur', syncLeadToSupabase);
+      phoneInput.addEventListener('input', () => {
+        if (phoneInput.value.replace(/\D/g, '').length === 10) {
+          syncLeadToSupabase();
+        }
+      });
+    }
   } catch(e) {
     console.warn('Draft restore not available', e);
   }
@@ -930,9 +959,13 @@ function initOrderModal() {
   // ============================================
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
+      const phoneInput = document.getElementById('order-phone');
       const emailInput = document.getElementById('order-email');
-      // If they typed an email, have items in cart, and we haven't sent one recently (24 hrs)
-      if (emailInput && emailInput.value.includes('@') && cart && cart.length > 0) {
+      const phoneVal = phoneInput ? phoneInput.value.replace(/\D/g, '') : '';
+      const emailVal = emailInput ? emailInput.value : '';
+
+      // If they typed a phone or email, have items in cart, sync to Supabase
+      if ((phoneVal.length === 10 || emailVal.includes('@')) && cart && cart.length > 0) {
         const lastSent = localStorage.getItem('tro_abandon_sent');
         const now = Date.now();
         if (!lastSent || (now - parseInt(lastSent)) > 24 * 60 * 60 * 1000) {
@@ -940,7 +973,13 @@ function initOrderModal() {
           fetch('/api/abandon-cart', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: emailInput.value }),
+            body: JSON.stringify({
+              phone: phoneVal,
+              email: emailVal,
+              name: document.getElementById('order-name')?.value || '',
+              cart: cart,
+              total: getCartTotal(),
+            }),
             keepalive: true
           }).catch(err => console.warn('Abandoned cart tracking silent failure', err));
         }

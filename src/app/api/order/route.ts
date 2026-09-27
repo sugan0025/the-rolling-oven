@@ -194,6 +194,14 @@ export async function POST(request: Request) {
         const supabase = createClient(supabaseUrl, supabaseKey);
         const { error: dbError } = await supabase.from('orders').insert([dbRow]);
         if (dbError) console.error('Supabase insert error:', dbError);
+
+        // Mark lead as converted if captured during checkout typing
+        if (validatedData.customer_phone) {
+          const cleanPhone = String(validatedData.customer_phone).replace(/\D/g, '').slice(-10);
+          if (cleanPhone) {
+            await supabase.from('leads').update({ converted: true, updated_at: new Date().toISOString() }).eq('phone', cleanPhone);
+          }
+        }
       }
     } catch (dbErr) {
       console.error('Supabase crash:', dbErr);
