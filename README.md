@@ -7,7 +7,7 @@
 <!-- ╚═══════════════════════════════╝ -->
 <div align="center">
 
-<img src="./assets/header-banner.svg" width="100%" alt="The Rolling Oven Animated Header" />
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/header-banner.svg" width="100%" alt="The Rolling Oven Animated Header" />
 
 <br><br>
 
@@ -20,7 +20,7 @@
 
 <!-- Badges Row 1: Deployment & Stack -->
 <a href="https://the-rolling-oven.vercel.app">
-  <img src="https://img.shields.io/badge/▶_LIVE_STOREFRONT-the--rolling--oven.vercel.app-E28743?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+  <img src="https://img.shields.io/badge/%E2%96%B6_LIVE_STOREFRONT-the--rolling--oven.vercel.app-E28743?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
 </a>
 &nbsp;
 <a href="https://nextjs.org/">
@@ -53,7 +53,7 @@
 </div>
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║       EXECUTIVE SUMMARY       ║ -->
@@ -75,7 +75,7 @@ Asset Optimization  : Sharp WebP Pipeline (-84.3% Payload / 2.53 MB total catalo
 ```
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║      FROSTED GLASS CARDS      ║ -->
@@ -87,28 +87,28 @@ Asset Optimization  : Sharp WebP Pipeline (-84.3% Payload / 2.53 MB total catalo
 
 <!-- Row 1: High-Speed SSG + GA4 Telemetry -->
 <a href="https://the-rolling-oven.vercel.app">
-  <img src="./assets/card-engine.svg" width="48%" alt="High-Speed SSG &amp; Storefront" />
+  <img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/card-engine.svg" width="48%" alt="High-Speed SSG &amp; Storefront" />
 </a>
 &nbsp;&nbsp;
 <a href="#-analytics--growth-intelligence-ga4">
-  <img src="./assets/card-telemetry.svg" width="48%" alt="E-Commerce Telemetry &amp; CRO" />
+  <img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/card-telemetry.svg" width="48%" alt="E-Commerce Telemetry &amp; CRO" />
 </a>
 
 <br><br>
 
 <!-- Row 2: Zero-Trust Security + Supabase Ledger -->
 <a href="#️-security-privacy--zero-trust-engineering">
-  <img src="./assets/card-security.svg" width="48%" alt="Zero-Trust Security &amp; API Guard" />
+  <img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/card-security.svg" width="48%" alt="Zero-Trust Security &amp; API Guard" />
 </a>
 &nbsp;&nbsp;
 <a href="#️-system-architecture">
-  <img src="./assets/card-dispatch.svg" width="48%" alt="Supabase Ledger &amp; Dual Proxy" />
+  <img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/card-dispatch.svg" width="48%" alt="Supabase Ledger &amp; Dual Proxy" />
 </a>
 
 </div>
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║   PERFORMANCE & PWA SECTION   ║ -->
@@ -137,7 +137,7 @@ Recent production audit upgrades eliminated heavy payload bottlenecks and delive
 * **Motion Accessibility**: Full `prefers-reduced-motion` overrides disabling animations for sensitive users.
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║    ORDER PIPELINE BANNER      ║ -->
@@ -146,7 +146,7 @@ Recent production audit upgrades eliminated heavy payload bottlenecks and delive
 <h2>🛒 Real-Time D2C Order Pipeline</h2>
 
 <div align="center">
-  <img src="./assets/cart-flow-banner.svg" width="98%" alt="End-to-End D2C Commerce &amp; Real-Time Order Pipeline" />
+  <img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/cart-flow-banner.svg" width="98%" alt="End-to-End D2C Commerce &amp; Real-Time Order Pipeline" />
 </div>
 
 <br>
@@ -161,7 +161,7 @@ Recent production audit upgrades eliminated heavy payload bottlenecks and delive
 | **6. Dual Proxy Dispatch** | Non-blocking `Promise.allSettled` | Generates customer confirmation receipt + owner immediate alert |
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║      SYSTEM ARCHITECTURE      ║ -->
@@ -174,7 +174,7 @@ Recent production audit upgrades eliminated heavy payload bottlenecks and delive
 </p>
 
 <div align="center">
-  <img src="./assets/architecture-diagram.svg" width="100%" alt="The Rolling Oven Real-Time System Architecture" />
+  <img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/architecture-diagram.svg" width="100%" alt="The Rolling Oven Real-Time System Architecture" />
 </div>
 
 <br>
@@ -189,7 +189,7 @@ Recent production audit upgrades eliminated heavy payload bottlenecks and delive
 | **💾 Ledger &amp; Proxy** | Supabase PostgreSQL, EmailJS Proxy | ACID order row persistence, `Promise.allSettled` dual email dispatch |
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║       SECURITY & PRIVACY      ║ -->
@@ -210,7 +210,7 @@ Recent production audit upgrades eliminated heavy payload bottlenecks and delive
 | **Entity Disambiguation** | Schema.org `Bakery` & `FoodEstablishment` | Explicit geo-coordinates (11.5034, 77.2393) preventing search confusion with industrial ovens. |
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║       GA4 TELEMETRY           ║ -->
@@ -240,7 +240,7 @@ Telemetry groups user location intent across Western Tamil Nadu:
 * **Gobichettipalayam Ring:** Repeat weekly customer subscriptions.
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║    PROJECT ARCHITECTURE MAP   ║ -->
@@ -321,7 +321,7 @@ the-rolling-oven/
 ```
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║     LOCAL SETUP GUIDE         ║ -->
@@ -354,7 +354,7 @@ npm run build
 Visit [`http://localhost:3000`](http://localhost:3000) to inspect the local storefront and PWA service worker.
 
 <!-- Animated Glowing Divider -->
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4300-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/rainbow-divider.svg" width="100%">
 
 <!-- ╔═══════════════════════════════╗ -->
 <!-- ║    AUTHOR & CREDITS           ║ -->
@@ -373,7 +373,7 @@ GitHub Profile      : https://github.com/sugan0025
 ```
 
 <a href="https://the-rolling-oven.vercel.app">
-  <img src="https://img.shields.io/badge/🥐_Experience_The_Rolling_Oven-E28743?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/%F0%9F%A5%90_Experience_The_Rolling_Oven-E28743?style=for-the-badge&logoColor=white" />
 </a>
 &nbsp;
 <a href="https://github.com/sugan0025">
@@ -382,6 +382,6 @@ GitHub Profile      : https://github.com/sugan0025
 
 <br><br>
 
-<img src="./assets/footer-wave.svg" width="100%" alt="Footer Animated Ocean Wave" />
+<img src="https://cdn.jsdelivr.net/gh/sugan0025/the-rolling-oven@master/assets/footer-wave.svg" width="100%" alt="Footer Animated Ocean Wave" />
 
 </div>
