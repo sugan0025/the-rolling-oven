@@ -416,10 +416,14 @@ function renderShowcase() {
 
   const html = categoryKeys.map(key => {
     const cat = CATEGORIES[key];
+    const isNew = key === 'matcha';
     return `
-      <a href="/category/${key}" class="showcase-card">
-        <div class="showcase-card-img-wrap">
-          <img src="${cat.mainImage}" alt="${cat.name}" class="showcase-card-img" loading="lazy" />
+      <a href="/category/${key}" class="showcase-card ${isNew ? 'showcase-card-new' : ''}">
+        <div class="showcase-card-inner">
+          <div class="showcase-card-img-wrap ${isNew ? 'showcase-gold-ring' : ''}">
+            <img src="${cat.mainImage}" alt="${cat.name}" class="showcase-card-img" loading="lazy" />
+          </div>
+          ${isNew ? '<span class="showcase-cursive-new">New</span>' : ''}
         </div>
         <div class="showcase-card-name">${cat.name}</div>
       </a>

@@ -489,6 +489,68 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* ============================================
+   NEW LAUNCH HIGHLIGHT (Golden Circle & Cursive 'New')
+   ============================================ */
+.showcase-card-inner {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto var(--space-md);
+}
+.showcase-card-inner .showcase-card-img-wrap {
+  margin: 0;
+}
+.showcase-card-img-wrap.showcase-gold-ring {
+  border: 3px solid var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.28), 0 0 24px rgba(201, 169, 110, 0.45) !important;
+  animation: gold-pulse 3s infinite ease-in-out;
+}
+@keyframes gold-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.28), 0 0 20px rgba(201, 169, 110, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(201, 169, 110, 0.5), 0 0 32px rgba(201, 169, 110, 0.7);
+  }
+}
+.showcase-card:hover .showcase-card-img-wrap.showcase-gold-ring {
+  border-color: #FFFDF6 !important;
+  box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.55), 0 0 38px rgba(201, 169, 110, 0.85) !important;
+}
+.showcase-cursive-new {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: linear-gradient(135deg, #F9EED4 0%, #D4AF37 50%, #A67C1E 100%);
+  color: #241406;
+  font-family: var(--font-script), 'Dancing Script', cursive;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 12px 6px;
+  border-radius: 9999px;
+  border: 2px solid #FFFDF6;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.7);
+  transform: rotate(14deg);
+  z-index: 10;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  animation: cursive-new-float 2.8s infinite ease-in-out;
+}
+@keyframes cursive-new-float {
+  0%, 100% {
+    transform: rotate(14deg) translateY(0);
+  }
+  50% {
+    transform: rotate(11deg) translateY(-3px);
+  }
+}
+.showcase-card-new .showcase-card-name {
+  color: var(--gold-light);
+  text-shadow: 0 0 10px rgba(201, 169, 110, 0.4);
+}
+
+/* ============================================
    PRODUCTS GRID (Today's Favorites) - 3D Carousel
    ============================================ */
 .products-section { position: relative; padding: var(--space-4xl) 0; z-index: 1; overflow: hidden; }
