@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next';
+﻿import { MetadataRoute } from 'next';
 
 const CATEGORY_SLUGS = [
   'cupcakes',
@@ -8,6 +8,7 @@ const CATEGORY_SLUGS = [
   'chocolava',
   'tiramisu',
   'croissants',
+  'matcha',
 ];
 
 const LEGAL_PAGES = [

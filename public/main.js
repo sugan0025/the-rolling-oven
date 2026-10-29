@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // Dear programmer:
 // When I wrote this code, only God and
 // I knew how it worked.
@@ -145,10 +145,26 @@ const CATEGORIES = {
       { name: 'Prosciutto Gruyère Croissant', image: '/images/products/croissants/Prosciutto_Gruyere_Croissant.webp', price: 239 },
     ],
   },
+  matcha: {
+    name: 'Matcha',
+    tagline: 'Ceremonial Japanese matcha whisked with artisanal bakery flavors.',
+    description: 'Experience our signature handcrafted matcha creations, blended with authentic green tea, farm-fresh milk, and vibrant fruit & floral syrups.',
+    badge: 'New Launch',
+    badgeClass: 'new-launch',
+    mainImage: '/images/products/matcha/Matcha_Collection.jpeg',
+    basePrice: 189,
+    items: [
+      { name: 'Strawberry Matcha', image: '/images/products/matcha/Strawberry_Matcha.jpeg', price: 219 },
+      { name: 'Rose Matcha',       image: '/images/products/matcha/Rose_Matcha.jpeg',       price: 229 },
+      { name: 'Banana Matcha',     image: '/images/products/matcha/Banana_Matcha.jpeg',     price: 219 },
+      { name: 'Hot Matcha Latte',  image: '/images/products/matcha/Hot_Matcha_Latte.jpeg',  price: 189 },
+    ],
+  },
 };
 
 // Today's Favorites picks (one from each category with real images)
 const TODAYS_FAVORITES = [
+  { ...CATEGORIES.matcha.items[0], category: 'matcha', categoryName: 'Matcha', badge: 'New Launch', badgeClass: 'new-launch', desc: 'Vibrant Japanese matcha layered with fresh strawberry puree and creamy milk.' },
   { ...CATEGORIES.cupcakes.items[2], category: 'cupcakes', categoryName: 'Cupcakes', badge: 'Bestseller', desc: 'Fluffy, moist, topped with our signature cream cheese frosting.' },
   { ...CATEGORIES.cookies.items[0], category: 'cookies', categoryName: 'Cookies', badge: 'Popular', desc: 'Classic chocolate chip with a gooey center and crispy edges.' },
   { ...CATEGORIES.muffins.items[0], category: 'muffins', categoryName: 'Muffins', badge: 'Fresh Daily', desc: 'Bursting with fresh blueberries and a golden crumbly top.' },

@@ -45,6 +45,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     croissants: [
       "Butter croissants Sathyamangalam", "French croissants Erode", "Chocolate croissants Tamil Nadu",
       "Pistachio cream croissant", "Fresh laminated pastries Erode"
+    ],
+    matcha: [
+      "Matcha Sathyamangalam", "Strawberry Matcha Erode", "Rose Matcha Tamil Nadu",
+      "Banana Matcha Sathyamangalam", "Hot Matcha Latte Erode", "Artisan Japanese Matcha tea",
+      "Iced Matcha drinks delivery", "Best matcha latte near me"
     ]
   };
 

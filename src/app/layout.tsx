@@ -50,7 +50,11 @@ export const metadata: Metadata = {
     "Blueberry muffins Erode",
     "Home baker Sathyamangalam",
     "Bakery shop Gobichettipalayam",
-    "Fresh dessert doorstep delivery Tamil Nadu"
+    "Fresh dessert doorstep delivery Tamil Nadu",
+    "Matcha Sathyamangalam",
+    "Strawberry Matcha Erode",
+    "Rose Matcha Tamil Nadu",
+    "Artisan Japanese Matcha Sathyamangalam"
   ],
   authors: [{ name: "The Rolling Oven" }],
   creator: "The Rolling Oven",

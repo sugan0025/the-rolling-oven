@@ -177,14 +177,14 @@ export default function MatchaLaunchModal() {
               </svg>
             </a>
 
-            <button
-              type="button"
+            <a
+              href="/category/matcha"
               onClick={closeModal}
               className="matcha-btn-secondary"
-              aria-label="Dismiss announcement"
+              aria-label="View Matcha Menu"
             >
-              Explore Menu
-            </button>
+              Explore Matcha
+            </a>
           </div>
         </div>
       </div>

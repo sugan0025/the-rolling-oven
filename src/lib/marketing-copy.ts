@@ -61,6 +61,13 @@ export const WHATSAPP_COPY = {
     "Some days require therapy. Some days require tiramisu. We recommend dessert first. 😌",
     "Layer by layer, your problems become less important. 🍰"
   ],
+  matcha: [
+    "A little matcha moment. Good things come in green. 🍵💚",
+    "Zen mode: Activated. Whisked to silky perfection. 🍃",
+    "Who knew green tea could taste this luxurious? 😌",
+    "Matcha + fresh strawberry puree = pure bliss. 🍓🍵",
+    "Sip calm, stay sweet. Meet our handcrafted matcha collection. ✨"
+  ],
   cheeky: [
     "We saw you resisting. Cute. 😌",
     "Your fridge is trying its best. We understand.",

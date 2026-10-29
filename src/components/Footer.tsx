@@ -29,6 +29,7 @@ export default function Footer() {
             <li><a href="/category/donuts" className="footer-nav-link">Donuts</a></li>
             <li><a href="/category/chocolava" className="footer-nav-link">Chocolava</a></li>
             <li><a href="/category/tiramisu" className="footer-nav-link">Tiramisu</a></li>
+            <li><a href="/category/matcha" className="footer-nav-link">Matcha <span style={{ fontSize: '0.65rem', color: '#6BCB77', fontWeight: 700, letterSpacing: '0.5px' }}>NEW</span></a></li>
           </ul>
         </nav>
         <div className="footer-links-group">

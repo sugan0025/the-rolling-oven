@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    THE ROLLING OVEN — Premium Bakery Landing Page
    Complete Design System (v2 — Card-based)
    ============================================ */
@@ -563,6 +563,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   letter-spacing: 1px; text-transform: uppercase; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 2;
 }
 .card-badge.premium { background: linear-gradient(135deg, var(--gold), var(--caramel)); color: var(--brown-deep); border: none; font-weight: 600; }
+.card-badge.new-launch { background: linear-gradient(135deg, #385E34, #213D1E); color: #D6ECD0; border: 1px solid rgba(163, 201, 153, 0.45); font-weight: 700; box-shadow: 0 0 14px rgba(107, 203, 119, 0.25); }
 
 .card-content { padding: var(--space-md) var(--space-lg); }
 .card-category { font-size: 0.7rem; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2px; }

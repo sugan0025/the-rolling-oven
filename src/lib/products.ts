@@ -151,6 +151,21 @@ export const CATEGORIES: Record<string, Category> = {
       { name: 'Prosciutto Gruyère Croissant', image: '/images/products/croissants/Prosciutto_Gruyere_Croissant.webp', price: 239 },
     ],
   },
+  matcha: {
+    name: 'Matcha',
+    tagline: 'Ceremonial Japanese matcha whisked with artisanal bakery flavors.',
+    description: 'Experience our signature handcrafted matcha creations, blended with authentic green tea, farm-fresh milk, and vibrant fruit & floral syrups.',
+    badge: 'New Launch',
+    badgeClass: 'new-launch',
+    mainImage: '/images/products/matcha/Matcha_Collection.jpeg',
+    basePrice: 189,
+    items: [
+      { name: 'Strawberry Matcha', image: '/images/products/matcha/Strawberry_Matcha.jpeg', price: 219 },
+      { name: 'Rose Matcha',       image: '/images/products/matcha/Rose_Matcha.jpeg',       price: 229 },
+      { name: 'Banana Matcha',     image: '/images/products/matcha/Banana_Matcha.jpeg',     price: 219 },
+      { name: 'Hot Matcha Latte',  image: '/images/products/matcha/Hot_Matcha_Latte.jpeg',  price: 189 },
+    ],
+  },
 };
 
 export const CATEGORY_SLUGS = Object.keys(CATEGORIES);
