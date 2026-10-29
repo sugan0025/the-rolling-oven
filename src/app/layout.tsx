@@ -8,6 +8,7 @@ import ToastContainer from "../components/ToastContainer";
 import Footer from "../components/Footer";
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
 import CookieConsent from "../components/CookieConsent";
+import MatchaLaunchModal from "../components/MatchaLaunchModal";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -267,6 +268,9 @@ export default function RootLayout({
 
         {/* ===== COOKIE CONSENT ===== */}
         <CookieConsent />
+
+        {/* ===== MATCHA NEW LAUNCH MODAL ===== */}
+        <MatchaLaunchModal />
 
         {/* ===== PWA SERVICE WORKER REGISTRATION ===== */}
         <Script id="pwa-sw" strategy="lazyOnload">

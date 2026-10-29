@@ -1660,3 +1660,221 @@ html.lenis, html.lenis body {
   padding-left: 2px;
 }
 
+
+
+/* ============================================
+   MATCHA NEW LAUNCH MODAL / POPUP POSTER
+   ============================================ */
+.matcha-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 10, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.matcha-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.matcha-modal-container {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  max-height: 92vh;
+  background: #182017;
+  border: 1px solid rgba(138, 171, 131, 0.35);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 45px rgba(95, 135, 85, 0.25);
+  overflow: hidden;
+  transform: translateY(24px) scale(0.94);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.matcha-modal-overlay.active .matcha-modal-container {
+  transform: translateY(0) scale(1);
+}
+
+.matcha-modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(18, 24, 18, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FDF5E6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.matcha-modal-close-btn:hover {
+  background: #2D4229;
+  border-color: #A3C999;
+  transform: rotate(90deg) scale(1.08);
+}
+
+.matcha-modal-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+  background: rgba(24, 40, 22, 0.88);
+  border: 1px solid rgba(163, 201, 153, 0.5);
+  color: #D6ECD0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.matcha-modal-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6BCB77;
+  box-shadow: 0 0 8px #6BCB77;
+  display: inline-block;
+  animation: matcha-pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes matcha-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.matcha-poster-wrapper {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+  background: #111;
+  overflow: hidden;
+  max-height: 68vh;
+}
+
+.matcha-poster-image {
+  width: 100%;
+  height: auto;
+  max-height: 68vh;
+  object-fit: contain;
+  display: block;
+}
+
+.matcha-modal-footer {
+  padding: 16px 20px 18px;
+  background: linear-gradient(180deg, #1C241B 0%, #131A13 100%);
+  border-top: 1px solid rgba(138, 171, 131, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.matcha-modal-tagline {
+  font-family: var(--font-script);
+  color: #D4ECD0;
+  font-size: 1.35rem;
+  text-align: center;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.matcha-modal-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.matcha-btn-primary {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #466A42 0%, #2D4C2A 100%);
+  border: 1px solid #7FA877;
+  color: #FFF;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(45, 76, 42, 0.4);
+}
+
+.matcha-btn-primary:hover {
+  background: linear-gradient(135deg, #568152 0%, #365B32 100%);
+  border-color: #A4CC9D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(45, 76, 42, 0.6);
+  color: #FFF;
+}
+
+.matcha-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #C4A882;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.matcha-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--cream);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 480px) {
+  .matcha-modal-container {
+    max-width: 94vw;
+    border-radius: 16px;
+  }
+  .matcha-poster-wrapper {
+    max-height: 58vh;
+  }
+  .matcha-poster-image {
+    max-height: 58vh;
+  }
+  .matcha-modal-footer {
+    padding: 14px 16px;
+  }
+  .matcha-btn-primary {
+    font-size: 0.88rem;
+    padding: 11px 14px;
+  }
+}
