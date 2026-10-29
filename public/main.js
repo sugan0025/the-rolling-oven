@@ -1,4 +1,4 @@
-﻿// ============================================
+// ============================================
 // Dear programmer:
 // When I wrote this code, only God and
 // I knew how it worked.
