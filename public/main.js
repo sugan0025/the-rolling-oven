@@ -160,10 +160,27 @@ const CATEGORIES = {
       { name: 'Hot Matcha Latte',  image: '/images/products/matcha/Hot_Matcha_Latte.jpeg',  price: 189 },
     ],
   },
+  mousse: {
+    name: 'Teddy Bear Mousse',
+    tagline: 'Adorably sleepy 3D artisan mousse cakes crafted for pure indulgence.',
+    description: 'Meet our viral handcrafted 3D Teddy Bear Mousses! Delicately sculpted with premium Belgian chocolate and velvety creams, each sleepy bear is served with rich warm ganache and decadent crunch.',
+    badge: 'New Launch',
+    badgeClass: 'new-launch',
+    mainImage: '/images/products/mousse/Teddy_Bear_Collection.jpeg',
+    basePrice: 259,
+    items: [
+      { name: 'Matcha Sleeping Bear Mousse', image: '/images/products/mousse/Matcha_Sleeping_Bear.jpeg', price: 269 },
+      { name: 'Belgian Choco Drizzle Bear', image: '/images/products/mousse/Belgian_Choco_Drizzle_Bear.jpeg', price: 279 },
+      { name: 'Molten Truffle Bear Bath', image: '/images/products/mousse/Molten_Truffle_Bear_Bath.jpeg', price: 269 },
+      { name: 'Vanilla Cloud Sleeping Bear', image: '/images/products/mousse/Vanilla_Cloud_Sleeping_Bear.jpeg', price: 259 },
+    ],
+  },
+
 };
 
 // Today's Favorites picks (one from each category with real images)
 const TODAYS_FAVORITES = [
+  { ...CATEGORIES.mousse.items[1], category: 'mousse', categoryName: 'Teddy Bear Mousse', badge: 'Viral Launch', badgeClass: 'new-launch', desc: 'Handcrafted 3D chocolate bear mousse served with warm pouring Belgian ganache.' },
   { ...CATEGORIES.matcha.items[0], category: 'matcha', categoryName: 'Matcha', badge: 'New Launch', badgeClass: 'new-launch', desc: 'Vibrant Japanese matcha layered with fresh strawberry puree and creamy milk.' },
   { ...CATEGORIES.cupcakes.items[2], category: 'cupcakes', categoryName: 'Cupcakes', badge: 'Bestseller', desc: 'Fluffy, moist, topped with our signature cream cheese frosting.' },
   { ...CATEGORIES.cookies.items[0], category: 'cookies', categoryName: 'Cookies', badge: 'Popular', desc: 'Classic chocolate chip with a gooey center and crispy edges.' },
@@ -416,7 +433,7 @@ function renderShowcase() {
 
   const html = categoryKeys.map(key => {
     const cat = CATEGORIES[key];
-    const isNew = key === 'matcha';
+    const isNew = key === 'mousse' || key === 'matcha';
     return `
       <a href="/category/${key}" class="showcase-card ${isNew ? 'showcase-card-new' : ''}">
         <div class="showcase-card-inner">

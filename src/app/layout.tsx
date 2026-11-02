@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
 import CookieConsent from "../components/CookieConsent";
 import MatchaLaunchModal from "../components/MatchaLaunchModal";
+import TeddyBearLaunchModal from "../components/TeddyBearLaunchModal";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -54,7 +55,10 @@ export const metadata: Metadata = {
     "Matcha Sathyamangalam",
     "Strawberry Matcha Erode",
     "Rose Matcha Tamil Nadu",
-    "Artisan Japanese Matcha Sathyamangalam"
+    "Artisan Japanese Matcha Sathyamangalam",
+    "Teddy Bear Mousse Sathyamangalam",
+    "3D Sleeping Bear Cake Erode",
+    "Belgian Chocolate Bear Mousse Tamil Nadu"
   ],
   authors: [{ name: "The Rolling Oven" }],
   creator: "The Rolling Oven",
@@ -272,6 +276,9 @@ export default function RootLayout({
 
         {/* ===== COOKIE CONSENT ===== */}
         <CookieConsent />
+
+        {/* ===== TEDDY BEAR MOUSSE LAUNCH MODAL ===== */}
+        <TeddyBearLaunchModal />
 
         {/* ===== MATCHA NEW LAUNCH MODAL ===== */}
         <MatchaLaunchModal />

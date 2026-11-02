@@ -39,6 +39,7 @@ yarn-error.log*
 .vercel
 
 # agent & AI scratch files
+scratch/
 .agents/
 AGENTS.md
 CLAUDE.md

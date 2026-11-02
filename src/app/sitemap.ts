@@ -9,6 +9,7 @@ const CATEGORY_SLUGS = [
   'tiramisu',
   'croissants',
   'matcha',
+  'mousse',
 ];
 
 const LEGAL_PAGES = [

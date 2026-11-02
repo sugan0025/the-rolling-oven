@@ -166,6 +166,21 @@ export const CATEGORIES: Record<string, Category> = {
       { name: 'Hot Matcha Latte',  image: '/images/products/matcha/Hot_Matcha_Latte.jpeg',  price: 189 },
     ],
   },
+  mousse: {
+    name: 'Teddy Bear Mousse',
+    tagline: 'Adorably sleepy 3D artisan mousse cakes crafted for pure indulgence.',
+    description: 'Meet our viral handcrafted 3D Teddy Bear Mousses! Delicately sculpted with premium Belgian chocolate and velvety creams, each sleepy bear is served with rich warm ganache and decadent crunch.',
+    badge: 'New Launch',
+    badgeClass: 'new-launch',
+    mainImage: '/images/products/mousse/Teddy_Bear_Collection.jpeg',
+    basePrice: 259,
+    items: [
+      { name: 'Matcha Sleeping Bear Mousse', image: '/images/products/mousse/Matcha_Sleeping_Bear.jpeg', price: 269 },
+      { name: 'Belgian Choco Drizzle Bear',  image: '/images/products/mousse/Belgian_Choco_Drizzle_Bear.jpeg',  price: 279 },
+      { name: 'Molten Truffle Bear Bath',    image: '/images/products/mousse/Molten_Truffle_Bear_Bath.jpeg',    price: 269 },
+      { name: 'Vanilla Cloud Sleeping Bear', image: '/images/products/mousse/Vanilla_Cloud_Sleeping_Bear.jpeg', price: 259 },
+    ],
+  },
 };
 
 export const CATEGORY_SLUGS = Object.keys(CATEGORIES);

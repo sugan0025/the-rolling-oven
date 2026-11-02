@@ -61,6 +61,13 @@ export const WHATSAPP_COPY = {
     "Some days require therapy. Some days require tiramisu. We recommend dessert first. 😌",
     "Layer by layer, your problems become less important. 🍰"
   ],
+  mousse: [
+    "Too cute to eat? Definitely. Are we eating it anyway? Absolutely! 🧸🍫",
+    "Warning: High levels of cuteness and molten chocolate ahead. 🥹",
+    "Our 3D Teddy Bear is sleeping peacefully in warm chocolate ganache. Wake it up! 🧸✨",
+    "Life is better with a sleepy chocolate bear. 🍫❤️",
+    "A spoonful of chocolate bear mousse makes everything better. 🧸🍨"
+  ],
   matcha: [
     "A little matcha moment. Good things come in green. 🍵💚",
     "Zen mode: Activated. Whisked to silky perfection. 🍃",

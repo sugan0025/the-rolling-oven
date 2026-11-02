@@ -44,23 +44,6 @@ export default function MatchaLaunchModal() {
         openModal();
       };
     }
-
-    try {
-      const alreadySeen = sessionStorage.getItem(STORAGE_KEY);
-      if (!alreadySeen) {
-        // Show after brief entrance delay for smooth page load experience
-        const timer = setTimeout(() => {
-          openModal();
-        }, 750);
-        return () => clearTimeout(timer);
-      }
-    } catch {
-      // Fallback
-      const timer = setTimeout(() => {
-        openModal();
-      }, 750);
-      return () => clearTimeout(timer);
-    }
   }, [openModal]);
 
   // Handle ESC key press

@@ -50,6 +50,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       "Matcha Sathyamangalam", "Strawberry Matcha Erode", "Rose Matcha Tamil Nadu",
       "Banana Matcha Sathyamangalam", "Hot Matcha Latte Erode", "Artisan Japanese Matcha tea",
       "Iced Matcha drinks delivery", "Best matcha latte near me"
+    ],
+    mousse: [
+      "Teddy Bear Mousse Sathyamangalam", "3D Bear cake Erode", "Sleeping bear mousse Tamil Nadu",
+      "Belgian chocolate mousse cake", "Matcha bear mousse Sathyamangalam", "Viral 3D dessert Erode",
+      "Cute birthday cake Sathyamangalam", "Artisan mousse cake delivery Erode"
     ]
   };
 
