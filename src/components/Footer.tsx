@@ -31,6 +31,7 @@ export default function Footer() {
             <li><a href="/category/tiramisu" className="footer-nav-link">Tiramisu</a></li>
             <li><a href="/category/matcha" className="footer-nav-link">Matcha</a></li>
             <li><a href="/category/mousse" className="footer-nav-link">Teddy Bear Mousse <span style={{ fontSize: '0.65rem', color: '#D4AF37', fontWeight: 700, letterSpacing: '0.5px' }}>NEW</span></a></li>
+            <li><a href="/category/matilda" className="footer-nav-link">Matilda Cake <span style={{ fontSize: '0.65rem', color: '#D4AF37', fontWeight: 700, letterSpacing: '0.5px' }}>HOT</span></a></li>
           </ul>
         </nav>
         <div className="footer-links-group">

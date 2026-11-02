@@ -83,6 +83,9 @@ export default function ContactSection() {
                   <option value="chocolava">Chocolava</option>
                   <option value="tiramisu">Tiramisu</option>
                   <option value="croissants">Croissants</option>
+                  <option value="matcha">Matcha Collection</option>
+                  <option value="mousse">Teddy Bear Mousse</option>
+                  <option value="matilda">Matilda Cake</option>
                   <option value="custom">Custom Order</option>
                 </select>
               </div>

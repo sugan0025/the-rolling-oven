@@ -61,6 +61,12 @@ export const WHATSAPP_COPY = {
     "Some days require therapy. Some days require tiramisu. We recommend dessert first. 😌",
     "Layer by layer, your problems become less important. 🍰"
   ],
+  matilda: [
+    "Channeling your inner Bruce Bogtrotter? We don't judge. 🍫🍰",
+    "Triple chocolate layers + hot pouring ganache = pure bliss. 🤤",
+    "Warning: You might finish this entire Matilda cake in one sitting. 👀",
+    "Life is too short for dry cake. Drench it in Matilda chocolate! 🍫✨"
+  ],
   mousse: [
     "Too cute to eat? Definitely. Are we eating it anyway? Absolutely! 🧸🍫",
     "Warning: High levels of cuteness and molten chocolate ahead. 🥹",

@@ -181,6 +181,20 @@ export const CATEGORIES: Record<string, Category> = {
       { name: 'Vanilla Cloud Sleeping Bear', image: '/images/products/mousse/Vanilla_Cloud_Sleeping_Bear.jpeg', price: 259 },
     ],
   },
+  matilda: {
+    name: 'Matilda Cake',
+    tagline: 'The legendary, ultra-moist chocolate fudge cake drenched in warm molten ganache.',
+    description: "Inspired by the iconic chocolate cake that stole everyone's heart! Layers of deeply rich, ultra-moist chocolate fudge cake smothered in glossy ganache and served with warm pouring Belgian chocolate.",
+    badge: 'Trending',
+    badgeClass: 'premium',
+    mainImage: '/images/products/matilda/Matilda_Cake_Collection.jpeg',
+    basePrice: 279,
+    items: [
+      { name: 'Warm Ganache Drizzle Matilda Cake', image: '/images/products/matilda/Warm_Ganache_Drizzle_Matilda.jpeg', price: 299 },
+      { name: 'Classic Matilda Fudge Slice',       image: '/images/products/matilda/Classic_Matilda_Fudge_Slice.jpeg',       price: 279 },
+      { name: 'Molten Bath Matilda Cake',          image: '/images/products/matilda/Molten_Bath_Matilda_Cake.jpeg',          price: 289 },
+    ],
+  },
 };
 
 export const CATEGORY_SLUGS = Object.keys(CATEGORIES);

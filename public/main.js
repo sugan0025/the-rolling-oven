@@ -175,11 +175,27 @@ const CATEGORIES = {
       { name: 'Vanilla Cloud Sleeping Bear', image: '/images/products/mousse/Vanilla_Cloud_Sleeping_Bear.jpeg', price: 259 },
     ],
   },
+  matilda: {
+    name: 'Matilda Cake',
+    tagline: 'The legendary, ultra-moist chocolate fudge cake drenched in warm molten ganache.',
+    description: 'Inspired by the iconic chocolate cake that stole everyone\'s heart! Layers of deeply rich, ultra-moist chocolate fudge cake smothered in glossy ganache and served with warm pouring Belgian chocolate.',
+    badge: 'Trending',
+    badgeClass: 'premium',
+    mainImage: '/images/products/matilda/Matilda_Cake_Collection.jpeg',
+    basePrice: 279,
+    items: [
+      { name: 'Warm Ganache Drizzle Matilda Cake', image: '/images/products/matilda/Warm_Ganache_Drizzle_Matilda.jpeg', price: 299 },
+      { name: 'Classic Matilda Fudge Slice', image: '/images/products/matilda/Classic_Matilda_Fudge_Slice.jpeg', price: 279 },
+      { name: 'Molten Bath Matilda Cake', image: '/images/products/matilda/Molten_Bath_Matilda_Cake.jpeg', price: 289 },
+    ],
+  },
+
 
 };
 
 // Today's Favorites picks (one from each category with real images)
 const TODAYS_FAVORITES = [
+  { ...CATEGORIES.matilda.items[0], category: 'matilda', categoryName: 'Matilda Cake', badge: 'Trending', badgeClass: 'premium', desc: 'Triple-layer moist chocolate fudge cake served with hot pouring Belgian ganache.' },
   { ...CATEGORIES.mousse.items[1], category: 'mousse', categoryName: 'Teddy Bear Mousse', badge: 'Viral Launch', badgeClass: 'new-launch', desc: 'Handcrafted 3D chocolate bear mousse served with warm pouring Belgian ganache.' },
   { ...CATEGORIES.matcha.items[0], category: 'matcha', categoryName: 'Matcha', badge: 'New Launch', badgeClass: 'new-launch', desc: 'Vibrant Japanese matcha layered with fresh strawberry puree and creamy milk.' },
   { ...CATEGORIES.cupcakes.items[2], category: 'cupcakes', categoryName: 'Cupcakes', badge: 'Bestseller', desc: 'Fluffy, moist, topped with our signature cream cheese frosting.' },
@@ -433,7 +449,7 @@ function renderShowcase() {
 
   const html = categoryKeys.map(key => {
     const cat = CATEGORIES[key];
-    const isNew = key === 'mousse' || key === 'matcha';
+    const isNew = key === 'mousse' || key === 'matilda';
     return `
       <a href="/category/${key}" class="showcase-card ${isNew ? 'showcase-card-new' : ''}">
         <div class="showcase-card-inner">
@@ -1353,6 +1369,40 @@ function initContactForm() {
       b_website: hpVal,
     };
 
+    // Clean product label mapping
+    const productLabels = {
+      cupcakes: 'Cupcakes',
+      cookies: 'Cookies',
+      muffins: 'Muffins',
+      donuts: 'Donuts',
+      chocolava: 'Chocolava',
+      tiramisu: 'Tiramisu',
+      croissants: 'Croissants',
+      matcha: 'Matcha Collection',
+      mousse: 'Teddy Bear Mousse',
+      matilda: 'Matilda Cake',
+      custom: 'Custom Order',
+    };
+    const productChosen = productLabels[formData.product] || formData.product || 'General Inquiry';
+
+    // Formatted WhatsApp message for direct dispatch
+    const waText = encodeURIComponent(
+      `👋 *New Inquiry — The Rolling Oven*\n` +
+      `━━━━━━━━━━━━━━━━━\n` +
+      `👤 *Name:* ${formData.name}\n` +
+      `📞 *Phone:* ${formData.phone}\n` +
+      `📧 *Email:* ${formData.email}\n` +
+      `🍰 *Interest:* ${productChosen}\n` +
+      (formData.message ? `💬 *Message:* ${formData.message}\n` : '') +
+      `━━━━━━━━━━━━━━━━━\n` +
+      `Sent from The Rolling Oven website`
+    );
+
+    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const waUrl = isMobile
+      ? `https://api.whatsapp.com/send/?phone=916383645415&text=${waText}`
+      : `https://web.whatsapp.com/send?phone=916383645415&text=${waText}`;
+
     try {
       await sendContactForm(formData);
 
@@ -1364,11 +1414,18 @@ function initContactForm() {
         });
       }
 
-      showToast('success', 'Inquiry Sent! ✨', 'We\'ll get back to you soon.');
+      showToast('success', 'Inquiry Sent! ✨', 'Opening WhatsApp to send your message directly...');
+      setTimeout(() => {
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      }, 500);
+
       contactForm.reset();
     } catch (err) {
       console.error(err);
-      showToast('error', 'Error Sending Inquiry', 'Please try again or call us directly.');
+      showToast('info', 'Connecting to WhatsApp...', 'Forwarding your inquiry to our bakery chat.');
+      setTimeout(() => {
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      }, 500);
     } finally {
       btn.innerHTML = original;
       btn.disabled = false;

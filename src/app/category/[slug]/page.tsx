@@ -55,6 +55,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       "Teddy Bear Mousse Sathyamangalam", "3D Bear cake Erode", "Sleeping bear mousse Tamil Nadu",
       "Belgian chocolate mousse cake", "Matcha bear mousse Sathyamangalam", "Viral 3D dessert Erode",
       "Cute birthday cake Sathyamangalam", "Artisan mousse cake delivery Erode"
+    ],
+    matilda: [
+      "Matilda cake Sathyamangalam", "Viral chocolate cake Erode", "Molten fudge cake Tamil Nadu",
+      "Warm ganache chocolate cake", "Bruce Bogtrotter cake", "Best chocolate fudge cake near me",
+      "Chocolate drip cake Sathyamangalam", "Rich fudge cake delivery Erode"
     ]
   };
 

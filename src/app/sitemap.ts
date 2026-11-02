@@ -10,6 +10,7 @@ const CATEGORY_SLUGS = [
   'croissants',
   'matcha',
   'mousse',
+  'matilda',
 ];
 
 const LEGAL_PAGES = [

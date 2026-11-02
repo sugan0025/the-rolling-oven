@@ -58,7 +58,10 @@ export const metadata: Metadata = {
     "Artisan Japanese Matcha Sathyamangalam",
     "Teddy Bear Mousse Sathyamangalam",
     "3D Sleeping Bear Cake Erode",
-    "Belgian Chocolate Bear Mousse Tamil Nadu"
+    "Belgian Chocolate Bear Mousse Tamil Nadu",
+    "Matilda Cake Sathyamangalam",
+    "Viral Chocolate Fudge Cake Erode",
+    "Molten Ganache Matilda Cake Tamil Nadu"
   ],
   authors: [{ name: "The Rolling Oven" }],
   creator: "The Rolling Oven",
